@@ -14,12 +14,25 @@ from pathlib import Path
 
 def load_raw(name: str) -> pd.DataFrame:
     """Load one raw table by its business name (see config.RAW_FILES)."""
+
     path = config.RAW_DIR / config.RAW_FILES[name]
 
-    print("=" * 50)
-    print("Looking for file:", path)
-    print("File exists:", Path(path).exists())
-    print("=" * 50)
+    if not Path(path).exists():
+        raise FileNotFoundError(
+            f"""
+Missing file:
+{path}
+
+ROOT:
+{config.ROOT}
+
+RAW_DIR:
+{config.RAW_DIR}
+
+Files in RAW_DIR:
+{list(config.RAW_DIR.glob('*'))}
+"""
+        )
 
     return pd.read_csv(path)
 
