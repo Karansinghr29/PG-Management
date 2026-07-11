@@ -12,7 +12,7 @@ from pathlib import Path
 # Paths
 # --------------------------------------------------------------------------- #
 ROOT = Path(__file__).resolve().parent
-RAW_DIR = ROOT/"Datas"                      # the folder holding the source CSVs
+RAW_DIR = ROOT/"Datas"                # the folder holding the source CSVs
 OUT_DIR = ROOT / "outputs"
 FIG_DIR = OUT_DIR / "figures"
 MODEL_DIR = OUT_DIR / "models"
