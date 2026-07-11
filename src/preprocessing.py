@@ -82,8 +82,17 @@ def clean_tickets(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
+def clean_bookings(df: pd.DataFrame) -> pd.DataFrame:
+    """Stay/booking history — parse the date fields used for occupancy."""
+    df = utils.drop_dead_cols(df.copy(), config.DEAD_COLS["bookings"])
+    df = utils.parse_dates(df, config.DATE_COLS["bookings"])
+    df["staying_status"] = df["staying_status"].astype("string").str.strip()
+    return df
+
+
 CLEANERS = {
     "invoices": clean_invoices,
+    "bookings": clean_bookings,
     "electricity": clean_electricity,
     "beds_snapshot": clean_beds_snapshot,
     "beds_catalog": clean_beds_catalog,

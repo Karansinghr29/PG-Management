@@ -78,6 +78,7 @@ XGBoost / LightGBM / CatBoost and SHAP are installed and included in the leaderb
 |---|---|
 | `src/forecasting.py` | 6-month forecast of revenue / tenants / electricity; walk-forward method selection (**primary** forecaster) |
 | `src/revenue_ml.py` | second revenue model: XGBoost/RF/Linear on lagged monthly features, walk-forward, compared vs the time-series model |
+| `src/revenue_multivariate.py` | third model: revenue + **historical occupancy** (from booking dataset), corr r=0.983, feature importance + SHAP, ±5% occupancy scenario |
 | `src/apartment_forecasting.py` | per-apartment electricity units + amount forecast (39 apartments) |
 | `src/anomaly.py` | IsolationForest anomaly lists for electricity + invoices |
 | `src/segmentation.py` | KMeans tenant segments + LTV (real per-`tenant_id` billing) |

@@ -1,0 +1,7 @@
+Model,MAE,RMSE,MAPE,R2
+GradientBoosting,5.594,7.164,3.194,0.387
+CatBoost,6.771,8.348,3.807,0.168
+RandomForest,6.754,8.265,3.839,0.184
+XGBoost,7.057,8.632,3.986,0.11
+LightGBM,11.374,14.513,6.239,-1.515
+LinearRegression,11.768,16.202,6.62,-2.135

@@ -2,3 +2,4 @@ series,method,MAE,MAPE,windows,next_month
 revenue,seasonal_naive,120289.5,3.88,6,3096351.0
 active_tenants,seasonal_naive,11.2,6.19,6,199.0
 elec_cost,holt_winters,17389.8,5.23,6,412260.4
+occupied_beds,holt_winters,3.7,2.14,6,192.0

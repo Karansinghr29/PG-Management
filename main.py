@@ -8,8 +8,9 @@ from __future__ import annotations
 import argparse
 
 from src import (anomaly, apartment_forecasting, eda, eda_advanced,
-                 feature_engineering as fe, forecasting, preprocessing,
-                 revenue_ml, segmentation, train)
+                 feature_engineering as fe, forecasting, occupancy_ml,
+                 preprocessing, revenue_ml, revenue_multivariate, segmentation,
+                 train)
 
 
 def run(do_eda: bool = True):
@@ -36,8 +37,14 @@ def run(do_eda: bool = True):
     print(">> apartment-wise forecasting")
     apartment_forecasting.forecast_apartments()
 
+    print(">> occupancy ML model (vs Holt-Winters)")
+    occupancy_ml.run()
+
     print(">> ML revenue model (vs time-series)")
     revenue_ml.run()
+
+    print(">> multivariate revenue model (revenue + occupancy)")
+    revenue_multivariate.run()
 
     print(">> anomaly detection")
     anomaly.run()

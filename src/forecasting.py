@@ -136,13 +136,17 @@ def run(steps: int = 6):
     engine = "Holt-Winters (statsmodels)" if HAVE_SM else "linear+seasonal fallback"
     print(f"Forecast engine: {engine}\n")
 
-    targets = ["revenue", "active_tenants", "elec_cost"]
+    targets = ["revenue", "active_tenants", "elec_cost", "occupied_beds"]
     summary = []
     fig, axes = plt.subplots(len(targets), 1, figsize=(13, 11))
     for ax, col in zip(axes, targets):
         y = _clean_series(pm, col)
         method, bt = select_method(y)          # walk-forward model selection
         fdf = forecast_series(pm, col, steps, method)
+        if col == "occupied_beds":             # occupancy is bounded [0, 100]
+            fdf[col] = (fdf[col].clip(0, config.TOTAL_BEDS).round().astype(int))
+            fdf ["occupancy_pct"] = ( fdf[col] / config.TOTAL_BEDS * 100).round(2)
+            fdf.to_csv(config.OUT_DIR / "forecast_occupancy_pct.csv", index=False)   
         summary.append({"series": col, "method": method,
                         "MAE": round(bt["MAE"], 1), "MAPE": round(bt["MAPE"], 2),
                         "windows": bt["windows"],

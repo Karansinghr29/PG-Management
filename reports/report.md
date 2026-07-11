@@ -281,9 +281,38 @@ monthly rows are far too few for gradient boosting (it overfits); the linear mod
 matches the true low complexity of the signal. **Caveat:** a few dozen monthly points
 give wide error bars, so the time-series model remains the primary forecaster for
 multi-month horizons and the ML model is a complementary one-step cross-check. Outputs:
-`outputs/comparison_revenue_models.csv`, `leaderboard_revenue_ml.csv`,
-`backtest_revenue_ml.csv`, `model_meta_revenue_ml.json`,
-`figures/revenue_model_comparison.png`.
+`outputs/`leaderboard_revenue_ml.csv',`figures/revenue_model_comparison.png`.
+
+### 7.4a-ii Multivariate revenue: revenue + occupancy — `src/revenue_multivariate.py`
+A **new booking/stay dataset** (1,162 rows, real `onboarding_date`/`actual_exit_date`
+per `bed_id`) unlocks genuine **historical monthly occupancy** — the earlier
+"no bed-occupancy history" blocker is removed. `feature_engineering.occupancy_month`
+computes occupied beds, vacant beds, occupancy %, active tenants, move-ins, move-outs,
+notices and new bookings per month (denominator = 192 physical beds), joined into
+`property_month` on billing month.
+
+A third revenue model adds **lagged** occupancy drivers (occupancy %, active tenants,
+avg rental, new bookings, move-outs, move-ins, notices — all shifted, leakage-free) on
+top of the revenue-lag baseline, and is compared against the revenue-only model on
+identical walk-forward windows:
+
+| Feature set | Best model | MAPE | RMSE | R² |
+|---|---|---|---|---|
+| Revenue-only | LinearRegression | 4.81% | ₹1.90 L | 0.24 |
+| **Revenue + Occupancy** | **Ridge** | **4.89%** | **₹1.72 L** | **0.38** |
+
+**Finding:** occupancy % correlates with revenue at **r = 0.983** (p ≈ 8.9e-30), and
+lagged occupancy is the **3rd-strongest feature** (after `rev_lag1`, `rev_lag12`) in
+both permutation importance and SHAP. On 12-month one-step MAPE the two models are a
+statistical tie (4.89% vs 4.81%), but the multivariate model **explains more variance
+(R² 0.38 vs 0.24)** and — uniquely — supports **occupancy scenario analysis**: a +5%
+occupancy lift raises next-month revenue ≈ ₹0.50 L, a −5% drop cuts it ≈ ₹0.50 L. The
+manager's hypothesis (revenue depends on occupancy, not only past revenue) is confirmed;
+the time-series model remains primary for multi-month horizons. Outputs:
+`comparison_multivariate.csv`, `backtest_multivariate.csv`,
+`occupancy_revenue_scatter.csv`, `perm_importance_multivariate.csv`,
+`shap_multivariate.csv`, `model_meta_multivariate.json`,
+`figures/revenue_multivariate.png`.
 
 ### 7.4b Apartment-wise forecasting — `src/apartment_forecasting.py`
 The electricity table has a real apartment × month grain, so **electricity units and

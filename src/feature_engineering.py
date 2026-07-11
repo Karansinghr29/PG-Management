@@ -50,7 +50,46 @@ def electricity_features(elec: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def property_month(inv: pd.DataFrame, elec: pd.DataFrame) -> pd.DataFrame:
+def occupancy_month(bookings: pd.DataFrame,
+                    period_index: pd.PeriodIndex) -> pd.DataFrame:
+    """Real historical monthly occupancy from stay/booking history.
+
+    A bed is occupied in month M if the tenant onboarded on/before M-end and had
+    not yet exited by M-start. Denominator = physical bed capacity (config).
+    No synthetic data - every count comes from real onboarding/exit/notice dates.
+    """
+    b = bookings.copy()
+    # Booking dates are parsed tz-aware (UTC); match the month bounds to them.
+    tz = getattr(b["onboarding_date"].dtype, "tz", None)
+    rows = []
+    for m in period_index:
+        s, e = m.start_time, m.end_time
+        if tz is not None:
+            s, e = s.tz_localize(tz), e.tz_localize(tz)
+        live = b[(b["onboarding_date"] <= e)
+                 & (b["actual_exit_date"].isna() | (b["actual_exit_date"] >= s))]
+        rows.append({
+            "billing_period": m,
+            "occupied_beds": int(live["bed_id"].nunique()),
+            "active_tenants_occ": int(live["tenant_id"].nunique()),
+            "move_ins": int(((b["onboarding_date"] >= s)
+                             & (b["onboarding_date"] <= e)).sum()),
+            "move_outs": int(((b["actual_exit_date"] >= s)
+                              & (b["actual_exit_date"] <= e)).sum()),
+            "notice_count": int(((b["notice_date"] >= s)
+                                 & (b["notice_date"] <= e)).sum()),
+            "new_bookings": int(((b["booking_date"] >= s)
+                                 & (b["booking_date"] <= e)).sum()),
+            "avg_monthly_rental": float(live["monthly_rental"].mean()),
+        })
+    df = pd.DataFrame(rows)
+    df["occupancy_pct"] = (df["occupied_beds"] / config.TOTAL_BEDS * 100).round(2)
+    df["vacant_beds"] = config.TOTAL_BEDS - df["occupied_beds"]
+    return df
+
+
+def property_month(inv: pd.DataFrame, elec: pd.DataFrame,
+                   bookings: pd.DataFrame | None = None) -> pd.DataFrame:
     """Portfolio-level monthly KPI table (revenue, collection, occupancy proxy)."""
     rev = (inv.groupby("billing_period")
               .agg(revenue=("total_amount", "sum"),
@@ -69,6 +108,10 @@ def property_month(inv: pd.DataFrame, elec: pd.DataFrame) -> pd.DataFrame:
              .agg(units=("units_consumed", "sum"),
                   elec_cost=("amount", "sum")).reset_index())
     out = rev.merge(e, on="billing_period", how="left")
+    # Join real monthly occupancy from booking history (manager requirement).
+    if bookings is not None:
+        occ = occupancy_month(bookings, list(out["billing_period"]))
+        out = out.merge(occ, on="billing_period", how="left")
     out["month_num"] = out["billing_period"].dt.month
     out["year"] = out["billing_period"].dt.year
     out = out.sort_values("billing_period").reset_index(drop=True)
@@ -78,6 +121,12 @@ def property_month(inv: pd.DataFrame, elec: pd.DataFrame) -> pd.DataFrame:
     out["revenue_roll3"] = out["revenue"].rolling(3).mean()
     out["revenue_mom"] = out["revenue"].pct_change()
     out["tenants_lag1"] = out["active_tenants"].shift(1)
+    # Lagged occupancy features (known before month t -> leakage-safe drivers).
+    for col in ("occupancy_pct", "occupied_beds", "active_tenants_occ",
+                "move_ins", "move_outs", "notice_count", "new_bookings",
+                "avg_monthly_rental"):
+        if col in out.columns:
+            out[f"{col}_lag1"] = out[col].shift(1)
     return out
 
 
@@ -121,7 +170,8 @@ def build_all(cleaned: dict[str, pd.DataFrame] | None = None) -> dict[str, pd.Da
     return {
         "invoice_features": invoice_features(cleaned["invoices"]),
         "electricity_features": electricity_features(cleaned["electricity"]),
-        "property_month": property_month(cleaned["invoices"], cleaned["electricity"]),
+        "property_month": property_month(cleaned["invoices"], cleaned["electricity"],
+                                         cleaned.get("bookings")),
         "tenant_features": tenant_features(cleaned["invoices"]),
         "bed_features": bed_features(cleaned["beds_snapshot"]),
     }

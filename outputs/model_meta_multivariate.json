@@ -1,0 +1,59 @@
+{
+  "revenue_only_best": {
+    "model": "LinearRegression",
+    "mape": 4.81,
+    "mae": 141308.95,
+    "rmse": 190115.85,
+    "r2": 0.24
+  },
+  "multivariate_best": {
+    "model": "Ridge",
+    "mape": 4.73,
+    "mae": 137796.37,
+    "rmse": 172170.79,
+    "r2": 0.38
+  },
+  "winner": "Revenue+Occupancy",
+  "improvement_mape_pct_points": 0.08,
+  "occupancy_revenue_corr": 0.983,
+  "corr_pvalue": 8.851981185963865e-30,
+  "regression_slope_rev_per_occ_pct": 46976.3,
+  "features": [
+    "rev_lag1",
+    "rev_lag2",
+    "rev_lag3",
+    "rev_lag12",
+    "rev_roll3_lag",
+    "tenants_lag1",
+    "month_num",
+    "year",
+    "occupancy_pct_lag1",
+    "active_tenants_occ_lag1",
+    "avg_monthly_rental_lag1",
+    "new_bookings_lag1",
+    "move_outs_lag1",
+    "move_ins_lag1",
+    "notice_count_lag1"
+  ],
+  "occupancy_features": [
+    "occupancy_pct_lag1",
+    "active_tenants_occ_lag1",
+    "avg_monthly_rental_lag1",
+    "new_bookings_lag1",
+    "move_outs_lag1",
+    "move_ins_lag1",
+    "notice_count_lag1"
+  ],
+  "n_test_months": 12,
+  "n_train_months_total": 28,
+  "validation": "chronological expanding-window walk-forward (one-step)",
+  "scenario": {
+    "base": 3094976.1,
+    "plus_5pct": 3141981.0,
+    "minus_5pct": 3047971.2
+  },
+  "next_month_revenue": 3124508.1,
+  "trained_at": "2026-07-10 09:13 UTC",
+  "training_duration_sec": 17.9,
+  "model_version": "v20260710.0913"
+}

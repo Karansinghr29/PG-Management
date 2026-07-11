@@ -87,6 +87,201 @@ def _load_meta_json(filename: str) -> dict | None:
     return None
 
 
+def _current_occupancy_pct(feats) -> float:
+    """Single source of truth for CURRENT occupancy: booking-based occupancy%
+    from property_month (occupied beds / TOTAL_BEDS), same series the Occupancy
+    Forecast tab and the forecast are built on. Falls back to the bed snapshot
+    only if the booking-based series is unavailable."""
+    pm = feats["property_month"]
+    if "occupancy_pct" in pm.columns and pm["occupancy_pct"].notna().any():
+        return float(pm["occupancy_pct"].dropna().iloc[-1])
+    beds = feats["bed_features"]
+    return float(beds["is_occupied"].mean() * 100)
+
+
+def _render_multivariate(st, feats):
+    """Revenue+Occupancy multivariate block: comparison, correlation, importance,
+    scenario, actual-vs-predicted. All from persisted real model outputs."""
+    mv = _load_meta_json("model_meta_multivariate.json")
+    comp = _load_csv("comparison_multivariate.csv")
+    if mv is None or comp is None:
+        st.info("Run: python -m src.revenue_multivariate")
+        return
+    ro, mo = mv["revenue_only_best"], mv["multivariate_best"]
+    pm = feats["property_month"]
+    mae = mo["mae"]                                   # for the 95% band
+
+    # ---- Forecast KPI cards (same layout as the revenue-only section) ------ #
+    m1, m2, m3, m4 = st.columns(4)
+    m1.metric("Forecast model", mo["model"])
+    m2.metric("Walk-forward MAPE", f"{mo['mape']:.2f}%",
+              delta=f"Improved by {ro['mape']-mo['mape']:.2f} MAPE points",
+              delta_color="normal")
+    m3.metric("Walk-forward MAE", f"₹{mae/1e5:.2f} L")
+    m4.metric("Predicted Next Month",
+              f"₹{mv.get('next_month_revenue', float('nan'))/1e5:.2f} L")
+
+    # ---- Revenue forecast with 95% confidence band (multivariate) ---------- #
+    fig = _forecast_fig(pm, "forecast_multivariate.csv", "revenue",
+                        "Revenue + Occupancy forecast with 95% confidence band", mae)
+    if fig:
+        st.plotly_chart(fig, use_container_width=True, config=PLOTLY_CONFIG)
+
+    # ---- Walk-forward validation: actual vs multivariate predicted --------- #
+    bt = _load_csv("backtest_multivariate.csv")
+    if bt is not None:
+        wf = go.Figure()
+        wf.add_scatter(x=bt.billing_period, y=bt.actual, name="actual",
+                       mode="lines+markers", line=dict(color=C_PRIMARY, width=3))
+        wf.add_scatter(x=bt.billing_period, y=bt.multivariate, name="predicted",
+                       mode="lines+markers", line=dict(dash="dot", color=C_ACCENT))
+        wf.update_layout(title="Prediction vs Actual — walk-forward "
+                               "(Revenue + Occupancy model)", hovermode="x unified",
+                         margin=dict(l=10, r=10, t=48, b=10))
+        st.plotly_chart(wf, use_container_width=True, config=PLOTLY_CONFIG)
+
+    # ---- Comparison overlay: actual / revenue-only / revenue+occupancy ----- #
+    if bt is not None:
+        f = go.Figure()
+        f.add_scatter(x=bt.billing_period, y=bt.actual, name="actual",
+                      mode="lines+markers", line=dict(color=C_PRIMARY, width=3))
+        f.add_scatter(x=bt.billing_period, y=bt.revenue_only, name="Revenue-only",
+                      mode="lines+markers", line=dict(dash="dash", color=C_RISK))
+        f.add_scatter(x=bt.billing_period, y=bt.multivariate,
+                      name="Revenue+Occupancy", mode="lines+markers",
+                      line=dict(dash="dot", color=C_ACCENT))
+        f.update_layout(title="Does occupancy help? Actual vs both models "
+                              "(walk-forward)", hovermode="x unified",
+                        margin=dict(l=10, r=10, t=48, b=10))
+        st.plotly_chart(f, use_container_width=True, config=PLOTLY_CONFIG)
+
+    # ---- Secondary metrics + model comparison table ------------------------ #
+    s1, s2 = st.columns(2)
+    s1.metric(
+    "Multivariate R²",
+    f"{mo['r2']:.2f}",
+    delta=f"Improved by {mo['r2']-ro['r2']:.2f}"
+)
+    s2.metric("Occupancy↔Revenue r", f"{mv['occupancy_revenue_corr']:.3f}")
+    st.markdown("**Model comparison — Revenue-only vs Revenue+Occupancy** "
+                "(identical walk-forward windows)")
+    st.dataframe(comp.style.highlight_min(subset=["MAPE", "MAE", "RMSE"],
+                                          color="rgba(42,157,143,.25)")
+                 .highlight_max(subset=["R2"], color="rgba(42,157,143,.25)"),
+                 use_container_width=True)
+    st.markdown(_multivariate_verdict(mv))
+
+    # Revenue vs Occupancy: correlation scatter + monthly trend.
+    c1, c2 = st.columns(2)
+    sc = _load_csv("occupancy_revenue_scatter.csv")
+    if sc is not None:
+        f1 = px.scatter(sc, x="occupancy_pct", y="revenue", trendline=None,
+                        title=f"Revenue vs Occupancy (r={mv['occupancy_revenue_corr']:.3f})",
+                        color_discrete_sequence=[C_PRIMARY])
+        f1.add_scatter(x=sc.sort_values("occupancy_pct")["occupancy_pct"],
+                       y=sc.sort_values("occupancy_pct")["reg_line"],
+                       mode="lines", name="regression",
+                       line=dict(color=C_RISK, width=2))
+        f1.update_layout(margin=dict(l=10, r=10, t=48, b=10))
+        c1.plotly_chart(f1, use_container_width=True, config=PLOTLY_CONFIG)
+    pm = feats["property_month"]
+    if "occupancy_pct" in pm.columns:
+        pmt = pm.dropna(subset=["occupancy_pct"]).copy()
+        pmt["month"] = pmt["billing_period"].astype(str)
+        f2 = go.Figure()
+        f2.add_scatter(x=pmt.month, y=pmt.revenue, name="revenue",
+                       line=dict(color=C_PRIMARY), yaxis="y1")
+        f2.add_scatter(x=pmt.month, y=pmt.occupancy_pct, name="occupancy %",
+                       line=dict(color=C_WARN), yaxis="y2")
+        f2.update_layout(title="Revenue vs Occupancy — monthly trend",
+                         yaxis=dict(title="revenue"),
+                         yaxis2=dict(title="occupancy %", overlaying="y",
+                                     side="right"),
+                         hovermode="x unified", margin=dict(l=10, r=10, t=48, b=10))
+        c2.plotly_chart(f2, use_container_width=True, config=PLOTLY_CONFIG)
+
+    # Feature importance: permutation + SHAP.
+    c1, c2 = st.columns(2)
+    pi = _load_csv("perm_importance_multivariate.csv")
+    if pi is not None:
+        pi.columns = ["feature", "importance"]
+        f = px.bar(pi.head(12).sort_values("importance"), x="importance",
+                   y="feature", orientation="h",
+                   title="Permutation importance (multivariate)",
+                   color_discrete_sequence=[C_ACCENT])
+        f.update_layout(margin=dict(l=10, r=10, t=48, b=10))
+        c1.plotly_chart(f, use_container_width=True, config=PLOTLY_CONFIG)
+    sh = _load_csv("shap_multivariate.csv")
+    if sh is not None:
+        sh.columns = ["feature", "mean_abs_shap"]
+        f = px.bar(sh.head(12).sort_values("mean_abs_shap"), x="mean_abs_shap",
+                   y="feature", orientation="h",
+                   title="SHAP mean |value| (tree model)",
+                   color_discrete_sequence=[C_PRIMARY])
+        f.update_layout(margin=dict(l=10, r=10, t=48, b=10))
+        c2.plotly_chart(f, use_container_width=True, config=PLOTLY_CONFIG)
+
+    # Scenario analysis (±5% occupancy).
+    st.markdown("**Scenario analysis — next-month revenue vs occupancy** "
+                "(multivariate model, real next-month lag inputs)")
+    sc_data = mv["scenario"]
+    s1, s2, s3 = st.columns(3)
+    s2.markdown(f"<div class='kpi-card'><div class='kpi-label'>Base (current "
+                f"occupancy)</div><div class='kpi-value'>₹{sc_data['base']/1e5:.2f} L"
+                f"</div></div>", unsafe_allow_html=True)
+    up = sc_data["plus_5pct"] - sc_data["base"]
+    dn = sc_data["minus_5pct"] - sc_data["base"]
+    s1.markdown(f"<div class='kpi-card'><div class='kpi-label'>Occupancy −5%</div>"
+                f"<div class='kpi-value' style='color:#C0392B'>"
+                f"₹{sc_data['minus_5pct']/1e5:.2f} L</div>"
+                f"<div class='kpi-label'>{dn/1e5:+.2f} L</div></div>",
+                unsafe_allow_html=True)
+    s3.markdown(f"<div class='kpi-card'><div class='kpi-label'>Occupancy +5%</div>"
+                f"<div class='kpi-value' style='color:#27AE60'>"
+                f"₹{sc_data['plus_5pct']/1e5:.2f} L</div>"
+                f"<div class='kpi-label'>{up/1e5:+.2f} L</div></div>",
+                unsafe_allow_html=True)
+    st.download_button("⬇️ Export multivariate comparison CSV",
+                       comp.to_csv(index=False), "comparison_multivariate.csv",
+                       "text/csv")
+    forecast = _load_csv("forecast_multivariate.csv")
+
+    if forecast is not None:
+         st.download_button(
+        "⬇️ Download 6-Month Revenue Forecast",
+        forecast.to_csv(index=False),
+        "forecast_next_6_months.csv",
+        "text/csv"
+         )
+    
+
+
+def _multivariate_verdict(mv: dict) -> str:
+    ro, mo = mv["revenue_only_best"], mv["multivariate_best"]
+    r = mv["occupancy_revenue_corr"]
+    tie = abs(ro["mape"] - mo["mape"]) < 0.5
+    if mo["mape"] < ro["mape"]:
+        head = (f"**The multivariate model wins** (MAPE {mo['mape']:.2f}% vs "
+                f"revenue-only {ro['mape']:.2f}%).")
+    elif tie:
+        head = (f"**MAPE is effectively tied** ({mo['mape']:.2f}% vs "
+                f"{ro['mape']:.2f}% — within noise on {mv['n_test_months']} test "
+                f"months), but the multivariate model explains more variance "
+                f"(R² {mo['r2']:.2f} vs {ro['r2']:.2f}).")
+    else:
+        head = (f"**Revenue-only edges MAPE** ({ro['mape']:.2f}% vs "
+                f"{mo['mape']:.2f}%), though the multivariate model has higher "
+                f"R² ({mo['r2']:.2f} vs {ro['r2']:.2f}).")
+    why = (f"Occupancy is a strong real driver — occupancy% correlates with revenue "
+           f"at **r={r:.3f}**, and lagged occupancy ranks among the top features "
+           f"(permutation + SHAP). With only ~{mv['n_train_months_total']} monthly "
+           f"rows the one-step MAPE gain is small, but the multivariate model adds "
+           f"what revenue-only cannot: **occupancy scenario analysis** and higher "
+           f"explained variance. Recommended for planning; time-series stays the "
+           f"primary multi-month forecaster.")
+    return f"{head}\n\n{why}"
+
+
 def _revenue_verdict(rmeta: dict, comp) -> str:
     """Explain which revenue model wins and why — from the real metrics."""
     ts, ml = rmeta["ts_mape"], rmeta["ml_mape"]
@@ -163,92 +358,193 @@ def _segment_names(profile: pd.DataFrame) -> dict[int, str]:
     return names
 
 
-# --------------------------------------------------------------------------- #
-# Dynamic pieces (generated only from real model outputs)
-# --------------------------------------------------------------------------- #
-def _dynamic_recommendations(cleaned, feats, risk) -> list[tuple[str, str]]:
-    """(severity, text) pairs computed from actual predictions and data."""
-    recs = []
-    fs = _load_csv("forecast_summary.csv")
-    beds = feats["bed_features"]
+def _ai_recommendation_cards(cleaned, feats, risk) -> list[dict]:
+    """Business recommendation cards built ONLY from persisted real outputs and
+    real datasets. Each card: priority, category, icon, recommendation, impact.
+    No synthetic data - every card is guarded on the presence of its source."""
+    cards: list[dict] = []
+    inv = cleaned["invoices"]
 
+    # 📈 Revenue — current vs predicted next month (multivariate output).
+    mv = _load_meta_json("model_meta_multivariate.json")
+    latest = inv["billing_period"].max()
+    cur_rev = float(inv.loc[inv.billing_period == latest, "total_amount"].sum())
+    if mv is not None and cur_rev > 0:
+        nxt_rev = float(mv["next_month_revenue"])
+        delta = nxt_rev - cur_rev
+        pct = delta / cur_rev * 100
+        if delta >= 0:
+            cards.append(dict(priority="Low", category="Revenue", icon="📈",
+                recommendation=(f"Revenue forecast to rise {pct:+.1f}% next month "
+                    f"(₹{cur_rev/1e5:.1f}L → ₹{nxt_rev/1e5:.1f}L). Sustain occupancy "
+                    "and collections to hold the trend."),
+                impact=f"Projected +₹{delta/1e5:.2f}L monthly revenue."))
+        else:
+            cards.append(dict(priority="High", category="Revenue", icon="📈",
+                recommendation=(f"Revenue forecast to fall {pct:.1f}% next month "
+                    f"(₹{cur_rev/1e5:.1f}L → ₹{nxt_rev/1e5:.1f}L). Improve occupancy "
+                    "and accelerate collections to defend revenue."),
+                impact=f"Revenue at risk ₹{abs(delta)/1e5:.2f}L next month."))
+
+    # 🛏️ Occupancy — current (booking-based) vs forecast.
+    occ_fc = _load_csv("forecast_occupancy_pct.csv")
+    cur_occ = _current_occupancy_pct(feats)
+    if occ_fc is not None and len(occ_fc):
+        nxt_occ = float(occ_fc.iloc[0]["occupancy_pct"])
+        nxt_beds = int(occ_fc.iloc[0]["occupied_beds"])
+        vacant = config.TOTAL_BEDS - nxt_beds
+        if nxt_occ < cur_occ - 0.5:
+            cards.append(dict(priority="High", category="Occupancy", icon="🛏️",
+                recommendation=(f"Occupancy forecast to drop {cur_occ:.1f}% → "
+                    f"{nxt_occ:.1f}% next month. Market the {vacant} vacant beds now — "
+                    "run referral/discount campaigns on high-rate beds first."),
+                impact=f"~{vacant} beds to refill to restore occupancy."))
+        elif nxt_occ >= 95:
+            cards.append(dict(priority="Medium", category="Occupancy", icon="🛏️",
+                recommendation=(f"Occupancy forecast high at {nxt_occ:.1f}% "
+                    f"({nxt_beds}/{config.TOTAL_BEDS} beds). Prepare for near-full "
+                    "capacity: staffing, maintenance and onboarding readiness."),
+                impact="Protect service quality at peak occupancy."))
+        else:
+            cards.append(dict(priority="Low", category="Occupancy", icon="🛏️",
+                recommendation=(f"Occupancy stable ({cur_occ:.1f}% → {nxt_occ:.1f}%). "
+                    "Maintain current retention and intake pace."),
+                impact="Stable occupancy supports the revenue forecast."))
+
+    # ⚠️ Late payments — from the persisted late-payment risk scores.
     if risk is not None and len(risk):
         hi = risk[risk["risk_score"] > 0.5]
-        amt = hi["total_amount"].sum()
-        recs.append(("High",
-                     f"{len(hi)} high-risk invoices detected in "
-                     f"{risk['billing_period'].max()} — estimated revenue at risk "
-                     f"₹{amt/1e5:.2f} Lakhs. Contact these tenants within 48 hours "
-                     f"and prioritise the top-20 list on the Late Payment Risk page."))
+        if len(hi):
+            amt = float(hi["total_amount"].sum())
+            cards.append(dict(priority="High", category="Late Payments", icon="⚠️",
+                recommendation=(f"{len(hi)} high-risk invoices predicted unpaid in "
+                    f"{risk['billing_period'].max()}. Contact these tenants before "
+                    "their due dates; prioritise the top-20 risk list."),
+                impact=f"₹{amt/1e5:.2f}L collections protected."))
 
+    # ⚡ Electricity anomalies — flag abnormal apartment usage.
     ea = _anomaly_with_severity("anomalies_electricity.csv")
-    if ea is not None:
-        hi_e = (ea["severity"] == "High").sum()
+    if ea is not None and len(ea):
+        hi_e = int((ea["severity"] == "High").sum())
         apts = ", ".join(ea.loc[ea.severity == "High", "apartment_code"]
-                         .astype(str).unique()[:5])
-        recs.append(("High" if hi_e else "Medium",
-                     f"{len(ea)} electricity anomalies flagged ({hi_e} high-severity). "
-                     f"Recommend meter inspection starting with apartments: {apts}."))
+                         .astype(str).unique()[:5]) or "—"
+        cards.append(dict(priority="High" if hi_e else "Medium",
+            category="Electricity", icon="⚡",
+            recommendation=(f"{len(ea)} electricity anomalies flagged "
+                f"({hi_e} high-severity). Inspect meters starting with apartments: "
+                f"{apts}."),
+            impact="Prevent billing leakage and meter faults."))
 
-    ia = _anomaly_with_severity("anomalies_invoices.csv")
-    if ia is not None:
-        recs.append(("Medium",
-                     f"{len(ia)} invoice anomalies flagged for billing review — "
-                     f"check amount composition and credit-day outliers."))
+    # 🚪 Exit notices — start replacement bookings.
+    try:
+        na = ops.notice_analytics(cleaned["notices"])
+        if na["upcoming_exits"]:
+            cards.append(dict(priority="High" if na["upcoming_exits"] >= 5 else "Medium",
+                category="Exit Notices", icon="🚪",
+                recommendation=(f"{na['upcoming_exits']} tenants scheduled to vacate. "
+                    "Start replacement bookings now and begin retention outreach for "
+                    "notice beds."),
+                impact=f"₹{na['monthly_revenue_impact']/1e5:.2f}L monthly rent at "
+                       "stake across notices."))
+    except Exception:
+        pass
 
-    notice = int(beds["on_notice"].sum())
-    vacant = int(beds["is_vacant"].sum())
-    if notice + vacant:
-        recs.append(("Medium",
-                     f"{notice} beds on notice + {vacant} vacant "
-                     f"({(notice+vacant)/len(beds)*100:.0f}% of capacity idle or "
-                     f"churning). Launch retention outreach for notice beds and "
-                     f"re-list vacant high-rate beds first."))
+    # 🏠 Available beds — promote highest-vacancy block.
+    try:
+        ba = ops.bed_availability(cleaned["beds_snapshot"])
+        if ba["vacant_beds"] and len(ba["by_block"]):
+            blk = ba["by_block"].iloc[0]
+            cards.append(dict(priority="Medium", category="Available Beds", icon="🏠",
+                recommendation=(f"{ba['vacant_beds']} beds vacant. Promote the highest-"
+                    f"vacancy block '{blk['block']}' ({blk['vacancy_pct']:.0f}% vacant) "
+                    "and re-list high-rate vacant beds first."),
+                impact=f"₹{ba['vacant_revenue_opportunity']/1e5:.2f}L/mo revenue "
+                       "opportunity."))
+    except Exception:
+        pass
 
+    # 🔧 Maintenance — highlight unresolved issues.
+    try:
+        ms = ops.maintenance_summary(cleaned["tickets"])
+        if ms["open"]:
+            sla = ms.get("sla_breach_pct")
+            top_issue = (ms["by_issue"].iloc[0]["issue_type"]
+                         if len(ms["by_issue"]) else "open tickets")
+            cards.append(dict(priority="Medium", category="Maintenance", icon="🔧",
+                recommendation=(f"{ms['open']} open maintenance tickets"
+                    + (f", SLA breached on {sla}%" if sla else "")
+                    + f". Clear the backlog — top issue: {top_issue}."),
+                impact="Faster resolution lifts tenant retention."))
+    except Exception:
+        pass
+
+    # 👥 Tenant segments — protect highest-value segment.
     seg = _load_csv("tenant_segments_profile.csv")
-    if seg is not None and len(seg) >= 2:
+    if seg is not None and len(seg):
         names = _segment_names(seg)
         top = seg.sort_values("ltv_paid", ascending=False).iloc[0]
-        recs.append(("Medium",
-                     f"{int(top['n_tenants'])} {names.get(int(top['segment']), 'top-segment')} "
-                     f"average ₹{top['ltv_paid']/1e5:.2f} Lakhs lifetime value each — "
-                     f"protect them with priority maintenance and renewal offers."))
+        cards.append(dict(priority="Low", category="Tenant Segments", icon="👥",
+            recommendation=(f"{int(top['n_tenants'])} "
+                f"{names.get(int(top['segment']), 'top-segment')} tenants average "
+                f"₹{top['ltv_paid']/1e5:.2f}L lifetime value. Protect them with "
+                "priority service and renewal offers."),
+            impact="Retain highest-value tenants."))
 
-    if fs is not None:
-        rev = fs[fs.series == "revenue"]
-        if len(rev):
-            recs.append(("Low",
-                         f"Next-month revenue forecast ₹{rev.next_month.iloc[0]/1e5:.1f} "
-                         f"Lakhs (walk-forward MAPE {rev.MAPE.iloc[0]:.1f}%). Use for "
-                         f"cash-flow planning."))
-        el = fs[fs.series == "elec_cost"]
-        if len(el):
-            recs.append(("Low",
-                         f"Next-month electricity cost forecast "
-                         f"₹{el.next_month.iloc[0]/1e5:.1f} Lakhs "
-                         f"(MAPE {el.MAPE.iloc[0]:.1f}%). Budget accordingly."))
-    return recs
+    # 🧾 Invoice anomalies — billing review.
+    ia = _anomaly_with_severity("anomalies_invoices.csv")
+    if ia is not None and len(ia):
+        cards.append(dict(priority="Medium", category="Billing", icon="🧾",
+            recommendation=(f"{len(ia)} invoice anomalies flagged. Review amount "
+                "composition and credit-day outliers before dispatch."),
+            impact="Catch mis-billing before it ships."))
+
+    # ⚡ Apartment electricity forecast — audit highest-spend unit.
+    apt = _load_csv("forecast_apartment_summary.csv")
+    if apt is not None and len(apt) and "next_month_amount" in apt.columns:
+        t = apt.sort_values("next_month_amount", ascending=False).iloc[0]
+        cards.append(dict(priority="Low", category="Electricity", icon="⚡",
+            recommendation=(f"Apartment {t['apartment_code']} has the highest forecast "
+                f"electricity spend next month (₹{t['next_month_amount']/1e3:.1f}K). "
+                "Audit its usage."),
+            impact="Target energy savings where spend is highest."))
+
+    order = {"High": 0, "Medium": 1, "Low": 2}
+    cards.sort(key=lambda c: order.get(c["priority"], 3))
+    return cards
 
 
 def _exec_summary_items(cleaned, feats, risk) -> list[tuple[str, str, str]]:
     """(icon, label, value) computed from real data + model outputs."""
     inv = cleaned["invoices"]
-    fs = _load_csv("forecast_summary.csv")
+    pm = feats["property_month"]
+    mv = _load_meta_json("model_meta_multivariate.json")
     latest = inv["billing_period"].max()
     cur_rev = inv.loc[inv.billing_period == latest, "total_amount"].sum()
     items = [("💰", "Current Revenue (mo)", f"₹{cur_rev/1e5:.1f} L")]
-    if fs is not None and len(fs[fs.series == "revenue"]):
-        items.append(("📈", "Predicted Revenue (next mo)",
-                      f"₹{fs[fs.series == 'revenue'].next_month.iloc[0]/1e5:.1f} L"))
+    if mv is not None:
+        items.append((
+            "📈",
+            "Predicted Revenue (next mo)",
+            f"₹{mv['next_month_revenue']/1e5:.2f} L"
+        ))
+    # Current + predicted occupancy from the same booking-based occupancy series.
+    if "occupancy_pct" in pm.columns and pm["occupancy_pct"].notna().any():
+        items.append(("🛏️", "Current Occupancy",
+                      f"{_current_occupancy_pct(feats):.1f}%"))
+    occ_fc = _load_csv("forecast_occupancy_pct.csv")
+    if occ_fc is not None and len(occ_fc) and "occupancy_pct" in occ_fc.columns:
+        items.append(("🔮", "Predicted Occupancy (next mo)",
+                      f"{occ_fc['occupancy_pct'].iloc[0]:.1f}%"))
     risk_amt = (inv["total_amount"] * inv["is_unpaid"]).sum()
     items.append(("⚠️", "Revenue at Risk (total)", f"₹{risk_amt/1e7:.2f} Cr"))
     items.append(("✅", "Collection Rate", f"{(1-inv.is_unpaid.mean())*100:.1f}%"))
+    mv = _load_meta_json("model_meta_multivariate.json")
+    if mv:
+        items.append(("🔗", "Occupancy↔Revenue Corr",
+                      f"{mv['occupancy_revenue_corr']:.2f}"))
     if risk is not None:
         items.append(("🚨", "High-Risk Invoices (mo)",
                       f"{int((risk.risk_score > 0.5).sum())}"))
-    if fs is not None and len(fs[fs.series == "elec_cost"]):
-        items.append(("⚡", "Electricity Forecast (next mo)",
-                      f"₹{fs[fs.series == 'elec_cost'].next_month.iloc[0]/1e5:.1f} L"))
     return items
 
 
@@ -262,7 +558,7 @@ def _kpis(cleaned, feats):
         "💰 Total Revenue": f"₹{inv['total_amount'].sum()/1e7:.2f} Cr",
         "⚠️ Revenue at Risk": f"₹{(inv['total_amount']*inv['is_unpaid']).sum()/1e7:.2f} Cr",
         "✅ Collection Rate": f"{(1 - inv['is_unpaid'].mean()) * 100:.1f}%",
-        "🛏️ Occupancy": f"{beds['is_occupied'].mean() * 100:.1f}%",
+        "🛏️ Occupancy": f"{_current_occupancy_pct(feats):.1f}%",
         "📋 Beds on Notice": f"{int(beds['on_notice'].sum())}",
         "⚡ Electricity Cost": f"₹{cleaned['electricity']['amount'].sum()/1e5:.0f} L",
         "🔧 Open Tickets": f"{int((cleaned['tickets']['status'] != 'closed').sum())}",
@@ -383,17 +679,12 @@ def run_streamlit():
             c.markdown(f"<div class='kpi-card'><div class='kpi-label'>{icon} "
                        f"{label}</div><div class='kpi-value'>{value}</div></div>",
                        unsafe_allow_html=True)
-        recs = _dynamic_recommendations(cleaned, feats, risk)
-        if recs:
-            top = recs[0]
-            st.markdown(f"<div class='summary-strip'>🎯 <b>Top recommendation:</b> "
-                        f"{top[1]}</div>", unsafe_allow_html=True)
     st.markdown("")
 
     tabs = st.tabs([
         "📊 Executive Summary", "📈 Revenue Forecast", "🛏️ Occupancy Forecast",
         "🏠 Apartment-wise Forecast", "🚨 Late Payment Risk", "⚡ Anomaly Alerts",
-        "👥 Tenant Segmentation", "🤖 ML Performance", "💡 Recommendations",
+        "👥 Tenant Segmentation", "💡 AI Recommendations",
         "📦 Asset Management", "🚪 Available Beds", "🔧 Maintenance",
         "🏆 Apartment Performance", "📤 Notice & Exit"])
 
@@ -422,115 +713,104 @@ def run_streamlit():
 
     # 2) Revenue Forecast ------------------------------------------------------ #
     with tabs[1]:
-        st.markdown("### 1️⃣ Time-Series Forecast (primary model)")
-        st.caption("Holt-Winters / seasonal-naive on the monthly revenue series — "
-                   "the primary forecaster, unchanged.")
-        mae = mape = method = None
-        if fs is not None:
-            row = fs[fs.series == "revenue"]
-            if len(row):
-                mae, mape, method = (float(row.MAE.iloc[0]),
-                                     float(row.MAPE.iloc[0]),
-                                     row.method.iloc[0])
-        m1, m2, m3 = st.columns(3)
-        m1.metric("Forecast method", method or "—")
-        m2.metric("Walk-forward MAPE", f"{mape:.1f}%" if mape else "—")
-        m3.metric("Walk-forward MAE", f"₹{mae/1e5:.2f} L" if mae else "—")
-        fig = _forecast_fig(pm, "forecast_revenue.csv", "revenue",
-                            "Revenue forecast with 95% confidence band", mae)
-        if fig:
-            st.plotly_chart(fig, use_container_width=True, config=PLOTLY_CONFIG)
-        bfig = _backtest_fig("backtest_revenue.csv",
-                             "Prediction vs Actual — walk-forward validation")
-        if bfig:
-            st.plotly_chart(bfig, use_container_width=True, config=PLOTLY_CONFIG)
-        fc = _load_csv("forecast_revenue.csv")
-        if fc is not None:
-            st.download_button("⬇️ Export revenue forecast CSV",
-                               fc.to_csv(index=False), "forecast_revenue.csv",
-                               "text/csv")
-
-        # ---- Second model: supervised ML on the monthly panel -------------- #
-        st.markdown("---")
-        st.markdown("### 2️⃣ Machine Learning Revenue Prediction")
-        rmeta = _load_meta_json("model_meta_revenue_ml.json")
-        comp = _load_csv("comparison_revenue_models.csv")
-        if rmeta and comp is not None:
-            comp.columns = ["Model"] + list(comp.columns[1:])
-            c1, c2, c3, c4 = st.columns(4)
-            c1.metric("ML model", rmeta["ml_model"])
-            c2.metric("Features (lagged only)", rmeta["n_features"])
-            c3.metric("Test months", rmeta["n_test_months"])
-            c4.metric("ML next-month",
-                      f"₹{rmeta['ml_next_month_revenue']/1e5:.2f} L"
-                      if rmeta.get("ml_next_month_revenue") else "—")
-            st.caption("Features: lagged revenue (t-1..t-12), lagged 3-month mean, "
-                       "lagged tenant count, calendar. **Excluded as leakage:** "
-                       + ", ".join(rmeta["excluded_leakage_features"]) + ".")
-
-            st.markdown("**Model comparison — Time-Series vs ML (identical "
-                        "walk-forward windows)**")
-            st.dataframe(comp.set_index("Model")
-                         .style.highlight_min(subset=["MAPE", "MAE", "RMSE"],
-                                              color="rgba(42,157,143,.25)")
-                         .highlight_max(subset=["R2"],
-                                        color="rgba(42,157,143,.25)"),
-                         use_container_width=True)
-
-            bt = _load_csv("backtest_revenue_ml.csv")
-            if bt is not None:
-                f = go.Figure()
-                f.add_scatter(x=bt.billing_period, y=bt.actual, name="actual",
-                              mode="lines+markers", line=dict(color=C_PRIMARY,
-                                                              width=3))
-                f.add_scatter(x=bt.billing_period, y=bt.ts_predicted,
-                              name="Time-Series", mode="lines+markers",
-                              line=dict(dash="dash", color=C_RISK))
-                f.add_scatter(x=bt.billing_period, y=bt.ml_predicted,
-                              name=f"ML ({rmeta['ml_model']})",
-                              mode="lines+markers",
-                              line=dict(dash="dot", color=C_ACCENT))
-                f.update_layout(title="Actual vs Time-Series vs ML "
-                                      "(walk-forward, one-step)",
-                                hovermode="x unified",
-                                margin=dict(l=10, r=10, t=48, b=10))
-                st.plotly_chart(f, use_container_width=True, config=PLOTLY_CONFIG)
-                st.download_button("⬇️ Export model-comparison CSV",
-                                   comp.to_csv(index=False),
-                                   "comparison_revenue_models.csv", "text/csv")
-
-            st.markdown(_revenue_verdict(rmeta, comp))
-        else:
-            st.info("Run: python -m src.revenue_ml")
+       
+        # ---- Third model: multivariate revenue + occupancy ----------------- #
+        st.markdown("## Revenue Forecast")
+        st.markdown("### Revenue Forecast based on Historical Occupancy")
+        st.caption("Revenue prediction is based on historical revenue and historical occupancy "
+        "features from the real booking/stay dataset. Only lagged occupancy values "
+        "are used to avoid data leakage.")
+        _render_multivariate(st, feats)
 
     # 3) Occupancy Forecast ---------------------------------------------------- #
     with tabs[2]:
-        st.subheader("Occupancy proxy — active billed tenants")
-        st.caption("Bed tables are point-in-time snapshots, so physical bed-level "
-                   "occupancy history does not exist in the data. Active billed "
-                   "tenants per month is the real, verifiable occupancy proxy.")
+        st.subheader("Occupancy Forecast (Booking-based)")
+        st.caption("Forecast based on real booking history (occupied beds). "
+                    "Occupancy % = Occupied Beds / Total Beds (192).")
+
+        occ = _load_csv("forecast_occupancy_pct.csv")
         mae_t = None
         if fs is not None:
-            row = fs[fs.series == "active_tenants"]
+            row = fs[fs.series == "occupied_beds"]
             if len(row):
                 mae_t = float(row.MAE.iloc[0])
                 c1, c2, c3 = st.columns(3)
                 c1.metric("Forecast method", row.method.iloc[0])
                 c2.metric("Walk-forward MAPE", f"{row.MAPE.iloc[0]:.1f}%")
-                c3.metric("Next month", f"{row.next_month.iloc[0]:.0f} tenants")
-        fig = _forecast_fig(pm, "forecast_active_tenants.csv", "active_tenants",
-                            "Active tenants forecast", mae_t)
+                if occ is not None and len(occ):
+                    c3.metric("Next month Occupancy",
+                              f"{int(occ.iloc[0]['occupied_beds'])} Beds "
+                              f"({occ.iloc[0]['occupancy_pct']:.1f}%)")
+        fig = _forecast_fig(pm, "forecast_occupancy_pct.csv", "occupied_beds",
+                            "Occupied Beds Forecast", mae_t)
         if fig:
             st.plotly_chart(fig, use_container_width=True, config=PLOTLY_CONFIG)
-        bfig = _backtest_fig("backtest_active_tenants.csv",
-                             "Prediction vs Actual — walk-forward validation")
+        bfig = _backtest_fig("backtest_occupied_beds.csv",
+                             "Prediction vs Actual (Occupied Beds)")
         if bfig:
             st.plotly_chart(bfig, use_container_width=True, config=PLOTLY_CONFIG)
-        fc = _load_csv("forecast_active_tenants.csv")
+        fc = _load_csv("forecast_occupancy_pct.csv")
         if fc is not None:
+            st.dataframe(fc, use_container_width=True)
             st.download_button("⬇️ Export occupancy forecast CSV",
                                fc.to_csv(index=False),
-                               "forecast_active_tenants.csv", "text/csv")
+                               "forecast_occupancy_pct.csv", "text/csv")
+
+        # ---- Additional ML cross-check vs Holt-Winters (guarded) ----------- #
+        # Purely additive: only renders if src/occupancy_ml.py outputs exist.
+        # Holt-Winters above stays the primary production forecast.
+        ocmp = _load_csv("occupancy_model_comparison.csv")
+        ometa = _load_meta_json("occupancy_model_metadata.json")
+        if ocmp is not None and ometa is not None:
+            st.markdown("---")
+            st.markdown("### ML cross-check vs Holt-Winters (additional model)")
+            st.caption("Second occupancy model: leakage-safe supervised ML on real "
+                       "monthly property features, walk-forward validated on the same "
+                       "months. Holt-Winters remains the primary forecaster.")
+            g1, g2, g3, g4 = st.columns(4)
+            g1.metric("Primary (production)", "Holt-Winters",
+                      f"MAPE {ometa['hw_mape']:.2f}%")
+            g2.metric(f"Best ML ({ometa['ml_model']})", f"MAPE {ometa['ml_mape']:.2f}%",
+                      delta=f"{ometa['improvement_mape_pct_points']:+.2f} vs HW",
+                      delta_color="normal")
+            g3.metric("Overall winner", ometa["winner"])
+            g4.metric("Next month (ML)",
+                      f"{ometa['next_month_occupied_beds']} Beds "
+                      f"({ometa['next_month_occupancy_pct']:.1f}%)",
+                      help=f"95% range: {ometa['next_month_lower_beds']}–"
+                           f"{ometa['next_month_upper_beds']} beds")
+            st.markdown(f"**ML forecast — {ometa['next_month_period']}: "
+                        f"{ometa['next_month_occupied_beds']} beds "
+                        f"({ometa['next_month_occupancy_pct']:.1f}%)** &nbsp;·&nbsp; "
+                        f"95% range **{ometa['next_month_lower_beds']}–"
+                        f"{ometa['next_month_upper_beds']} beds**.")
+            st.dataframe(
+                ocmp.set_index("Model")[["MAE", "RMSE", "MAPE", "R2"]]
+                    .style.highlight_min(subset=["MAE", "RMSE", "MAPE"],
+                                         color="rgba(42,157,143,.25)"),
+                use_container_width=True)
+            obt = _load_csv("occupancy_backtest_ml.csv")
+            if obt is not None:
+                wf = go.Figure()
+                wf.add_scatter(x=obt.billing_period, y=obt.actual, name="actual",
+                               mode="lines+markers",
+                               line=dict(color=C_PRIMARY, width=3))
+                wf.add_scatter(x=obt.billing_period, y=obt.hw_predicted,
+                               name="Holt-Winters", mode="lines+markers",
+                               line=dict(dash="dash", color=C_RISK))
+                wf.add_scatter(x=obt.billing_period, y=obt.ml_predicted,
+                               name=f"ML ({ometa['ml_model']})", mode="lines+markers",
+                               line=dict(dash="dot", color=C_ACCENT))
+                wf.update_layout(title="Occupied beds — actual vs Holt-Winters vs ML "
+                                       "(walk-forward)", hovermode="x unified",
+                                 margin=dict(l=10, r=10, t=48, b=10))
+                st.plotly_chart(wf, use_container_width=True, config=PLOTLY_CONFIG)
+            oml = _load_csv("forecast_occupancy_ml.csv")
+            if oml is not None:
+                st.download_button("⬇️ Export ML occupancy forecast (with 95% band) CSV",
+                                   oml.to_csv(index=False),
+                                   "forecast_occupancy_ml.csv", "text/csv")
+            st.caption(ometa.get("capacity_note", ""))
 
     # 4) Apartment-wise Forecast ----------------------------------------------- #
     with tabs[3]:
@@ -689,49 +969,44 @@ def run_streamlit():
                                    segs_full.to_csv(index=False),
                                    "tenant_segments.csv", "text/csv")
 
-    # 8) ML Performance ------------------------------------------------------------ #
+    # 8) AI Recommendations --------------------------------------------------- #
     with tabs[7]:
-        st.subheader("Model performance & metadata")
-        st.caption("All metrics from the time-based (chronological) holdout — the "
-                   "honest out-of-time evaluation. Leaderboards include every "
-                   "compared algorithm.")
-        for prob, label in PROBLEM_LABELS.items():
-            lb = _load_csv(f"leaderboard_{prob}.csv")
-            meta = _load_meta(prob)
-            if lb is None:
-                continue
-            st.markdown(f"### {label}")
-            if meta:
-                c = st.columns(6)
-                c[0].metric("Best model", meta["best_model"])
-                c[1].metric("Last trained", meta["trained_at"].split()[0])
-                c[2].metric("Dataset size", f"{meta['n_rows']:,}")
-                c[3].metric("Features", meta["n_features"])
-                c[4].metric("Train duration", f"{meta['training_duration_sec']}s")
-                c[5].metric("Version", meta["model_version"])
-            metric_cols = [c for c in ["Accuracy", "Precision", "Recall", "F1",
-                                       "ROC_AUC", "MAE", "RMSE", "MAPE", "R2"]
-                           if c in lb.columns]
-            st.dataframe(
-                lb.set_index("Model")[metric_cols].round(4)
-                  .style.highlight_max(axis=0, color="rgba(42,157,143,.25)")
-                  if metric_cols else lb,
-                use_container_width=True)
-            st.markdown("---")
+        st.subheader("💡 AI Recommendations")
+        st.caption("Business actions generated only from persisted model outputs and "
+                   "real datasets — no synthetic recommendations.")
+        cards = _ai_recommendation_cards(cleaned, feats, risk)
+        n_high = sum(c["priority"] == "High" for c in cards)
+        n_med = sum(c["priority"] == "Medium" for c in cards)
+        n_low = sum(c["priority"] == "Low" for c in cards)
 
-    # 9) Business Recommendations ---------------------------------------------------- #
-    with tabs[8]:
-        st.subheader("Business recommendations — generated from live model outputs")
-        recs = _dynamic_recommendations(cleaned, feats, risk)
-        for sev, text in recs:
+        st.markdown("#### Business AI Summary")
+        s1, s2, s3 = st.columns(3)
+        s1.metric("🔴 High Priority Recommendations", n_high)
+        s2.metric("🟠 Medium Priority Recommendations", n_med)
+        s3.metric("🟢 Low Priority Recommendations", n_low)
+        st.markdown("")
+
+        if not cards:
+            st.info("No recommendations available — run the pipeline to generate "
+                    "the model outputs this page reads.")
+        for c in cards:
             st.markdown(
-                f"<div class='summary-strip'><span class='badge badge-{sev}'>"
-                f"{sev}</span>&nbsp;&nbsp;{text}</div>", unsafe_allow_html=True)
-        st.markdown("---")
-        st.markdown(_blocked_tasks_html(), unsafe_allow_html=True)
+                f"<div class='summary-strip'>"
+                f"<span class='badge badge-{c['priority']}'>{c['priority']}</span>"
+                f"&nbsp;&nbsp;<b>{c['icon']} {c['category']}</b><br>"
+                f"{c['recommendation']}<br>"
+                f"<span style='opacity:.8'>💼 <b>Expected business impact:</b> "
+                f"{c['impact']}</span></div>", unsafe_allow_html=True)
 
-    # 10) Asset Management ------------------------------------------------------ #
-    with tabs[9]:
+        if cards:
+            dfc = pd.DataFrame(cards)[["priority", "category", "recommendation",
+                                       "impact"]]
+            st.download_button("⬇️ Export AI recommendations CSV",
+                               dfc.to_csv(index=False), "ai_recommendations.csv",
+                               "text/csv")
+
+    # 8) Asset Management ------------------------------------------------------ #
+    with tabs[8]:
         st.subheader("Asset Management")
         a = ops.assets_summary(cleaned["assets"])
         _kpi_cards(st, [
@@ -789,8 +1064,8 @@ def run_streamlit():
                    f"{int(a['by_status'].loc[a['by_status'].status=='inventory','count'].sum())} "
                    f"in inventory (not yet allocated).")
 
-    # 11) Available Beds -------------------------------------------------------- #
-    with tabs[10]:
+    # 9) Available Beds -------------------------------------------------------- #
+    with tabs[9]:
         st.subheader("Available Beds")
         ba = ops.bed_availability(cleaned["beds_snapshot"])
         _kpi_cards(st, [
@@ -835,8 +1110,8 @@ def run_streamlit():
                    f"opportunity of ₹{ba['vacant_revenue_opportunity']/1e5:.2f} L "
                    f"if filled at current rates.")
 
-    # 12) Maintenance Performance ----------------------------------------------- #
-    with tabs[11]:
+    # 10) Maintenance Performance ----------------------------------------------- #
+    with tabs[10]:
         st.subheader("Maintenance Performance")
         ms = ops.maintenance_summary(cleaned["tickets"])
         _kpi_cards(st, [
@@ -884,8 +1159,8 @@ def run_streamlit():
                    f"{ms['by_issue'].iloc[0]['issue_type']} "
                    f"({ms['by_issue'].iloc[0]['count']}).")
 
-    # 13) Apartment Performance ------------------------------------------------- #
-    with tabs[12]:
+    # 11) Apartment Performance ------------------------------------------------- #
+    with tabs[11]:
         st.subheader("Apartment Performance & Health Score")
         ap = ops.apartment_performance(cleaned["electricity"], cleaned["tickets"],
                                        cleaned["beds_snapshot"])
@@ -931,8 +1206,8 @@ def run_streamlit():
                    f"has the most complaints "
                    f"({int(ap['complaints'].max())}).")
 
-    # 14) Notice & Exit --------------------------------------------------------- #
-    with tabs[13]:
+    # 12) Notice & Exit --------------------------------------------------------- #
+    with tabs[12]:
         st.subheader("Notice & Exit Analytics")
         na = ops.notice_analytics(cleaned["notices"])
         _kpi_cards(st, [
@@ -973,26 +1248,8 @@ def run_streamlit():
 # --------------------------------------------------------------------------- #
 # Static HTML fallback (no Streamlit needed)
 # --------------------------------------------------------------------------- #
-def _blocked_tasks_html() -> str:
-    rows = [
-        ("Tenant exit / churn prediction",
-         "notices/beds use name+apartment; invoices use UUID tenant_id - no link"),
-        ("Per-bed / per-apartment rent profitability",
-         "invoices carry no apartment_code/bed_code"),
-        ("Tenant-to-maintenance behaviour",
-         "tickets tenant_name (text) != invoice tenant_id (UUID)"),
-        ("Historical bed occupancy",
-         "beds tables are current snapshots only - no time history"),
-    ]
-    lis = "".join(f"<li><b>{t}</b> — {r}</li>" for t, r in rows)
-    return ("<h3 style='font-family:sans-serif'>Predictions not offered "
-            "(no real join exists)</h3><ul style='font-family:sans-serif'>"
-            f"{lis}</ul>")
-
-
 def export_html():
     cleaned, feats = _data()
-    risk = _late_payment_risk(feats)
     kpis = _kpis(cleaned, feats)
     figs = _figures(cleaned, feats)
     kpi_html = "".join(
@@ -1009,12 +1266,6 @@ def export_html():
         fig = px.bar(apt.head(15), x="apartment_code", y="next_month_amount",
                      title="Apartment-wise next-month electricity (top 15)")
         parts.append(fig.to_html(full_html=False, include_plotlyjs="cdn"))
-    recs = _dynamic_recommendations(cleaned, feats, risk)
-    rec_html = "".join(f"<li><b>[{s}]</b> {t}</li>" for s, t in recs)
-    parts.append("<h2 style='font-family:sans-serif'>Business Recommendations "
-                 f"(from live model outputs)</h2><ul "
-                 f"style='font-family:sans-serif'>{rec_html}</ul>")
-    parts.append(_blocked_tasks_html())
     out = config.OUT_DIR / "dashboard.html"
     out.write_text("<html><body>" + "".join(parts) + "</body></html>",
                    encoding="utf-8")
