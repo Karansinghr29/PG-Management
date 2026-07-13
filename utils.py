@@ -12,7 +12,8 @@ import config
 # --------------------------------------------------------------------------- #
 from pathlib import Path
 def load_raw(name: str) -> pd.DataFrame:
-    raise Exception("NEW UTILS.PY IS RUNNING")
+    path = config.RAW_DIR / config.RAW_FILES[name]
+    return pd.read_csv(path)
 
 
 def load_all_raw() -> dict[str, pd.DataFrame]:
