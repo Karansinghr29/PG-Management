@@ -22,6 +22,7 @@ sys.path.append(str(Path(__file__).resolve().parent))
 import config  # noqa: E402
 from src import feature_engineering as fe  # noqa: E402
 from src import operational_analytics as ops  # noqa: E402
+from src import recommendation_engine as rec  # noqa: E402
 from src import preprocessing  # noqa: E402
 
 APP_TITLE = "Vista Heights — PG Management Analytics"
@@ -309,42 +310,6 @@ def _revenue_verdict(rmeta: dict, comp) -> str:
     return f"{head}\n\n{why}\n\n_{caveat}_"
 
 
-def _late_payment_risk(feats):
-    """Score latest-month invoices with the saved best (time-based) model."""
-    import joblib
-    from src import train
-    mpath = config.MODEL_DIR / "late_payment_best.pkl"
-    if not mpath.exists():
-        return None
-    model = joblib.load(mpath)
-    X = train.PROBLEMS["late_payment"](feats)[0]
-    X = X.replace([float("inf"), float("-inf")], 0).fillna(0)
-    inv = feats["invoice_features"]
-    try:
-        proba = model.predict_proba(X)[:, 1]
-    except Exception:
-        proba = model.predict(X).astype(float)
-    out = inv[["invoice_id", "tenant_id", "billing_period", "total_amount",
-               "prior_unpaid", "is_unpaid"]].copy()
-    out["risk_score"] = proba
-    latest = out["billing_period"].max()
-    out = out[out["billing_period"] == latest].copy()
-    out["risk_level"] = pd.cut(out["risk_score"], [-0.01, 0.3, 0.7, 1.01],
-                               labels=["Low", "Medium", "High"])
-    return out.sort_values("risk_score", ascending=False)
-
-
-def _anomaly_with_severity(name: str):
-    df = _load_csv(name)
-    if df is None or df.empty or "anomaly_score" not in df:
-        return None
-    q1, q2 = df["anomaly_score"].quantile([0.33, 0.66])
-    df["severity"] = np.select(
-        [df["anomaly_score"] >= q2, df["anomaly_score"] >= q1],
-        ["High", "Medium"], default="Low")
-    return df
-
-
 def _segment_names(profile: pd.DataFrame) -> dict[int, str]:
     """Business names from real profile: highest paid-LTV segment = Anchor."""
     if profile is None or "ltv_paid" not in profile:
@@ -358,162 +323,7 @@ def _segment_names(profile: pd.DataFrame) -> dict[int, str]:
     return names
 
 
-def _ai_recommendation_cards(cleaned, feats, risk) -> list[dict]:
-    """Business recommendation cards built ONLY from persisted real outputs and
-    real datasets. Each card: priority, category, icon, recommendation, impact.
-    No synthetic data - every card is guarded on the presence of its source."""
-    cards: list[dict] = []
-    inv = cleaned["invoices"]
-
-    # 📈 Revenue — current vs predicted next month (multivariate output).
-    mv = _load_meta_json("model_meta_multivariate.json")
-    latest = inv["billing_period"].max()
-    cur_rev = float(inv.loc[inv.billing_period == latest, "total_amount"].sum())
-    if mv is not None and cur_rev > 0:
-        nxt_rev = float(mv["next_month_revenue"])
-        delta = nxt_rev - cur_rev
-        pct = delta / cur_rev * 100
-        if delta >= 0:
-            cards.append(dict(priority="Low", category="Revenue", icon="📈",
-                recommendation=(f"Revenue forecast to rise {pct:+.1f}% next month "
-                    f"(₹{cur_rev/1e5:.1f}L → ₹{nxt_rev/1e5:.1f}L). Sustain occupancy "
-                    "and collections to hold the trend."),
-                impact=f"Projected +₹{delta/1e5:.2f}L monthly revenue."))
-        else:
-            cards.append(dict(priority="High", category="Revenue", icon="📈",
-                recommendation=(f"Revenue forecast to fall {pct:.1f}% next month "
-                    f"(₹{cur_rev/1e5:.1f}L → ₹{nxt_rev/1e5:.1f}L). Improve occupancy "
-                    "and accelerate collections to defend revenue."),
-                impact=f"Revenue at risk ₹{abs(delta)/1e5:.2f}L next month."))
-
-    # 🛏️ Occupancy — current (booking-based) vs forecast.
-    occ_fc = _load_csv("forecast_occupancy_pct.csv")
-    cur_occ = _current_occupancy_pct(feats)
-    if occ_fc is not None and len(occ_fc):
-        nxt_occ = float(occ_fc.iloc[0]["occupancy_pct"])
-        nxt_beds = int(occ_fc.iloc[0]["occupied_beds"])
-        vacant = config.TOTAL_BEDS - nxt_beds
-        if nxt_occ < cur_occ - 0.5:
-            cards.append(dict(priority="High", category="Occupancy", icon="🛏️",
-                recommendation=(f"Occupancy forecast to drop {cur_occ:.1f}% → "
-                    f"{nxt_occ:.1f}% next month. Market the {vacant} vacant beds now — "
-                    "run referral/discount campaigns on high-rate beds first."),
-                impact=f"~{vacant} beds to refill to restore occupancy."))
-        elif nxt_occ >= 95:
-            cards.append(dict(priority="Medium", category="Occupancy", icon="🛏️",
-                recommendation=(f"Occupancy forecast high at {nxt_occ:.1f}% "
-                    f"({nxt_beds}/{config.TOTAL_BEDS} beds). Prepare for near-full "
-                    "capacity: staffing, maintenance and onboarding readiness."),
-                impact="Protect service quality at peak occupancy."))
-        else:
-            cards.append(dict(priority="Low", category="Occupancy", icon="🛏️",
-                recommendation=(f"Occupancy stable ({cur_occ:.1f}% → {nxt_occ:.1f}%). "
-                    "Maintain current retention and intake pace."),
-                impact="Stable occupancy supports the revenue forecast."))
-
-    # ⚠️ Late payments — from the persisted late-payment risk scores.
-    if risk is not None and len(risk):
-        hi = risk[risk["risk_score"] > 0.5]
-        if len(hi):
-            amt = float(hi["total_amount"].sum())
-            cards.append(dict(priority="High", category="Late Payments", icon="⚠️",
-                recommendation=(f"{len(hi)} high-risk invoices predicted unpaid in "
-                    f"{risk['billing_period'].max()}. Contact these tenants before "
-                    "their due dates; prioritise the top-20 risk list."),
-                impact=f"₹{amt/1e5:.2f}L collections protected."))
-
-    # ⚡ Electricity anomalies — flag abnormal apartment usage.
-    ea = _anomaly_with_severity("anomalies_electricity.csv")
-    if ea is not None and len(ea):
-        hi_e = int((ea["severity"] == "High").sum())
-        apts = ", ".join(ea.loc[ea.severity == "High", "apartment_code"]
-                         .astype(str).unique()[:5]) or "—"
-        cards.append(dict(priority="High" if hi_e else "Medium",
-            category="Electricity", icon="⚡",
-            recommendation=(f"{len(ea)} electricity anomalies flagged "
-                f"({hi_e} high-severity). Inspect meters starting with apartments: "
-                f"{apts}."),
-            impact="Prevent billing leakage and meter faults."))
-
-    # 🚪 Exit notices — start replacement bookings.
-    try:
-        na = ops.notice_analytics(cleaned["notices"])
-        if na["upcoming_exits"]:
-            cards.append(dict(priority="High" if na["upcoming_exits"] >= 5 else "Medium",
-                category="Exit Notices", icon="🚪",
-                recommendation=(f"{na['upcoming_exits']} tenants scheduled to vacate. "
-                    "Start replacement bookings now and begin retention outreach for "
-                    "notice beds."),
-                impact=f"₹{na['monthly_revenue_impact']/1e5:.2f}L monthly rent at "
-                       "stake across notices."))
-    except Exception:
-        pass
-
-    # 🏠 Available beds — promote highest-vacancy block.
-    try:
-        ba = ops.bed_availability(cleaned["beds_snapshot"])
-        if ba["vacant_beds"] and len(ba["by_block"]):
-            blk = ba["by_block"].iloc[0]
-            cards.append(dict(priority="Medium", category="Available Beds", icon="🏠",
-                recommendation=(f"{ba['vacant_beds']} beds vacant. Promote the highest-"
-                    f"vacancy block '{blk['block']}' ({blk['vacancy_pct']:.0f}% vacant) "
-                    "and re-list high-rate vacant beds first."),
-                impact=f"₹{ba['vacant_revenue_opportunity']/1e5:.2f}L/mo revenue "
-                       "opportunity."))
-    except Exception:
-        pass
-
-    # 🔧 Maintenance — highlight unresolved issues.
-    try:
-        ms = ops.maintenance_summary(cleaned["tickets"])
-        if ms["open"]:
-            sla = ms.get("sla_breach_pct")
-            top_issue = (ms["by_issue"].iloc[0]["issue_type"]
-                         if len(ms["by_issue"]) else "open tickets")
-            cards.append(dict(priority="Medium", category="Maintenance", icon="🔧",
-                recommendation=(f"{ms['open']} open maintenance tickets"
-                    + (f", SLA breached on {sla}%" if sla else "")
-                    + f". Clear the backlog — top issue: {top_issue}."),
-                impact="Faster resolution lifts tenant retention."))
-    except Exception:
-        pass
-
-    # 👥 Tenant segments — protect highest-value segment.
-    seg = _load_csv("tenant_segments_profile.csv")
-    if seg is not None and len(seg):
-        names = _segment_names(seg)
-        top = seg.sort_values("ltv_paid", ascending=False).iloc[0]
-        cards.append(dict(priority="Low", category="Tenant Segments", icon="👥",
-            recommendation=(f"{int(top['n_tenants'])} "
-                f"{names.get(int(top['segment']), 'top-segment')} tenants average "
-                f"₹{top['ltv_paid']/1e5:.2f}L lifetime value. Protect them with "
-                "priority service and renewal offers."),
-            impact="Retain highest-value tenants."))
-
-    # 🧾 Invoice anomalies — billing review.
-    ia = _anomaly_with_severity("anomalies_invoices.csv")
-    if ia is not None and len(ia):
-        cards.append(dict(priority="Medium", category="Billing", icon="🧾",
-            recommendation=(f"{len(ia)} invoice anomalies flagged. Review amount "
-                "composition and credit-day outliers before dispatch."),
-            impact="Catch mis-billing before it ships."))
-
-    # ⚡ Apartment electricity forecast — audit highest-spend unit.
-    apt = _load_csv("forecast_apartment_summary.csv")
-    if apt is not None and len(apt) and "next_month_amount" in apt.columns:
-        t = apt.sort_values("next_month_amount", ascending=False).iloc[0]
-        cards.append(dict(priority="Low", category="Electricity", icon="⚡",
-            recommendation=(f"Apartment {t['apartment_code']} has the highest forecast "
-                f"electricity spend next month (₹{t['next_month_amount']/1e3:.1f}K). "
-                "Audit its usage."),
-            impact="Target energy savings where spend is highest."))
-
-    order = {"High": 0, "Medium": 1, "Low": 2}
-    cards.sort(key=lambda c: order.get(c["priority"], 3))
-    return cards
-
-
-def _exec_summary_items(cleaned, feats, risk) -> list[tuple[str, str, str]]:
+def _exec_summary_items(cleaned, feats) -> list[tuple[str, str, str]]:
     """(icon, label, value) computed from real data + model outputs."""
     inv = cleaned["invoices"]
     pm = feats["property_month"]
@@ -535,16 +345,10 @@ def _exec_summary_items(cleaned, feats, risk) -> list[tuple[str, str, str]]:
     if occ_fc is not None and len(occ_fc) and "occupancy_pct" in occ_fc.columns:
         items.append(("🔮", "Predicted Occupancy (next mo)",
                       f"{occ_fc['occupancy_pct'].iloc[0]:.1f}%"))
-    risk_amt = (inv["total_amount"] * inv["is_unpaid"]).sum()
-    items.append(("⚠️", "Revenue at Risk (total)", f"₹{risk_amt/1e7:.2f} Cr"))
-    items.append(("✅", "Collection Rate", f"{(1-inv.is_unpaid.mean())*100:.1f}%"))
     mv = _load_meta_json("model_meta_multivariate.json")
     if mv:
         items.append(("🔗", "Occupancy↔Revenue Corr",
                       f"{mv['occupancy_revenue_corr']:.2f}"))
-    if risk is not None:
-        items.append(("🚨", "High-Risk Invoices (mo)",
-                      f"{int((risk.risk_score > 0.5).sum())}"))
     return items
 
 
@@ -554,12 +358,15 @@ def _exec_summary_items(cleaned, feats, risk) -> list[tuple[str, str, str]]:
 def _kpis(cleaned, feats):
     inv = cleaned["invoices"]
     beds = feats["bed_features"]
+    ex = pd.to_datetime(cleaned["notices"]["estimated_exit_date"], utc=True,
+                        errors="coerce")
+    active_notices = int((ex >= pd.Timestamp.now(tz="UTC")).sum())
     return {
         "💰 Total Revenue": f"₹{inv['total_amount'].sum()/1e7:.2f} Cr",
-        "⚠️ Revenue at Risk": f"₹{(inv['total_amount']*inv['is_unpaid']).sum()/1e7:.2f} Cr",
-        "✅ Collection Rate": f"{(1 - inv['is_unpaid'].mean()) * 100:.1f}%",
         "🛏️ Occupancy": f"{_current_occupancy_pct(feats):.1f}%",
+        "🚪 Vacant Beds": f"{int(beds['is_vacant'].sum())}",
         "📋 Beds on Notice": f"{int(beds['on_notice'].sum())}",
+        "📤 Active Notices": f"{active_notices}",
         "⚡ Electricity Cost": f"₹{cleaned['electricity']['amount'].sum()/1e5:.0f} L",
         "🔧 Open Tickets": f"{int((cleaned['tickets']['status'] != 'closed').sum())}",
     }
@@ -571,14 +378,11 @@ def _figures(cleaned, feats):
     figs = {}
     figs["revenue"] = px.area(pm, x="month", y="revenue", title="Monthly Revenue",
                               color_discrete_sequence=[C_PRIMARY])
-    figs["collection"] = px.line(pm, x="month", y="collection_rate", markers=True,
-                                 title="Collection Rate",
-                                 color_discrete_sequence=[C_ACCENT])
-    figs["collection"].add_hline(y=0.9, line_dash="dot", line_color=C_WARN,
-                                 annotation_text="90% target")
-    figs["risk"] = px.bar(pm, x="month", y="revenue_at_risk",
-                          title="Revenue at Risk by Month",
-                          color_discrete_sequence=[C_RISK])
+    mt = ops.monthly_revenue_trend(cleaned["invoices"])
+    figs["monthly_trend"] = px.line(
+        mt, x="month", y="revenue", markers=True,
+        title="Monthly Revenue Trend (all months)",
+        color_discrete_sequence=[C_ACCENT])
     figs["electricity"] = px.line(pm, x="month", y="elec_cost", markers=True,
                                   title="Electricity Cost",
                                   color_discrete_sequence=[C_WARN])
@@ -668,12 +472,11 @@ def run_streamlit():
     cleaned, feats = _data()
     pm = feats["property_month"].copy()
     figs = _figures(cleaned, feats)
-    risk = _late_payment_risk(feats)
     fs = _load_csv("forecast_summary.csv")
 
     # ---- Auto Executive Summary strip (real model outputs only) ------------ #
     with st.container():
-        items = _exec_summary_items(cleaned, feats, risk)
+        items = _exec_summary_items(cleaned, feats)
         cols = st.columns(len(items))
         for c, (icon, label, value) in zip(cols, items):
             c.markdown(f"<div class='kpi-card'><div class='kpi-label'>{icon} "
@@ -683,7 +486,7 @@ def run_streamlit():
 
     tabs = st.tabs([
         "📊 Executive Summary", "📈 Revenue Forecast", "🛏️ Occupancy Forecast",
-        "🏠 Apartment-wise Forecast", "🚨 Late Payment Risk", "⚡ Anomaly Alerts",
+        "🏠 Apartment-wise Forecast", "💰 Financial Overview",
         "👥 Tenant Segmentation", "💡 AI Recommendations",
         "📦 Asset Management", "🚪 Available Beds", "🔧 Maintenance",
         "🏆 Apartment Performance", "📤 Notice & Exit"])
@@ -697,12 +500,9 @@ def run_streamlit():
                          f"<div class='kpi-value'>{v}</div></div>",
                          unsafe_allow_html=True)
         st.markdown("")
+
         c1, c2 = st.columns(2)
-        c1.plotly_chart(figs["revenue"], use_container_width=True,
-                        config=PLOTLY_CONFIG)
-        c2.plotly_chart(figs["collection"], use_container_width=True,
-                        config=PLOTLY_CONFIG)
-        c1.plotly_chart(figs["risk"], use_container_width=True,
+        c1.plotly_chart(figs["monthly_trend"], use_container_width=True,
                         config=PLOTLY_CONFIG)
         c2.plotly_chart(figs["electricity"], use_container_width=True,
                         config=PLOTLY_CONFIG)
@@ -839,98 +639,53 @@ def run_streamlit():
         else:
             st.info("Run: python -m src.apartment_forecasting")
 
-    # 5) Late Payment Risk ------------------------------------------------------ #
+    # 5) Financial Overview ---------------------------------------------------- #
     with tabs[4]:
-        st.subheader("Late-payment risk — latest billing month")
-        meta = _load_meta("late_payment")
-        if meta:
-            c1, c2, c3, c4 = st.columns(4)
-            c1.metric("Model", meta["best_model"])
-            c2.metric("Validation", "time-based split")
-            c3.metric("Trained on", f"{meta['n_rows']:,} invoices")
-            c4.metric("Version", meta["model_version"])
-        if risk is not None and len(risk):
-            hi = risk[risk.risk_score > 0.5]
-            c1, c2, c3 = st.columns(3)
-            c1.metric("🚨 High-risk invoices", len(hi))
-            c2.metric("💸 Amount at risk",
-                      f"₹{hi.total_amount.sum()/1e5:.2f} L")
-            c3.metric("📅 Billing month", str(risk.billing_period.max()))
-            fig = px.histogram(risk, x="risk_score", nbins=30, color="risk_level",
-                               color_discrete_map={"High": C_HIGH,
-                                                   "Medium": C_MED, "Low": C_LOW},
-                               title="Predicted non-payment probability distribution")
-            fig.update_layout(margin=dict(l=10, r=10, t=48, b=10))
-            st.plotly_chart(fig, use_container_width=True, config=PLOTLY_CONFIG)
+        st.subheader("Financial Overview")
+        st.caption("Revenue analytics from real invoice data only — billed revenue "
+                   "= sum of invoice totals. No collection or payment figures: the "
+                   "dataset has no real payments/receipts table, so nothing here is "
+                   "inferred.")
+        fyr = ops.financial_year_revenue(cleaned["invoices"])
+        byfy = ops.revenue_by_financial_year(cleaned["invoices"])
 
-            st.markdown("**Top 20 highest-risk tenants (by invoice)**")
-            top20 = risk.head(20)[["tenant_id", "invoice_id", "total_amount",
-                                   "prior_unpaid", "risk_score", "risk_level"]]
-            st.dataframe(top20.style.background_gradient(
-                subset=["risk_score"], cmap="Reds"),
-                use_container_width=True, height=420)
-            st.download_button("⬇️ Export high-risk tenants CSV",
-                               risk[risk.risk_score > 0.5].to_csv(index=False),
-                               "high_risk_tenants.csv", "text/csv")
-            st.download_button("⬇️ Export all predictions CSV",
-                               risk.to_csv(index=False),
-                               "late_payment_predictions.csv", "text/csv")
+        c1, c2, c3 = st.columns(3)
+        c1.metric("Current Financial Year", f"FY {fyr['fy_label']}")
+        c2.metric("FY Revenue (billed)", f"₹{fyr['revenue']/1e5:.2f} L")
+        c3.metric("Total Revenue (all-time)",
+                  f"₹{cleaned['invoices']['total_amount'].sum()/1e7:.2f} Cr")
 
-            # Feature importance: permutation (model-agnostic, honest for any
-            # estimator) + SHAP when the best model was tree-based.
-            pi = _load_csv("perm_importance_late_payment.csv")
-            sh = _load_csv("shap_late_payment.csv")
-            c1, c2 = st.columns(2)
-            if pi is not None:
-                pi.columns = ["feature", "importance"]
-                f = px.bar(pi.head(12).sort_values("importance"), x="importance",
-                           y="feature", orientation="h",
-                           title="Permutation importance (held-out future slice)",
-                           color_discrete_sequence=[C_ACCENT])
-                f.update_layout(margin=dict(l=10, r=10, t=48, b=10))
-                c1.plotly_chart(f, use_container_width=True, config=PLOTLY_CONFIG)
-            if sh is not None:
-                sh.columns = ["feature", "mean_abs_shap"]
-                f = px.bar(sh.head(12).sort_values("mean_abs_shap"),
-                           x="mean_abs_shap", y="feature", orientation="h",
-                           title="SHAP mean |value| (best tree model)",
-                           color_discrete_sequence=[C_PRIMARY])
-                f.update_layout(margin=dict(l=10, r=10, t=48, b=10))
-                c2.plotly_chart(f, use_container_width=True, config=PLOTLY_CONFIG)
-        else:
-            st.info("Train the model first: python -m src.train late_payment")
+        f1 = px.bar(fyr["monthly"], x="month", y="revenue",
+                    title=f"Financial Year Revenue Trend — FY {fyr['fy_label']}",
+                    color_discrete_sequence=[C_PRIMARY])
+        f1.update_layout(margin=dict(l=10, r=10, t=48, b=10))
+        st.plotly_chart(f1, use_container_width=True, config=PLOTLY_CONFIG)
 
-    # 6) Anomaly Alerts ---------------------------------------------------------- #
+        byfy_lbl = byfy.assign(FY=byfy["fy"] + byfy["in_progress"].map(
+            {True: " (in progress)", False: ""}))
+        f3 = px.bar(byfy_lbl, x="FY", y="revenue",
+                    title="Revenue by Financial Year (billed)",
+                    color="in_progress",
+                    color_discrete_map={False: C_PRIMARY, True: C_WARN})
+        f3.update_layout(margin=dict(l=10, r=10, t=48, b=10), showlegend=False)
+        st.plotly_chart(f3, use_container_width=True, config=PLOTLY_CONFIG)
+        st.caption("The latest financial year is still in progress (fewer than 12 "
+                   "months billed), so its bar is not directly comparable to "
+                   "completed years. Financial year auto-detected (Apr–Mar); updates "
+                   "as new invoice data is added.")
+
+        st.dataframe(byfy[["fy", "revenue", "months", "invoices", "in_progress"]]
+                     .rename(columns={"fy": "Financial Year", "revenue": "Revenue (₹)",
+                                      "months": "Months billed",
+                                      "invoices": "Invoices",
+                                      "in_progress": "In progress"}),
+                     use_container_width=True)
+        st.download_button("⬇️ Export FY revenue summary CSV",
+                           byfy.to_csv(index=False),
+                           "revenue_by_financial_year.csv", "text/csv")
+
+    # 6) Tenant Segmentation --------------------------------------------------- #
     with tabs[5]:
-        st.subheader("Anomaly alerts (IsolationForest)")
-        for label, fname, keycols in [
-                ("⚡ Electricity", "anomalies_electricity.csv",
-                 ["apartment_code", "billing_month", "units_consumed", "amount"]),
-                ("🧾 Invoices", "anomalies_invoices.csv",
-                 ["invoice_id", "billing_month", "total_amount", "credit_days"])]:
-            df = _anomaly_with_severity(fname)
-            if df is None:
-                continue
-            st.markdown(f"### {label}")
-            counts = df["severity"].value_counts()
-            c1, c2, c3 = st.columns(3)
-            for c, sev in zip((c1, c2, c3), ("High", "Medium", "Low")):
-                c.markdown(
-                    f"<div class='kpi-card'><div class='kpi-label'>"
-                    f"<span class='badge badge-{sev}'>{sev}</span></div>"
-                    f"<div class='kpi-value'>{int(counts.get(sev, 0))}</div></div>",
-                    unsafe_allow_html=True)
-            show = [c for c in keycols if c in df.columns] + \
-                   ["anomaly_score", "severity"]
-            st.dataframe(
-                df.sort_values("anomaly_score", ascending=False)[show].head(25),
-                use_container_width=True, height=300)
-            st.download_button(f"⬇️ Export {label.split()[-1].lower()} anomalies CSV",
-                               df.to_csv(index=False), fname, "text/csv",
-                               key=f"dl_{fname}")
-
-    # 7) Tenant Segmentation ------------------------------------------------------ #
-    with tabs[6]:
         st.subheader("Tenant segments — real billing behaviour")
         seg = _load_csv("tenant_segments_profile.csv")
         if seg is not None:
@@ -969,44 +724,72 @@ def run_streamlit():
                                    segs_full.to_csv(index=False),
                                    "tenant_segments.csv", "text/csv")
 
-    # 8) AI Recommendations --------------------------------------------------- #
-    with tabs[7]:
+    # 7) AI Recommendations --------------------------------------------------- #
+    with tabs[6]:
         st.subheader("💡 AI Recommendations")
-        st.caption("Business actions generated only from persisted model outputs and "
-                   "real datasets — no synthetic recommendations.")
-        cards = _ai_recommendation_cards(cleaned, feats, risk)
+        st.caption("Your live business assistant. It summarises the latest structured "
+                   "output of every dashboard page (Financial Overview, Occupancy, "
+                   "Notice & Exit, Maintenance, Available Beds and more) — it does not "
+                   "compute its own numbers, so it updates automatically whenever any "
+                   "page's data changes.")
+        # Single source of truth: the recommendation engine reads each page's
+        # analytics output and only summarises it (no duplicated business logic).
+        outputs, cards = rec.recommend(cleaned, feats)
         n_high = sum(c["priority"] == "High" for c in cards)
         n_med = sum(c["priority"] == "Medium" for c in cards)
         n_low = sum(c["priority"] == "Low" for c in cards)
 
         st.markdown("#### Business AI Summary")
         s1, s2, s3 = st.columns(3)
-        s1.metric("🔴 High Priority Recommendations", n_high)
-        s2.metric("🟠 Medium Priority Recommendations", n_med)
-        s3.metric("🟢 Low Priority Recommendations", n_low)
+        s1.metric("🔴 High Priority", n_high)
+        s2.metric("🟠 Medium Priority", n_med)
+        s3.metric("🟢 Low Priority", n_low)
         st.markdown("")
 
         if not cards:
-            st.info("No recommendations available — run the pipeline to generate "
-                    "the model outputs this page reads.")
+            st.info("No recommendations — no dashboard page reported an actionable "
+                    "metric.")
         for c in cards:
             st.markdown(
                 f"<div class='summary-strip'>"
                 f"<span class='badge badge-{c['priority']}'>{c['priority']}</span>"
-                f"&nbsp;&nbsp;<b>{c['icon']} {c['category']}</b><br>"
+                f"&nbsp;&nbsp;<b>{c['icon']} {c['category']}</b>"
+                f"<span style='opacity:.55'> · from {c['source']}</span><br>"
                 f"{c['recommendation']}<br>"
                 f"<span style='opacity:.8'>💼 <b>Expected business impact:</b> "
                 f"{c['impact']}</span></div>", unsafe_allow_html=True)
 
         if cards:
-            dfc = pd.DataFrame(cards)[["priority", "category", "recommendation",
-                                       "impact"]]
+            dfc = pd.DataFrame(cards)[["priority", "category", "source",
+                                       "recommendation", "impact"]]
             st.download_button("⬇️ Export AI recommendations CSV",
                                dfc.to_csv(index=False), "ai_recommendations.csv",
                                "text/csv")
 
+        # Transparency: the live page metrics this summary is built from.
+        with st.expander("📊 Live dashboard metrics behind this summary"):
+            fin = outputs["financial"]["fy"]
+            occ = outputs["occupancy"]
+            rf = outputs["revenue_forecast"]
+            nt = outputs["notices"]
+            ms = outputs["maintenance"]
+            bd = outputs["beds"]
+            src = {
+                "Financial Overview": f"FY {fin['fy_label']} revenue "
+                                      f"₹{fin['revenue']/1e5:.1f} L",
+                "Revenue Forecast": (f"next month ₹{rf['next_month_revenue']/1e5:.1f} L"
+                                     if rf else "n/a"),
+                "Occupancy": (f"current {occ['current_pct']:.1f}%"
+                              if occ["current_pct"] is not None else "n/a"),
+                "Notice & Exit": f"{int(nt.get('upcoming_exits', 0))} upcoming exits",
+                "Maintenance": f"{int(ms.get('open', 0))} open tickets",
+                "Available Beds": f"{int(bd.get('vacant_beds', 0))} vacant beds",
+            }
+            st.table(pd.DataFrame({"Dashboard page": list(src),
+                                   "Latest metric": list(src.values())}))
+
     # 8) Asset Management ------------------------------------------------------ #
-    with tabs[8]:
+    with tabs[7]:
         st.subheader("Asset Management")
         a = ops.assets_summary(cleaned["assets"])
         _kpi_cards(st, [
@@ -1065,7 +848,7 @@ def run_streamlit():
                    f"in inventory (not yet allocated).")
 
     # 9) Available Beds -------------------------------------------------------- #
-    with tabs[9]:
+    with tabs[8]:
         st.subheader("Available Beds")
         ba = ops.bed_availability(cleaned["beds_snapshot"])
         _kpi_cards(st, [
@@ -1111,7 +894,7 @@ def run_streamlit():
                    f"if filled at current rates.")
 
     # 10) Maintenance Performance ----------------------------------------------- #
-    with tabs[10]:
+    with tabs[9]:
         st.subheader("Maintenance Performance")
         ms = ops.maintenance_summary(cleaned["tickets"])
         _kpi_cards(st, [
@@ -1160,7 +943,7 @@ def run_streamlit():
                    f"({ms['by_issue'].iloc[0]['count']}).")
 
     # 11) Apartment Performance ------------------------------------------------- #
-    with tabs[11]:
+    with tabs[10]:
         st.subheader("Apartment Performance & Health Score")
         ap = ops.apartment_performance(cleaned["electricity"], cleaned["tickets"],
                                        cleaned["beds_snapshot"])
@@ -1207,7 +990,7 @@ def run_streamlit():
                    f"({int(ap['complaints'].max())}).")
 
     # 12) Notice & Exit --------------------------------------------------------- #
-    with tabs[12]:
+    with tabs[11]:
         st.subheader("Notice & Exit Analytics")
         na = ops.notice_analytics(cleaned["notices"])
         _kpi_cards(st, [

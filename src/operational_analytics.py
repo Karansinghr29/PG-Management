@@ -197,6 +197,67 @@ def notice_analytics(notices: pd.DataFrame) -> dict:
     }
 
 
+# --------------------------------------------------------------------------- #
+# Module 6 - Financial-year REVENUE analytics (real billed revenue only, no ML,
+#            no collection/payment inference — there is no real payments table)
+# --------------------------------------------------------------------------- #
+def _financial_year_bounds(latest: pd.Period):
+    """April->March financial year CONTAINING `latest`. Auto, never hardcoded."""
+    start_year = latest.year if latest.month >= 4 else latest.year - 1
+    fy_start = pd.Period(f"{start_year}-04", freq="M")
+    fy_end = pd.Period(f"{start_year + 1}-03", freq="M")
+    return fy_start, fy_end, f"{start_year}-{str(start_year + 1)[-2:]}"
+
+
+def _fy_label_of(p: pd.Period) -> str:
+    sy = p.year if p.month >= 4 else p.year - 1
+    return f"{sy}-{str(sy + 1)[-2:]}"
+
+
+def financial_year_revenue(invoices: pd.DataFrame) -> dict:
+    """Current financial year BILLED revenue per month. Real invoice revenue only
+    (sum of total_amount) — no collection, no payment inference. FY auto-detected
+    from the latest billing_period; previous years excluded."""
+    inv = invoices.copy()
+    latest = inv["billing_period"].max()
+    fy_start, fy_end, label = _financial_year_bounds(latest)
+    fy = inv[(inv["billing_period"] >= fy_start) & (inv["billing_period"] <= fy_end)]
+    monthly = (fy.groupby("billing_period")["total_amount"].sum()
+                 .reset_index().sort_values("billing_period"))
+    monthly["month"] = monthly["billing_period"].astype(str)
+    monthly = monthly.rename(columns={"total_amount": "revenue"})[["month", "revenue"]]
+    return {
+        "fy_label": label, "fy_start": str(fy_start), "fy_end": str(fy_end),
+        "revenue": float(fy["total_amount"].sum()),
+        "n_invoices": int(len(fy)),
+        "monthly": monthly,
+    }
+
+
+def monthly_revenue_trend(invoices: pd.DataFrame) -> pd.DataFrame:
+    """All-time monthly BILLED revenue (real invoice totals only)."""
+    inv = invoices.copy()
+    m = (inv.groupby("billing_period")["total_amount"].sum()
+            .reset_index().sort_values("billing_period"))
+    m["month"] = m["billing_period"].astype(str)
+    return m.rename(columns={"total_amount": "revenue"})[["month", "revenue"]]
+
+
+def revenue_by_financial_year(invoices: pd.DataFrame) -> pd.DataFrame:
+    """Total BILLED revenue per financial year (Apr->Mar), all years present in
+    the data. Marks the latest FY as in-progress when it has < 12 months. Real
+    invoice revenue only."""
+    inv = invoices.copy()
+    inv["fy"] = inv["billing_period"].map(_fy_label_of)
+    g = (inv.groupby("fy")
+            .agg(revenue=("total_amount", "sum"),
+                 months=("billing_period", "nunique"),
+                 invoices=("invoice_id", "count")).reset_index()
+            .sort_values("fy"))
+    g["in_progress"] = g["months"] < 12
+    return g
+
+
 if __name__ == "__main__":
     from src import preprocessing
     c = preprocessing.clean_all()
