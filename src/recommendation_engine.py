@@ -103,6 +103,9 @@ def collect_business_outputs(cleaned: dict, feats: dict) -> dict:
         "beds": _safe(lambda: ops.bed_availability(cleaned["beds_snapshot"])),
         # Tenant Segmentation page
         "segments": _safe(lambda: _load_csv("tenant_segments_profile.csv")),
+        # The one kept operational alert: vacant apartment consuming power.
+        "electricity_alert": _safe(
+            lambda: ops.vacant_apartment_power_alerts(cleaned)),
     }
 
 
@@ -212,6 +215,17 @@ def generate_recommendations(o: dict) -> list[dict]:
             + (f", SLA breached on {sla}%" if sla else "")
             + f". Clear the backlog — top issue: {top_issue}.",
             "Faster resolution lifts tenant retention.")
+
+    # ⚡ Electricity alert — the ONE kept operational rule (vacant apt using power).
+    ea = o.get("electricity_alert")
+    if ea is not None and len(ea):
+        for _, r in ea.iterrows():
+            units = int(round(float(r["units_consumed"])))
+            add("Medium", "Electricity Alert", "⚡", "Electricity Alert",
+                f"Apartment {r['apartment_code']} is currently vacant but consumed "
+                f"{units} units of electricity. Inspect the apartment and meter "
+                "immediately before the next billing cycle.",
+                "Electricity cost leakage in a vacant apartment.")
 
     # 👥 Tenant segments — Tenant Segmentation page.
     seg = o.get("segments")

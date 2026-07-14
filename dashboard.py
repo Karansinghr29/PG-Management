@@ -25,7 +25,7 @@ from src import operational_analytics as ops  # noqa: E402
 from src import recommendation_engine as rec  # noqa: E402
 from src import preprocessing  # noqa: E402
 
-APP_TITLE = "Vista Heights — PG Management Analytics"
+APP_TITLE = "PG Management Analytics"
 
 # Consistent, professional palette.
 C_PRIMARY = "#2A9D8F"
@@ -55,8 +55,14 @@ PROBLEM_LABELS = {
 # Data access
 # --------------------------------------------------------------------------- #
 def _data():
-    cleaned = preprocessing.clean_all()
-    feats = fe.build_all(cleaned)
+    """Reload ALL source datasets from disk and rebuild features, fresh, on every
+    call. Intentionally NOT cached (no @st.cache_*): Streamlit reruns the whole
+    script on each interaction, so this re-reads the raw CSVs and re-derives the
+    feature tables every rerun. Business Insights and AI Recommendations are both
+    generated from the objects returned here, so they always reflect the latest
+    data and never reuse a previous run's dataframes."""
+    cleaned = preprocessing.clean_all()   # reads the raw CSVs fresh from disk
+    feats = fe.build_all(cleaned)          # rebuilds feature tables fresh
     return cleaned, feats
 
 
@@ -489,7 +495,7 @@ def run_streamlit():
         "🏠 Apartment-wise Forecast", "💰 Financial Overview",
         "👥 Tenant Segmentation", "💡 AI Recommendations",
         "📦 Asset Management", "🚪 Available Beds", "🔧 Maintenance",
-        "🏆 Apartment Performance", "📤 Notice & Exit"])
+        "🏆 Apartment Performance", "📤 Notice & Exit", "📊 Business Insights"])
 
     # 1) Executive Summary ---------------------------------------------------- #
     with tabs[0]:
@@ -745,6 +751,19 @@ def run_streamlit():
         s2.metric("🟠 Medium Priority", n_med)
         s3.metric("🟢 Low Priority", n_low)
         st.markdown("")
+
+        # Small Electricity Alert card — the one kept operational alert.
+        ea = outputs.get("electricity_alert")
+        if ea is not None and len(ea):
+            for _, r in ea.iterrows():
+                st.markdown(
+                    f"<div class='summary-strip'>⚡ <b>Electricity Alert</b><br>"
+                    f"Apartment : <b>{r['apartment_code']}</b><br>"
+                    f"Status : {r['status']}<br>"
+                    f"Units Consumed : {int(round(float(r['units_consumed'])))}<br>"
+                    f"Expected Usage : {int(r['expected_units'])}</div>",
+                    unsafe_allow_html=True)
+            st.markdown("")
 
         if not cards:
             st.info("No recommendations — no dashboard page reported an actionable "
@@ -1026,6 +1045,71 @@ def run_streamlit():
         st.caption(f"**Summary:** {na['upcoming_exits']} tenants scheduled to vacate; "
                    f"₹{na['monthly_revenue_impact']/1e5:.2f} L monthly rent at stake "
                    f"across {na['total_notices']} notices.")
+
+    # 13) Business Insights ----------------------------------------------------- #
+    with tabs[12]:
+        st.subheader("📊 Business Insights")
+        st.caption("Actionable insights from real data only. Per-apartment occupancy "
+                   "is the current bed snapshot (the dataset has no per-apartment "
+                   "occupancy history); peak-month occupancy uses the real monthly "
+                   "booking series. Nothing is estimated — unavailable metrics show "
+                   "“Not Available”.")
+        bi = ops.business_insights(cleaned, feats)
+
+        c1, c2 = st.columns(2)
+        mb = bi["most_booked"]
+        if mb:
+            c1.markdown(
+                f"<div class='kpi-card'><div class='kpi-label'>🏆 Highest Current "
+                f"Occupancy Apartment</div><div class='kpi-value'>{mb['apartment']}"
+                f"</div>"
+                f"<div class='kpi-label'>Block {mb['block']} · "
+                f"{mb['occupancy_pct']:.1f}% occupancy · {mb['active_beds']} active "
+                f"beds</div></div>", unsafe_allow_html=True)
+        else:
+            c1.markdown("<div class='kpi-card'><div class='kpi-label'>🏆 Highest "
+                        "Current Occupancy Apartment</div><div class='kpi-value'>Not "
+                        "Available</div></div>", unsafe_allow_html=True)
+        pk = bi["peak_month"]
+        if pk:
+            c2.markdown(
+                f"<div class='kpi-card'><div class='kpi-label'>📈 Peak Occupancy "
+                f"Month</div><div class='kpi-value'>{pk['month']}</div>"
+                f"<div class='kpi-label'>{pk['occupancy_pct']:.1f}% · "
+                f"{pk['occupied_beds']}/{pk['total_beds']} beds</div></div>",
+                unsafe_allow_html=True)
+        else:
+            c2.markdown("<div class='kpi-card'><div class='kpi-label'>📈 Peak "
+                        "Occupancy Month</div><div class='kpi-value'>Not Available"
+                        "</div></div>", unsafe_allow_html=True)
+        st.markdown("")
+
+        # 🏚️ Longest vacant rooms/beds — duration not in data, list vacant beds.
+        st.markdown("#### 🏚️ Vacant Rooms / Beds")
+        vb = bi["vacant_beds"]
+        if len(vb):
+            st.caption("Vacancy duration is not stored in the dataset (beds are a "
+                       "current snapshot), so it shows “Not Available”. Listing the "
+                       "currently vacant beds instead.")
+            st.dataframe(vb, use_container_width=True, height=280)
+        else:
+            st.success("No vacant beds right now.")
+
+        # 💰 Rent increase opportunity — recommendation only, no rent calculation.
+        st.markdown("#### 💰 Rent Increase Opportunity")
+        ro = bi["rent_opportunity"]
+        if len(ro):
+            st.dataframe(ro, use_container_width=True, height=240)
+        else:
+            st.info("No apartment is currently above 95% occupancy — Not Available.")
+
+        # 📉 Low demand apartments — most vacant beds.
+        st.markdown("#### 📉 Low Demand Apartments")
+        ld = bi["low_demand"]
+        if len(ld):
+            st.dataframe(ld, use_container_width=True, height=280)
+        else:
+            st.success("No apartment has vacant beds right now.")
 
 
 # --------------------------------------------------------------------------- #

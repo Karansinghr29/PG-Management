@@ -258,6 +258,128 @@ def revenue_by_financial_year(invoices: pd.DataFrame) -> pd.DataFrame:
     return g
 
 
+# --------------------------------------------------------------------------- #
+# Module 7 - The single kept operational alert: vacant apartment using power
+# --------------------------------------------------------------------------- #
+def vacant_apartment_power_alerts(cleaned: dict) -> pd.DataFrame:
+    """The ONLY operational alert kept in the app.
+
+    Rule:  apartment status is Vacant  AND  units_consumed > 0  ->  one alert.
+    "Vacant" = every bed in the apartment is vacant in the current snapshot.
+    Uses the latest electricity billing month. No other anomaly detection —
+    no billing, invoice, exit, duplicate or statistical-outlier checks.
+
+    Returns rows: apartment_code, status, units_consumed, expected_units,
+    billing_month.
+    """
+    cols = ["apartment_code", "status", "units_consumed", "expected_units",
+            "billing_month"]
+    el = cleaned.get("electricity")
+    bs = cleaned.get("beds_snapshot")
+    if el is None or bs is None or not len(el) or not len(bs):
+        return pd.DataFrame(columns=cols)
+
+    occ = (bs.assign(vac=(bs["bed_lifecycle_status"] == "vacant").astype(int))
+             .groupby("apartment_code")
+             .agg(beds=("bed_code", "count"), vac=("vac", "sum")).reset_index())
+    vacant = set(occ.loc[occ["beds"] == occ["vac"], "apartment_code"])
+    if not vacant:
+        return pd.DataFrame(columns=cols)
+
+    last = el["billing_period"].max()
+    hit = el[(el["billing_period"] == last)
+             & (el["apartment_code"].isin(vacant))
+             & (el["units_consumed"] > 0)].copy()
+    if not len(hit):
+        return pd.DataFrame(columns=cols)
+    hit["status"] = "Vacant Apartment Using Power"
+    hit["expected_units"] = 0
+    return hit[cols].reset_index(drop=True)
+
+
+# --------------------------------------------------------------------------- #
+# Module 8 - Business insights (real data only; honest about what's available)
+# --------------------------------------------------------------------------- #
+def business_insights(cleaned: dict, feats: dict) -> dict:
+    """Actionable insights for the PG owner from REAL data only.
+
+    Per-apartment occupancy uses the CURRENT bed snapshot — the dataset has no
+    per-apartment occupancy history (bookings carry UUID apartment ids with no
+    link to apartment_code), so anything apartment-level is a current snapshot.
+    Portfolio peak-month occupancy uses the real booking-based monthly series.
+    Nothing is invented: metrics that cannot be computed honestly are returned
+    as None / "Not Available".
+    """
+    NA = "Not Available"
+    bs = cleaned.get("beds_snapshot")
+    pm = feats.get("property_month")
+    out = {
+        "most_booked": None, "peak_month": None,
+        "vacant_beds": pd.DataFrame(), "rent_opportunity": pd.DataFrame(),
+        "low_demand": pd.DataFrame(),
+        "apartment_history_available": False,  # per-apartment history not in data
+    }
+    if bs is None or not len(bs):
+        return out
+
+    b = bs.copy()
+    b["occupied"] = (b["bed_lifecycle_status"] == "occupied").astype(int)
+    b["is_vacant"] = (b["bed_lifecycle_status"] == "vacant").astype(int)
+    apt = (b.groupby("apartment_code")
+             .agg(total_beds=("bed_code", "count"),
+                  occupied=("occupied", "sum"),
+                  vacant=("is_vacant", "sum")).reset_index())
+    apt["occupancy_pct"] = (apt["occupied"] / apt["total_beds"] * 100).round(1)
+    apt["block"] = _block(apt["apartment_code"])
+
+    # 1) Most booked apartment (highest current occupancy; tie -> most beds).
+    top = apt.sort_values(["occupancy_pct", "occupied"], ascending=False).iloc[0]
+    out["most_booked"] = {
+        "apartment": str(top["apartment_code"]), "block": str(top["block"]),
+        "occupancy_pct": float(top["occupancy_pct"]),
+        "active_beds": int(top["occupied"])}
+
+    # 2) Peak occupancy month (real booking-based monthly history).
+    if pm is not None and "occupancy_pct" in pm.columns and \
+            pm["occupancy_pct"].notna().any():
+        o = pm.dropna(subset=["occupancy_pct"])
+        r = o.loc[o["occupancy_pct"].idxmax()]
+        out["peak_month"] = {
+            "month": str(r["billing_period"]),
+            "occupancy_pct": float(r["occupancy_pct"]),
+            "occupied_beds": int(r["occupied_beds"]),
+            "total_beds": int(config.TOTAL_BEDS)}
+
+    # 3) Currently vacant beds. No "vacant-since" date exists -> duration = NA.
+    vac = (b[b["is_vacant"] == 1][["apartment_code", "bed_code",
+                                   "bed_lifecycle_status"]].copy())
+    vac["duration"] = NA
+    out["vacant_beds"] = (vac.rename(columns={
+        "apartment_code": "Apartment", "bed_code": "Bed Code",
+        "bed_lifecycle_status": "Current Status",
+        "duration": "Estimated Vacant Duration"}).reset_index(drop=True))
+
+    # 4) Rent increase opportunity — current occupancy > 95% (recommendation only).
+    high = (apt[apt["occupancy_pct"] > 95]
+            .sort_values("occupancy_pct", ascending=False))
+    ro = high[["apartment_code", "block", "occupancy_pct", "occupied"]].copy()
+    ro["Recommendation"] = ("Apartment is currently fully occupied. If this "
+                            "occupancy level continues over future months, consider "
+                            "reviewing rent pricing.")
+    out["rent_opportunity"] = ro.rename(columns={
+        "apartment_code": "Apartment", "block": "Block",
+        "occupancy_pct": "Occupancy %", "occupied": "Active Beds"}) \
+        .reset_index(drop=True)
+
+    # 5) Low demand apartments — most vacant beds.
+    low = (apt[apt["vacant"] > 0].sort_values("vacant", ascending=False)
+           [["apartment_code", "vacant", "occupancy_pct"]].copy())
+    out["low_demand"] = low.rename(columns={
+        "apartment_code": "Apartment", "vacant": "Vacant Beds",
+        "occupancy_pct": "Occupancy %"}).reset_index(drop=True)
+    return out
+
+
 if __name__ == "__main__":
     from src import preprocessing
     c = preprocessing.clean_all()
