@@ -1,0 +1,12 @@
+﻿# Python cache
+__pycache__/
+*.pyc
+
+# ML temporary files
+catboost_info/
+
+# Generated model outputs
+outputs/
+
+# Environment files
+.env

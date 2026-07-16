@@ -1,23 +1,23 @@
 {
   "revenue_only_best": {
     "model": "LinearRegression",
-    "mape": 4.81,
-    "mae": 141308.95,
-    "rmse": 190115.85,
-    "r2": 0.24
+    "mape": 4.09,
+    "mae": 120692.06,
+    "rmse": 166745.81,
+    "r2": 0.51
   },
   "multivariate_best": {
     "model": "Ridge",
-    "mape": 4.73,
-    "mae": 137796.37,
-    "rmse": 172170.79,
-    "r2": 0.38
+    "mape": 4.08,
+    "mae": 119273.16,
+    "rmse": 153172.06,
+    "r2": 0.58
   },
   "winner": "Revenue+Occupancy",
-  "improvement_mape_pct_points": 0.08,
-  "occupancy_revenue_corr": 0.983,
-  "corr_pvalue": 8.851981185963865e-30,
-  "regression_slope_rev_per_occ_pct": 46976.3,
+  "improvement_mape_pct_points": 0.01,
+  "occupancy_revenue_corr": 0.987,
+  "corr_pvalue": 8.521119720398634e-32,
+  "regression_slope_rev_per_occ_pct": 48178.3,
   "features": [
     "rev_lag1",
     "rev_lag2",
@@ -48,12 +48,12 @@
   "n_train_months_total": 28,
   "validation": "chronological expanding-window walk-forward (one-step)",
   "scenario": {
-    "base": 3094976.1,
-    "plus_5pct": 3141981.0,
-    "minus_5pct": 3047971.2
+    "base": 3222711.6,
+    "plus_5pct": 3280218.6,
+    "minus_5pct": 3165204.5
   },
-  "next_month_revenue": 3124508.1,
-  "trained_at": "2026-07-10 09:13 UTC",
-  "training_duration_sec": 17.9,
-  "model_version": "v20260710.0913"
+  "next_month_revenue": 3226773.9,
+  "trained_at": "2026-07-14 13:21 UTC",
+  "training_duration_sec": 18.1,
+  "model_version": "v20260714.1321"
 }

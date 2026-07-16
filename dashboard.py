@@ -1,4 +1,4 @@
-"""Vista Heights - PG Management Analytics dashboard.
+""" PG Management Analytics dashboard.
 
 Production-style Streamlit + Plotly application over the real PG datasets.
 Every number shown is computed from actual data or persisted model outputs -
@@ -24,6 +24,8 @@ from src import feature_engineering as fe  # noqa: E402
 from src import operational_analytics as ops  # noqa: E402
 from src import recommendation_engine as rec  # noqa: E402
 from src import preprocessing  # noqa: E402
+from src import bed_snapshot as bs  # noqa: E402
+from src import revenue_multivariate as rmv  # noqa: E402
 
 APP_TITLE = "PG Management Analytics"
 
@@ -94,6 +96,32 @@ def _load_meta_json(filename: str) -> dict | None:
     return None
 
 
+# Live bed classification now lives in a shared module so the Available Beds
+# page and the AI Recommendations engine use the SAME source of truth.
+_load_beds_inventory_table = bs.load_beds_inventory_table
+_live_bed_snapshot = bs.live_bed_snapshot
+
+
+def _live_bed_kpis_from_snapshot(snap: pd.DataFrame) -> dict:
+    """KPIs from live_bed_snapshot. Vacant = Operational − Occupied − Notice − Notice-Booked − Booked."""
+    physical = int(snap.attrs.get("physical_beds", len(snap)))
+    operational = int(snap.attrs.get("operational_beds", physical))
+    counts = snap["live_status"].value_counts() if len(snap) else pd.Series(dtype=int)
+    occupied_beds = int(counts.get("Occupied", 0))
+    notice_beds = int(counts.get("Notice", 0))
+    notice_booked_beds = int(counts.get("Notice-Booked", 0))
+    booked_beds = int(counts.get("Booked", 0))
+    inactive_beds = int(counts.get("Inactive", 0))
+    vacant = (operational - occupied_beds - notice_beds
+              - notice_booked_beds - booked_beds)
+    occupied_now = occupied_beds + notice_beds + notice_booked_beds
+    occ_pct = (occupied_now / operational * 100) if operational else 0.0
+    return dict(total_beds=physical, operational_beds=operational,
+                occupied_beds=occupied_beds, notice_beds=notice_beds,
+                notice_booked_beds=notice_booked_beds, booked_beds=booked_beds,
+                inactive_beds=inactive_beds, vacant=vacant, occ_pct=occ_pct)
+
+
 def _current_occupancy_pct(feats) -> float:
     """Single source of truth for CURRENT occupancy: booking-based occupancy%
     from property_month (occupied beds / TOTAL_BEDS), same series the Occupancy
@@ -109,32 +137,32 @@ def _current_occupancy_pct(feats) -> float:
 def _render_multivariate(st, feats):
     """Revenue+Occupancy multivariate block: comparison, correlation, importance,
     scenario, actual-vs-predicted. All from persisted real model outputs."""
-    mv = _load_meta_json("model_meta_multivariate.json")
-    comp = _load_csv("comparison_multivariate.csv")
-    if mv is None or comp is None:
-        st.info("Run: python -m src.revenue_multivariate")
-        return
-    ro, mo = mv["revenue_only_best"], mv["multivariate_best"]
     pm = feats["property_month"]
+    if pm is None or not len(pm):
+        st.info("No property_month data available for the revenue forecast.")
+        return
+    # Single source of truth: live Ridge multivariate prediction (same value the
+    # AI Recommendations and Financial Overview use). Not read from the persisted
+    # model_meta_multivariate.json.
+    mv = rmv.predict_live(pm)
+    mo = {"model": mv["model"], "mape": mv["mape"], "mae": mv["mae"]}
     mae = mo["mae"]                                   # for the 95% band
+    next_rev = mv["next_month_revenue"]
 
-    # ---- Forecast KPI cards (same layout as the revenue-only section) ------ #
+    # ---- Headline forecast cards ------------------------------------------- #
     m1, m2, m3, m4 = st.columns(4)
-    m1.metric("Forecast model", mo["model"])
-    m2.metric("Walk-forward MAPE", f"{mo['mape']:.2f}%",
-              delta=f"Improved by {ro['mape']-mo['mape']:.2f} MAPE points",
-              delta_color="normal")
+    m1.metric("Forecast Model", mo["model"])
+    m2.metric("Walk-forward MAPE", f"{mo['mape']:.2f}%")
     m3.metric("Walk-forward MAE", f"₹{mae/1e5:.2f} L")
-    m4.metric("Predicted Next Month",
-              f"₹{mv.get('next_month_revenue', float('nan'))/1e5:.2f} L")
+    m4.metric("📈 Predicted Revenue (Next Month)", f"₹{next_rev/1e5:.2f} L")
 
-    # ---- Revenue forecast with 95% confidence band (multivariate) ---------- #
+    # ---- Revenue forecast with 95% confidence band ------------------------- #
     fig = _forecast_fig(pm, "forecast_multivariate.csv", "revenue",
                         "Revenue + Occupancy forecast with 95% confidence band", mae)
     if fig:
         st.plotly_chart(fig, use_container_width=True, config=PLOTLY_CONFIG)
 
-    # ---- Walk-forward validation: actual vs multivariate predicted --------- #
+    # ---- Prediction vs Actual (walk-forward) ------------------------------- #
     bt = _load_csv("backtest_multivariate.csv")
     if bt is not None:
         wf = go.Figure()
@@ -142,43 +170,13 @@ def _render_multivariate(st, feats):
                        mode="lines+markers", line=dict(color=C_PRIMARY, width=3))
         wf.add_scatter(x=bt.billing_period, y=bt.multivariate, name="predicted",
                        mode="lines+markers", line=dict(dash="dot", color=C_ACCENT))
-        wf.update_layout(title="Prediction vs Actual — walk-forward "
-                               "(Revenue + Occupancy model)", hovermode="x unified",
-                         margin=dict(l=10, r=10, t=48, b=10))
+        wf.update_layout(title="Prediction vs Actual — Revenue + Occupancy",
+                         hovermode="x unified", margin=dict(l=10, r=10, t=48, b=10))
         st.plotly_chart(wf, use_container_width=True, config=PLOTLY_CONFIG)
 
-    # ---- Comparison overlay: actual / revenue-only / revenue+occupancy ----- #
-    if bt is not None:
-        f = go.Figure()
-        f.add_scatter(x=bt.billing_period, y=bt.actual, name="actual",
-                      mode="lines+markers", line=dict(color=C_PRIMARY, width=3))
-        f.add_scatter(x=bt.billing_period, y=bt.revenue_only, name="Revenue-only",
-                      mode="lines+markers", line=dict(dash="dash", color=C_RISK))
-        f.add_scatter(x=bt.billing_period, y=bt.multivariate,
-                      name="Revenue+Occupancy", mode="lines+markers",
-                      line=dict(dash="dot", color=C_ACCENT))
-        f.update_layout(title="Does occupancy help? Actual vs both models "
-                              "(walk-forward)", hovermode="x unified",
-                        margin=dict(l=10, r=10, t=48, b=10))
-        st.plotly_chart(f, use_container_width=True, config=PLOTLY_CONFIG)
-
-    # ---- Secondary metrics + model comparison table ------------------------ #
-    s1, s2 = st.columns(2)
-    s1.metric(
-    "Multivariate R²",
-    f"{mo['r2']:.2f}",
-    delta=f"Improved by {mo['r2']-ro['r2']:.2f}"
-)
-    s2.metric("Occupancy↔Revenue r", f"{mv['occupancy_revenue_corr']:.3f}")
-    st.markdown("**Model comparison — Revenue-only vs Revenue+Occupancy** "
-                "(identical walk-forward windows)")
-    st.dataframe(comp.style.highlight_min(subset=["MAPE", "MAE", "RMSE"],
-                                          color="rgba(42,157,143,.25)")
-                 .highlight_max(subset=["R2"], color="rgba(42,157,143,.25)"),
-                 use_container_width=True)
-    st.markdown(_multivariate_verdict(mv))
-
-    # Revenue vs Occupancy: correlation scatter + monthly trend.
+    # ---- How occupancy relates to revenue ---------------------------------- #
+    st.metric("Occupancy–Revenue Correlation",
+              f"{mv['occupancy_revenue_corr']:.3f}")
     c1, c2 = st.columns(2)
     sc = _load_csv("occupancy_revenue_scatter.csv")
     if sc is not None:
@@ -207,14 +205,14 @@ def _render_multivariate(st, feats):
                          hovermode="x unified", margin=dict(l=10, r=10, t=48, b=10))
         c2.plotly_chart(f2, use_container_width=True, config=PLOTLY_CONFIG)
 
-    # Feature importance: permutation + SHAP.
+    # What drives the forecast (feature importance).
     c1, c2 = st.columns(2)
     pi = _load_csv("perm_importance_multivariate.csv")
     if pi is not None:
         pi.columns = ["feature", "importance"]
         f = px.bar(pi.head(12).sort_values("importance"), x="importance",
                    y="feature", orientation="h",
-                   title="Permutation importance (multivariate)",
+                   title="What drives the forecast",
                    color_discrete_sequence=[C_ACCENT])
         f.update_layout(margin=dict(l=10, r=10, t=48, b=10))
         c1.plotly_chart(f, use_container_width=True, config=PLOTLY_CONFIG)
@@ -223,34 +221,32 @@ def _render_multivariate(st, feats):
         sh.columns = ["feature", "mean_abs_shap"]
         f = px.bar(sh.head(12).sort_values("mean_abs_shap"), x="mean_abs_shap",
                    y="feature", orientation="h",
-                   title="SHAP mean |value| (tree model)",
+                   title="Key revenue drivers",
                    color_discrete_sequence=[C_PRIMARY])
         f.update_layout(margin=dict(l=10, r=10, t=48, b=10))
         c2.plotly_chart(f, use_container_width=True, config=PLOTLY_CONFIG)
 
-    # Scenario analysis (±5% occupancy).
-    st.markdown("**Scenario analysis — next-month revenue vs occupancy** "
-                "(multivariate model, real next-month lag inputs)")
+    # Occupancy Scenario Analysis (±5% occupancy) — centre is the official
+    # next-month prediction; the ±5% cards are the existing scenario outputs.
+    st.markdown("**Occupancy Scenario Analysis — next-month revenue if occupancy "
+                "shifts ±5%**")
     sc_data = mv["scenario"]
-    s1, s2, s3 = st.columns(3)
-    s2.markdown(f"<div class='kpi-card'><div class='kpi-label'>Base (current "
-                f"occupancy)</div><div class='kpi-value'>₹{sc_data['base']/1e5:.2f} L"
-                f"</div></div>", unsafe_allow_html=True)
     up = sc_data["plus_5pct"] - sc_data["base"]
     dn = sc_data["minus_5pct"] - sc_data["base"]
+    s1, s2, s3 = st.columns(3)
     s1.markdown(f"<div class='kpi-card'><div class='kpi-label'>Occupancy −5%</div>"
                 f"<div class='kpi-value' style='color:#C0392B'>"
                 f"₹{sc_data['minus_5pct']/1e5:.2f} L</div>"
                 f"<div class='kpi-label'>{dn/1e5:+.2f} L</div></div>",
                 unsafe_allow_html=True)
+    s2.markdown(f"<div class='kpi-card'><div class='kpi-label'>📈 Predicted Revenue "
+                f"(Next Month)</div><div class='kpi-value'>₹{next_rev/1e5:.2f} L"
+                f"</div></div>", unsafe_allow_html=True)
     s3.markdown(f"<div class='kpi-card'><div class='kpi-label'>Occupancy +5%</div>"
                 f"<div class='kpi-value' style='color:#27AE60'>"
                 f"₹{sc_data['plus_5pct']/1e5:.2f} L</div>"
                 f"<div class='kpi-label'>{up/1e5:+.2f} L</div></div>",
                 unsafe_allow_html=True)
-    st.download_button("⬇️ Export multivariate comparison CSV",
-                       comp.to_csv(index=False), "comparison_multivariate.csv",
-                       "text/csv")
     forecast = _load_csv("forecast_multivariate.csv")
 
     if forecast is not None:
@@ -331,11 +327,10 @@ def _segment_names(profile: pd.DataFrame) -> dict[int, str]:
 
 def _exec_summary_items(cleaned, feats) -> list[tuple[str, str, str]]:
     """(icon, label, value) computed from real data + model outputs."""
-    inv = cleaned["invoices"]
-    pm = feats["property_month"]
-    mv = _load_meta_json("model_meta_multivariate.json")
-    latest = inv["billing_period"].max()
-    cur_rev = inv.loc[inv.billing_period == latest, "total_amount"].sum()
+    pm = feats["property_month"].sort_values("billing_period")
+    # Single source of truth: live Ridge multivariate prediction.
+    mv = rmv.predict_live(pm) if len(pm) else None
+    cur_rev = float(pm["revenue"].iloc[-1])          # from property_month, not invoices
     items = [("💰", "Current Revenue (mo)", f"₹{cur_rev/1e5:.1f} L")]
     if mv is not None:
         items.append((
@@ -351,8 +346,7 @@ def _exec_summary_items(cleaned, feats) -> list[tuple[str, str, str]]:
     if occ_fc is not None and len(occ_fc) and "occupancy_pct" in occ_fc.columns:
         items.append(("🔮", "Predicted Occupancy (next mo)",
                       f"{occ_fc['occupancy_pct'].iloc[0]:.1f}%"))
-    mv = _load_meta_json("model_meta_multivariate.json")
-    if mv:
+    if mv is not None:
         items.append(("🔗", "Occupancy↔Revenue Corr",
                       f"{mv['occupancy_revenue_corr']:.2f}"))
     return items
@@ -362,19 +356,24 @@ def _exec_summary_items(cleaned, feats) -> list[tuple[str, str, str]]:
 # Figures
 # --------------------------------------------------------------------------- #
 def _kpis(cleaned, feats):
-    inv = cleaned["invoices"]
-    beds = feats["bed_features"]
-    ex = pd.to_datetime(cleaned["notices"]["estimated_exit_date"], utc=True,
-                        errors="coerce")
-    active_notices = int((ex >= pd.Timestamp.now(tz="UTC")).sum())
+    # Executive Summary KPIs — read ONLY from the latest processed property_month
+    # (Phase-2 feature engineering). No old invoice-sum calculations; every value
+    # is the current (latest) month of property_month and auto-updates with data.
+    pm = feats["property_month"].sort_values("billing_period")
+    m = pm.iloc[-1]
+    # Financial-year (India Apr->Mar) BILLED revenue — real invoice totals only
+    # (ops.financial_year_revenue), auto-detected latest FY. Independent of the
+    # property_month values above; existing KPI logic is unchanged.
+    fy = ops.financial_year_revenue(cleaned["invoices"])
+    # Total historical BILLED revenue — sum of every invoice total_amount across all
+    # available months. Real invoice data only; no collection/payment inference.
+    total_revenue = float(cleaned["invoices"]["total_amount"].sum())
     return {
-        "💰 Total Revenue": f"₹{inv['total_amount'].sum()/1e7:.2f} Cr",
-        "🛏️ Occupancy": f"{_current_occupancy_pct(feats):.1f}%",
-        "🚪 Vacant Beds": f"{int(beds['is_vacant'].sum())}",
-        "📋 Beds on Notice": f"{int(beds['on_notice'].sum())}",
-        "📤 Active Notices": f"{active_notices}",
-        "⚡ Electricity Cost": f"₹{cleaned['electricity']['amount'].sum()/1e5:.0f} L",
-        "🔧 Open Tickets": f"{int((cleaned['tickets']['status'] != 'closed').sum())}",
+        "🏦 Total Revenue": f"₹{total_revenue/1e5:.2f} L",
+        f"📅 FY {fy['fy_label']} Revenue": f"₹{fy['revenue']/1e5:.2f} L",
+        "🛏️ Occupancy %": f"{m['occupancy_pct']:.1f}%",
+        "🧾 Monthly Expenses": f"₹{m['monthly_expenses']/1e5:.2f} L",
+        "📈 Net Revenue": f"₹{m['net_revenue']/1e5:.2f} L",
     }
 
 
@@ -389,18 +388,33 @@ def _figures(cleaned, feats):
         mt, x="month", y="revenue", markers=True,
         title="Monthly Revenue Trend (all months)",
         color_discrete_sequence=[C_ACCENT])
-    figs["electricity"] = px.line(pm, x="month", y="elec_cost", markers=True,
+    # Electricity Cost — kept on the PREVIOUS (pre-migration) electricity data,
+    # NOT migrated to the new sparse readings. Reads the old monthly elec_cost
+    # series (feat_property_month.csv); falls back to live pm only if absent.
+    _old_pm = _load_csv("feat_property_month.csv")
+    if _old_pm is not None and "elec_cost" in _old_pm.columns:
+        _old_pm = _old_pm.copy()
+        _old_pm["month"] = _old_pm["billing_period"].astype(str)
+        _elec_src = _old_pm[["month", "elec_cost"]]
+    else:
+        _elec_src = pm[["month", "elec_cost"]]
+    figs["electricity"] = px.line(_elec_src, x="month", y="elec_cost", markers=True,
                                   title="Electricity Cost",
                                   color_discrete_sequence=[C_WARN])
-    bl = feats["bed_features"]["bed_lifecycle_status"].value_counts().reset_index()
+    # Bed Lifecycle Mix — sourced from live_bed_snapshot.live_status, the SAME
+    # operational source as the Available Beds page, so both pies match exactly.
+    _snap = _live_bed_snapshot(cleaned["bookings"])
+    bl = _snap["live_status"].value_counts().reset_index()
     bl.columns = ["status", "count"]
     figs["beds"] = px.pie(bl, names="status", values="count",
                           title="Bed Lifecycle Mix", hole=0.45,
                           color="status",
-                          color_discrete_map={"occupied": C_PRIMARY,
-                                              "notice": C_RISK,
-                                              "vacant": C_WARN,
-                                              "booked": C_ACCENT})
+                          color_discrete_map={"Occupied": C_PRIMARY,
+                                              "Notice": C_RISK,
+                                              "Notice-Booked": C_MED,
+                                              "Booked": C_ACCENT,
+                                              "Vacant": C_WARN,
+                                              "Inactive": "#7f8c8d"})
     tk = cleaned["tickets"]["issue_type"].value_counts().head(10).reset_index()
     tk.columns = ["issue_type", "count"]
     figs["tickets"] = px.bar(tk, x="count", y="issue_type", orientation="h",
@@ -490,15 +504,18 @@ def run_streamlit():
                        unsafe_allow_html=True)
     st.markdown("")
 
-    tabs = st.tabs([
+    # Sidebar navigation — render ONLY the selected page (single-page behavior).
+    # (Previously st.tabs, which emits every page's content on each run.)
+    PAGES = [
         "📊 Executive Summary", "📈 Revenue Forecast", "🛏️ Occupancy Forecast",
         "🏠 Apartment-wise Forecast", "💰 Financial Overview",
         "👥 Tenant Segmentation", "💡 AI Recommendations",
         "📦 Asset Management", "🚪 Available Beds", "🔧 Maintenance",
-        "🏆 Apartment Performance", "📤 Notice & Exit", "📊 Business Insights"])
+        "🏆 Apartment Performance", "📤 Notice & Exit", "📊 Business Insights"]
+    page = st.sidebar.radio("Navigate", PAGES, index=0)
 
     # 1) Executive Summary ---------------------------------------------------- #
-    with tabs[0]:
+    if page == PAGES[0]:
         kpis = _kpis(cleaned, feats)
         cols = st.columns(len(kpis))
         for col, (k, v) in zip(cols, kpis.items()):
@@ -506,6 +523,43 @@ def run_streamlit():
                          f"<div class='kpi-value'>{v}</div></div>",
                          unsafe_allow_html=True)
         st.markdown("")
+
+        # ---- Financial Year selector (India Apr->Mar) --------------------- #
+        # Revenue per FY from real invoice totals only (ops.revenue_by_financial_year).
+        # The dropdown lists every FY present in the invoice data, so it stays
+        # correct automatically as the database grows. Existing KPI/revenue
+        # calculations above are not touched.
+        fy_tbl = ops.revenue_by_financial_year(cleaned["invoices"])
+        if len(fy_tbl):
+            st.markdown("#### Financial Year Revenue")
+            fy_labels = fy_tbl["fy"].tolist()          # ascending
+            sel = st.selectbox("Select financial year (April–March)",
+                               fy_labels[::-1], index=0, key="exec_fy_select")
+            pos = fy_labels.index(sel)
+            row = fy_tbl.iloc[pos]
+            prev = fy_tbl.iloc[pos - 1] if pos > 0 else None
+            sel_rev = float(row["revenue"])
+            prev_rev = float(prev["revenue"]) if prev is not None else None
+            in_prog = bool(row["in_progress"])
+
+            f1, f2, f3 = st.columns(3)
+            f1.metric(f"FY {sel} Revenue" + (" (in progress)" if in_prog else ""),
+                      f"₹{sel_rev/1e5:.2f} L")
+            if prev_rev:
+                yoy = (sel_rev - prev_rev) / prev_rev * 100
+                f2.metric(f"FY {prev['fy']} Revenue", f"₹{prev_rev/1e5:.2f} L")
+                f3.metric("YoY Growth", f"{yoy:+.1f}%", delta=f"{yoy:+.1f}%")
+            else:
+                f2.metric("Previous FY Revenue", "—")
+                f3.metric("YoY Growth", "—")
+
+            note = (f"FY {sel}: {int(row['months'])} month(s), "
+                    f"{int(row['invoices'])} invoices. Revenue = sum of invoice "
+                    "total_amount (April→March).")
+            if in_prog:
+                note += (" This FY is still in progress, so YoY vs a full prior "
+                         "year is not directly comparable.")
+            st.caption(note)
 
         c1, c2 = st.columns(2)
         c1.plotly_chart(figs["monthly_trend"], use_container_width=True,
@@ -518,7 +572,7 @@ def run_streamlit():
                         config=PLOTLY_CONFIG)
 
     # 2) Revenue Forecast ------------------------------------------------------ #
-    with tabs[1]:
+    if page == PAGES[1]:
        
         # ---- Third model: multivariate revenue + occupancy ----------------- #
         st.markdown("## Revenue Forecast")
@@ -529,11 +583,43 @@ def run_streamlit():
         _render_multivariate(st, feats)
 
     # 3) Occupancy Forecast ---------------------------------------------------- #
-    with tabs[2]:
+    if page == PAGES[2]:
         st.subheader("Occupancy Forecast (Booking-based)")
-        st.caption("Forecast based on real booking history (occupied beds). "
-                    "Occupancy % = Occupied Beds / Total Beds (192).")
+        st.caption("Monthly occupancy from the processed property_month. "
+                   f"Occupancy % = Occupied Beds / Total Beds ({config.TOTAL_BEDS}).")
 
+        # ---- Monthly occupancy from property_month (single source) --------- #
+        opm = feats["property_month"].sort_values("billing_period").copy()
+        opm["month"] = opm["billing_period"].astype(str)
+        olast = opm.iloc[-1]
+        o1, o2, o3 = st.columns(3)
+        o1.metric(f"Occupancy % ({olast['month']})",
+                  f"{olast['occupancy_pct']:.1f}%")
+        # Presentation-only: show the count as "N Beds" (still read dynamically from
+        # olast["occupied_beds"]); explanatory text shows inside the same card,
+        # directly below the value (via the metric delta slot, no arrow/colour).
+        # The underlying value is unchanged.
+        o2.metric("Occupied Beds", f"{int(olast['occupied_beds'])} Beds",
+                  delta="Based on latest monthly booking occupancy",
+                  delta_color="off")
+        o3.metric("Vacant Beds",
+                  f"{int(config.TOTAL_BEDS - olast['occupied_beds'])}")
+
+        def _occ_trend(col, title, color):
+            f = px.line(opm, x="month", y=col, markers=True, title=title,
+                        color_discrete_sequence=[color])
+            f.update_layout(margin=dict(l=10, r=10, t=48, b=10))
+            return f
+
+        tr1, tr2 = st.columns(2)
+        tr1.plotly_chart(_occ_trend("occupancy_pct", "Occupancy % Trend", C_PRIMARY),
+                         use_container_width=True, config=PLOTLY_CONFIG)
+        tr2.plotly_chart(_occ_trend("occupied_beds", "Occupied Beds Trend", C_ACCENT),
+                         use_container_width=True, config=PLOTLY_CONFIG)
+        st.plotly_chart(_occ_trend("active_tenants", "Active Tenants Trend", C_WARN),
+                        use_container_width=True, config=PLOTLY_CONFIG)
+
+        st.markdown("#### Occupancy Forecast")
         occ = _load_csv("forecast_occupancy_pct.csv")
         mae_t = None
         if fs is not None:
@@ -544,9 +630,10 @@ def run_streamlit():
                 c1.metric("Forecast method", row.method.iloc[0])
                 c2.metric("Walk-forward MAPE", f"{row.MAPE.iloc[0]:.1f}%")
                 if occ is not None and len(occ):
+                    # Presentation-only: show the predicted occupancy % only (no bed
+                    # count). Value stays dynamic from the forecast pipeline.
                     c3.metric("Next month Occupancy",
-                              f"{int(occ.iloc[0]['occupied_beds'])} Beds "
-                              f"({occ.iloc[0]['occupancy_pct']:.1f}%)")
+                              f"{occ.iloc[0]['occupancy_pct']:.1f}%")
         fig = _forecast_fig(pm, "forecast_occupancy_pct.csv", "occupied_beds",
                             "Occupied Beds Forecast", mae_t)
         if fig:
@@ -562,64 +649,8 @@ def run_streamlit():
                                fc.to_csv(index=False),
                                "forecast_occupancy_pct.csv", "text/csv")
 
-        # ---- Additional ML cross-check vs Holt-Winters (guarded) ----------- #
-        # Purely additive: only renders if src/occupancy_ml.py outputs exist.
-        # Holt-Winters above stays the primary production forecast.
-        ocmp = _load_csv("occupancy_model_comparison.csv")
-        ometa = _load_meta_json("occupancy_model_metadata.json")
-        if ocmp is not None and ometa is not None:
-            st.markdown("---")
-            st.markdown("### ML cross-check vs Holt-Winters (additional model)")
-            st.caption("Second occupancy model: leakage-safe supervised ML on real "
-                       "monthly property features, walk-forward validated on the same "
-                       "months. Holt-Winters remains the primary forecaster.")
-            g1, g2, g3, g4 = st.columns(4)
-            g1.metric("Primary (production)", "Holt-Winters",
-                      f"MAPE {ometa['hw_mape']:.2f}%")
-            g2.metric(f"Best ML ({ometa['ml_model']})", f"MAPE {ometa['ml_mape']:.2f}%",
-                      delta=f"{ometa['improvement_mape_pct_points']:+.2f} vs HW",
-                      delta_color="normal")
-            g3.metric("Overall winner", ometa["winner"])
-            g4.metric("Next month (ML)",
-                      f"{ometa['next_month_occupied_beds']} Beds "
-                      f"({ometa['next_month_occupancy_pct']:.1f}%)",
-                      help=f"95% range: {ometa['next_month_lower_beds']}–"
-                           f"{ometa['next_month_upper_beds']} beds")
-            st.markdown(f"**ML forecast — {ometa['next_month_period']}: "
-                        f"{ometa['next_month_occupied_beds']} beds "
-                        f"({ometa['next_month_occupancy_pct']:.1f}%)** &nbsp;·&nbsp; "
-                        f"95% range **{ometa['next_month_lower_beds']}–"
-                        f"{ometa['next_month_upper_beds']} beds**.")
-            st.dataframe(
-                ocmp.set_index("Model")[["MAE", "RMSE", "MAPE", "R2"]]
-                    .style.highlight_min(subset=["MAE", "RMSE", "MAPE"],
-                                         color="rgba(42,157,143,.25)"),
-                use_container_width=True)
-            obt = _load_csv("occupancy_backtest_ml.csv")
-            if obt is not None:
-                wf = go.Figure()
-                wf.add_scatter(x=obt.billing_period, y=obt.actual, name="actual",
-                               mode="lines+markers",
-                               line=dict(color=C_PRIMARY, width=3))
-                wf.add_scatter(x=obt.billing_period, y=obt.hw_predicted,
-                               name="Holt-Winters", mode="lines+markers",
-                               line=dict(dash="dash", color=C_RISK))
-                wf.add_scatter(x=obt.billing_period, y=obt.ml_predicted,
-                               name=f"ML ({ometa['ml_model']})", mode="lines+markers",
-                               line=dict(dash="dot", color=C_ACCENT))
-                wf.update_layout(title="Occupied beds — actual vs Holt-Winters vs ML "
-                                       "(walk-forward)", hovermode="x unified",
-                                 margin=dict(l=10, r=10, t=48, b=10))
-                st.plotly_chart(wf, use_container_width=True, config=PLOTLY_CONFIG)
-            oml = _load_csv("forecast_occupancy_ml.csv")
-            if oml is not None:
-                st.download_button("⬇️ Export ML occupancy forecast (with 95% band) CSV",
-                                   oml.to_csv(index=False),
-                                   "forecast_occupancy_ml.csv", "text/csv")
-            st.caption(ometa.get("capacity_note", ""))
-
     # 4) Apartment-wise Forecast ----------------------------------------------- #
-    with tabs[3]:
+    if page == PAGES[3]:
         st.subheader("Apartment-wise electricity forecast")
         st.caption("Electricity is the only real apartment × month series in the "
                    "data (invoices carry no apartment code), so apartment-level "
@@ -646,53 +677,81 @@ def run_streamlit():
             st.info("Run: python -m src.apartment_forecasting")
 
     # 5) Financial Overview ---------------------------------------------------- #
-    with tabs[4]:
+    if page == PAGES[4]:
         st.subheader("Financial Overview")
-        st.caption("Revenue analytics from real invoice data only — billed revenue "
-                   "= sum of invoice totals. No collection or payment figures: the "
-                   "dataset has no real payments/receipts table, so nothing here is "
-                   "inferred.")
-        fyr = ops.financial_year_revenue(cleaned["invoices"])
-        byfy = ops.revenue_by_financial_year(cleaned["invoices"])
+        st.caption("Monthly financial metrics from the processed property_month "
+                   "(Phase-2 feature engineering) — the single source. Charts update "
+                   "automatically as new production months are added.")
+        fpm = feats["property_month"].sort_values("billing_period").copy()
+        fpm["month"] = fpm["billing_period"].astype(str)
+        flast = fpm.iloc[-1]
 
-        c1, c2, c3 = st.columns(3)
-        c1.metric("Current Financial Year", f"FY {fyr['fy_label']}")
-        c2.metric("FY Revenue (billed)", f"₹{fyr['revenue']/1e5:.2f} L")
-        c3.metric("Total Revenue (all-time)",
-                  f"₹{cleaned['invoices']['total_amount'].sum()/1e7:.2f} Cr")
+        # Latest-month KPIs (from property_month — matches Executive Summary).
+        c1, c2, c3, c4, c5 = st.columns(5)
+        c1.metric(f"Revenue ({flast['month']})", f"₹{flast['revenue']/1e5:.2f} L")
+        c2.metric("Collections", f"₹{flast['collections']/1e5:.2f} L")
+        c3.metric("Outstanding", f"₹{flast['outstanding_balance']/1e5:.2f} L")
+        c4.metric("Expenses", f"₹{flast['monthly_expenses']/1e5:.2f} L")
+        c5.metric("Net Revenue", f"₹{flast['net_revenue']/1e5:.2f} L")
 
-        f1 = px.bar(fyr["monthly"], x="month", y="revenue",
-                    title=f"Financial Year Revenue Trend — FY {fyr['fy_label']}",
-                    color_discrete_sequence=[C_PRIMARY])
-        f1.update_layout(margin=dict(l=10, r=10, t=48, b=10))
-        st.plotly_chart(f1, use_container_width=True, config=PLOTLY_CONFIG)
+        def _fin_trend(col, title, color):
+            f = px.line(fpm, x="month", y=col, markers=True, title=title,
+                        color_discrete_sequence=[color])
+            f.update_layout(margin=dict(l=10, r=10, t=48, b=10))
+            return f
 
-        byfy_lbl = byfy.assign(FY=byfy["fy"] + byfy["in_progress"].map(
-            {True: " (in progress)", False: ""}))
-        f3 = px.bar(byfy_lbl, x="FY", y="revenue",
-                    title="Revenue by Financial Year (billed)",
-                    color="in_progress",
-                    color_discrete_map={False: C_PRIMARY, True: C_WARN})
-        f3.update_layout(margin=dict(l=10, r=10, t=48, b=10), showlegend=False)
-        st.plotly_chart(f3, use_container_width=True, config=PLOTLY_CONFIG)
-        st.caption("The latest financial year is still in progress (fewer than 12 "
-                   "months billed), so its bar is not directly comparable to "
-                   "completed years. Financial year auto-detected (Apr–Mar); updates "
-                   "as new invoice data is added.")
+        t1, t2 = st.columns(2)
+        t1.plotly_chart(_fin_trend("revenue", "Monthly Revenue Trend", C_PRIMARY),
+                        use_container_width=True, config=PLOTLY_CONFIG)
+        t2.plotly_chart(_fin_trend("collections", "Collections Trend", C_ACCENT),
+                        use_container_width=True, config=PLOTLY_CONFIG)
+        t3, t4 = st.columns(2)
+        t3.plotly_chart(_fin_trend("monthly_expenses", "Monthly Expenses Trend",
+                                   C_WARN),
+                        use_container_width=True, config=PLOTLY_CONFIG)
+        t4.plotly_chart(_fin_trend("net_revenue", "Net Revenue Trend", C_PRIMARY),
+                        use_container_width=True, config=PLOTLY_CONFIG)
 
-        st.dataframe(byfy[["fy", "revenue", "months", "invoices", "in_progress"]]
-                     .rename(columns={"fy": "Financial Year", "revenue": "Revenue (₹)",
-                                      "months": "Months billed",
-                                      "invoices": "Invoices",
-                                      "in_progress": "In progress"}),
-                     use_container_width=True)
-        st.download_button("⬇️ Export FY revenue summary CSV",
-                           byfy.to_csv(index=False),
-                           "revenue_by_financial_year.csv", "text/csv")
+        # ---- Revenue Forecast: single source of truth = live Ridge multivariate #
+        st.markdown("#### Revenue Forecast")
+        mvfin = rmv.predict_live(feats["property_month"]) \
+            if len(feats["property_month"]) else None
+        if mvfin is not None:
+            m1, m2, m3 = st.columns(3)
+            m1.metric("Forecast model", f"{mvfin['model']} multivariate")
+            m2.metric("Walk-forward MAPE", f"{mvfin['mape']:.2f}%")
+            m3.metric("MAE / RMSE",
+                      f"₹{mvfin['mae']:,.0f} / ₹{mvfin['rmse']:,.0f}")
+            st.caption(f"Next-month revenue forecast: "
+                       f"₹{mvfin['next_month_revenue']/1e5:.2f} L "
+                       f"(model: {mvfin['model']} multivariate, walk-forward MAPE "
+                       f"{mvfin['mape']:.1f}%). Single source of truth — identical "
+                       "to the Revenue Forecast page and AI Recommendations.")
+        # Time-series cross-check (Holt-Winters) kept available for reference.
+        comp = _load_csv("revenue_forecast_comparison.csv")
+        if comp is not None:
+            st.markdown("**Time-series cross-check — Holt-Winters vs ML "
+                        "(from forecasting.py)**")
+            st.dataframe(comp, use_container_width=True)
+
+        st.download_button("⬇️ Export monthly financials CSV",
+                           fpm[["month", "revenue", "collections",
+                                "outstanding_balance", "monthly_expenses",
+                                "net_revenue"]].to_csv(index=False),
+                           "financial_overview_monthly.csv", "text/csv")
 
     # 6) Tenant Segmentation --------------------------------------------------- #
-    with tabs[5]:
+    if page == PAGES[5]:
         st.subheader("Tenant segments — real billing behaviour")
+        # Headline metrics straight from tenant_features (Phase-2 output).
+        tf = feats["tenant_features"]
+        tk1, tk2, tk3 = st.columns(3)
+        tk1.metric("👥 Total Tenants", f"{len(tf):,}")
+        tk2.metric("💰 Avg Lifetime Value", f"₹{tf['ltv_paid'].mean()/1e5:.2f} L")
+        tk3.metric("🏠 Avg Rent / Tenant", f"₹{tf['avg_rent'].mean():,.0f}")
+        st.caption("Tenant count, average revenue and lifetime value from "
+                   "tenant_features; segment groupings from segmentation.py "
+                   "(segmentation logic unchanged).")
         seg = _load_csv("tenant_segments_profile.csv")
         if seg is not None:
             names = _segment_names(seg)
@@ -731,7 +790,7 @@ def run_streamlit():
                                    "tenant_segments.csv", "text/csv")
 
     # 7) AI Recommendations --------------------------------------------------- #
-    with tabs[6]:
+    if page == PAGES[6]:
         st.subheader("💡 AI Recommendations")
         st.caption("Your live business assistant. It summarises the latest structured "
                    "output of every dashboard page (Financial Overview, Occupancy, "
@@ -759,10 +818,9 @@ def run_streamlit():
                 st.markdown(
                     f"<div class='summary-strip'>⚡ <b>Electricity Alert</b><br>"
                     f"Apartment : <b>{r['apartment_code']}</b><br>"
-                    f"Status : {r['status']}<br>"
+                    f"Status : Vacant Apartment Using Power<br>"
                     f"Units Consumed : {int(round(float(r['units_consumed'])))}<br>"
-                    f"Expected Usage : {int(r['expected_units'])}</div>",
-                    unsafe_allow_html=True)
+                    f"Expected Usage : 0</div>", unsafe_allow_html=True)
             st.markdown("")
 
         if not cards:
@@ -785,30 +843,34 @@ def run_streamlit():
                                dfc.to_csv(index=False), "ai_recommendations.csv",
                                "text/csv")
 
-        # Transparency: the live page metrics this summary is built from.
-        with st.expander("📊 Live dashboard metrics behind this summary"):
-            fin = outputs["financial"]["fy"]
-            occ = outputs["occupancy"]
-            rf = outputs["revenue_forecast"]
-            nt = outputs["notices"]
-            ms = outputs["maintenance"]
-            bd = outputs["beds"]
-            src = {
-                "Financial Overview": f"FY {fin['fy_label']} revenue "
-                                      f"₹{fin['revenue']/1e5:.1f} L",
-                "Revenue Forecast": (f"next month ₹{rf['next_month_revenue']/1e5:.1f} L"
-                                     if rf else "n/a"),
-                "Occupancy": (f"current {occ['current_pct']:.1f}%"
-                              if occ["current_pct"] is not None else "n/a"),
-                "Notice & Exit": f"{int(nt.get('upcoming_exits', 0))} upcoming exits",
-                "Maintenance": f"{int(ms.get('open', 0))} open tickets",
-                "Available Beds": f"{int(bd.get('vacant_beds', 0))} vacant beds",
-            }
-            st.table(pd.DataFrame({"Dashboard page": list(src),
-                                   "Latest metric": list(src.values())}))
+        # Transparency: the live processed metrics this summary is built from.
+        with st.expander("📊 Live processed metrics behind this summary"):
+            opm = outputs.get("property_month")
+            ovac = outputs.get("vacant_beds_operational")
+            ona = outputs.get("notices_active")
+            oms = outputs.get("maintenance") or {}
+            ofs = outputs.get("forecast_summary")
+            src = {}
+            if opm is not None and len(opm):
+                lastp = opm.sort_values("billing_period").iloc[-1]
+                src["property_month (latest)"] = (
+                    f"revenue ₹{lastp['revenue']/1e5:.1f} L · "
+                    f"occupancy {lastp['occupancy_pct']:.1f}%")
+            if ovac is not None:
+                src["live_bed_snapshot"] = f"{int(ovac)} vacant beds (operational)"
+            if ona is not None:
+                src["notices (active)"] = f"{len(ona)} active notices"
+            if oms:
+                src["tickets"] = f"{int(oms.get('open', 0))} open tickets"
+            if ofs is not None and len(ofs[ofs['series'] == 'revenue']):
+                fr = ofs[ofs['series'] == 'revenue'].iloc[0]
+                src["forecasting outputs"] = (
+                    f"next-month revenue ₹{float(fr['next_month'])/1e5:.1f} L")
+            st.table(pd.DataFrame({"Processed source": list(src),
+                                   "Latest value": list(src.values())}))
 
     # 8) Asset Management ------------------------------------------------------ #
-    with tabs[7]:
+    if page == PAGES[7]:
         st.subheader("Asset Management")
         a = ops.assets_summary(cleaned["assets"])
         _kpi_cards(st, [
@@ -867,53 +929,98 @@ def run_streamlit():
                    f"in inventory (not yet allocated).")
 
     # 9) Available Beds -------------------------------------------------------- #
-    with tabs[8]:
+    if page == PAGES[8]:
         st.subheader("Available Beds")
-        ba = ops.bed_availability(cleaned["beds_snapshot"])
+        # Single source for cards + charts: six mutually exclusive live states.
+        live_bed_snapshot = _live_bed_snapshot(cleaned["bookings"])
+        live = _live_bed_kpis_from_snapshot(live_bed_snapshot)
+        total_beds = live["total_beds"]
+        operational_beds = live["operational_beds"]
+        occupied_beds = live["occupied_beds"]
+        notice_beds = live["notice_beds"]
+        notice_booked_beds = live["notice_booked_beds"]
+        booked_beds = live["booked_beds"]
+        inactive_beds = live["inactive_beds"]
+        vacant = live["vacant"]
+        occ_pct = live["occ_pct"]
+        vac_opp = float(
+            live_bed_snapshot.loc[live_bed_snapshot["is_vacant"] == 1,
+                                  "current_rate"].fillna(0).sum())
         _kpi_cards(st, [
-            ("🛏️ Total Beds", f"{ba['total_beds']}"),
-            ("🚪 Vacant Beds", f"{ba['vacant_beds']}"),
-            ("📊 Occupancy", f"{ba['occupancy_pct']}%"),
-            ("💰 Vacant Revenue Opportunity",
-             f"₹{ba['vacant_revenue_opportunity']/1e5:.2f} L/mo"),
+            ("🛏️ Total Beds", f"{total_beds}"),
+            ("⚙️ Operational", f"{operational_beds}"),
+            ("👤 Occupied", f"{occupied_beds}"),
+            ("📢 Notice", f"{notice_beds}"),
+            ("🔁 Notice-Booked", f"{notice_booked_beds}"),
+            ("📅 Booked", f"{booked_beds}"),
+            ("🚫 Inactive", f"{inactive_beds}"),
+            ("🚪 Vacant", f"{vacant}"),
+            ("📊 Occupancy %", f"{occ_pct:.1f}%"),
         ])
-        st.caption("Floor-wise vacancy is not available (no floor column); vacancy "
-                   "is shown **block-wise** from the apartment-code prefix. Historical "
-                   "vacancy trend is not possible — beds are a current snapshot.")
+        st.caption("Live bed snapshot — six mutually exclusive states "
+                   "(Occupied / Notice / Notice-Booked / Booked / Inactive / Vacant). "
+                   f"Vacant = Operational ({operational_beds}) − Occupied − Notice − "
+                   "Notice-Booked − Booked. Cards and charts share this source.")
         c1, c2 = st.columns(2)
-        f1 = px.pie(ba["lifecycle"], names="status", values="count", hole=0.45,
-                    title="Bed Lifecycle Mix",
-                    color="status", color_discrete_map={"occupied": C_PRIMARY,
-                    "notice": C_RISK, "vacant": C_WARN, "booked": C_ACCENT})
-        f2 = px.bar(ba["by_block"], x="block", y="vacancy_pct",
-                    title="Vacancy % by Block", color="vacancy_pct",
-                    color_continuous_scale="OrRd")
+        lc = live_bed_snapshot["live_status"].value_counts().reset_index()
+        lc.columns = ["status", "count"]
+        f1 = px.pie(lc, names="status", values="count", hole=0.45,
+                    title="Bed Lifecycle Mix", color="status",
+                    color_discrete_map={"Occupied": C_PRIMARY, "Notice": C_RISK,
+                                        "Notice-Booked": C_MED, "Booked": C_ACCENT,
+                                        "Vacant": C_WARN, "Inactive": "#7f8c8d"})
+        op = live_bed_snapshot[live_bed_snapshot["live_status"] != "Inactive"]
+        blk = (op.groupby("block", as_index=False)
+               .agg(total=("bed_id", "count"),
+                    vacant=("is_vacant", "sum")))
+        blk["vacancy_pct"] = (blk["vacant"] / blk["total"] * 100).round(1)
+        f2 = px.bar(blk.sort_values("vacancy_pct", ascending=False),
+                    x="block", y="vacancy_pct", title="Vacancy % by Block",
+                    color="vacancy_pct", color_continuous_scale="OrRd")
         f1.update_layout(margin=dict(l=10, r=10, t=48, b=10))
         f2.update_layout(margin=dict(l=10, r=10, t=48, b=10))
         c1.plotly_chart(f1, use_container_width=True, config=PLOTLY_CONFIG)
         c2.plotly_chart(f2, use_container_width=True, config=PLOTLY_CONFIG)
-        apt_v = ba["by_apartment"]
-        apt_v = apt_v[apt_v["vacant"] > 0]
-        f3 = px.bar(apt_v, x="apartment_code", y="vacant",
+        _tenant_states = ["Occupied", "Notice", "Notice-Booked"]
+        apt = (live_bed_snapshot.groupby("apartment_code", as_index=False)
+               .agg(vacant_beds=("is_vacant", "sum"),
+                    total_beds=("bed_id", "count"),
+                    inactive_beds=("is_inactive", "sum"),
+                    occupied_now=("live_status",
+                                  lambda s: int(s.isin(_tenant_states).sum()))))
+        apt["operational_beds"] = apt["total_beds"] - apt["inactive_beds"]
+        apt["occupancy_pct"] = np.where(
+            apt["operational_beds"] > 0,
+            (apt["occupied_now"] / apt["operational_beds"] * 100).round(1),
+            0.0)
+        apt_v = apt[apt["vacant_beds"] > 0].sort_values(
+            "vacant_beds", ascending=False)
+        f3 = px.bar(apt_v, x="apartment_code", y="vacant_beds",
                     title="Vacant Beds by Apartment",
                     color_discrete_sequence=[C_RISK])
         f3.update_layout(margin=dict(l=10, r=10, t=48, b=10))
         st.plotly_chart(f3, use_container_width=True, config=PLOTLY_CONFIG)
-        blocks = st.multiselect("Filter block",
-                                sorted(ba["by_block"]["block"].dropna().unique()))
-        vt = ba["vacant_table"].copy()
-        if blocks:
-            vt = vt[vt["apartment_code"].str[0].isin(blocks)]
-        st.dataframe(vt, use_container_width=True, height=300)
-        st.download_button("⬇️ Export vacant beds CSV", vt.to_csv(index=False),
-                           "vacant_beds.csv", "text/csv")
-        st.caption(f"**Summary:** {ba['vacant_beds']} of {ba['total_beds']} beds "
-                   f"vacant ({100-ba['occupancy_pct']:.1f}%), a monthly revenue "
-                   f"opportunity of ₹{ba['vacant_revenue_opportunity']/1e5:.2f} L "
-                   f"if filled at current rates.")
+
+        occ_map = apt.set_index("apartment_code")["occupancy_pct"]
+        tbl = live_bed_snapshot[["apartment_code", "bed_code", "live_status",
+                                 "current_rate", "is_vacant"]].copy()
+        tbl["occupancy_pct"] = tbl["apartment_code"].map(occ_map)
+        only_vac = st.checkbox("Show only vacant beds", value=True)
+        view = (tbl[tbl["is_vacant"] == 1] if only_vac else tbl)[
+            ["apartment_code", "bed_code", "live_status", "current_rate",
+             "occupancy_pct"]].rename(columns={
+                "apartment_code": "Apartment Code", "bed_code": "Bed Code",
+                "live_status": "Bed Status", "current_rate": "Monthly Rent",
+                "occupancy_pct": "Occupancy %"})
+        st.dataframe(view, use_container_width=True, height=320)
+        st.download_button("⬇️ Export beds CSV", view.to_csv(index=False),
+                           "available_beds.csv", "text/csv")
+        st.caption(f"**Summary:** {vacant} of {operational_beds} operational beds vacant "
+                   f"({vacant/operational_beds*100:.1f}%); {inactive_beds} inactive. "
+                   f"Vacant revenue opportunity ₹{vac_opp/1e5:.2f} L/mo.")
 
     # 10) Maintenance Performance ----------------------------------------------- #
-    with tabs[9]:
+    if page == PAGES[9]:
         st.subheader("Maintenance Performance")
         ms = ops.maintenance_summary(cleaned["tickets"])
         _kpi_cards(st, [
@@ -962,7 +1069,7 @@ def run_streamlit():
                    f"({ms['by_issue'].iloc[0]['count']}).")
 
     # 11) Apartment Performance ------------------------------------------------- #
-    with tabs[10]:
+    if page == PAGES[10]:
         st.subheader("Apartment Performance & Health Score")
         ap = ops.apartment_performance(cleaned["electricity"], cleaned["tickets"],
                                        cleaned["beds_snapshot"])
@@ -1009,16 +1116,26 @@ def run_streamlit():
                    f"({int(ap['complaints'].max())}).")
 
     # 12) Notice & Exit --------------------------------------------------------- #
-    with tabs[11]:
+    if page == PAGES[11]:
         st.subheader("Notice & Exit Analytics")
-        na = ops.notice_analytics(cleaned["notices"])
+        na = ops.notice_analytics(cleaned["notices"])   # full history (for charts)
+        # KPIs use ONLY active/upcoming notices (exit still in the future).
+        nn = cleaned["notices"].copy()
+        _ex = pd.to_datetime(nn["estimated_exit_date"], utc=True, errors="coerce")
+        _now = pd.Timestamp.now(tz="UTC")
+        active_mask = _ex >= _now
+        active_notices = int(active_mask.sum())
+        upcoming_30 = int(((_ex >= _now) & (_ex <= _now + pd.Timedelta(days=30))).sum())
+        rev_at_risk = float(nn.loc[active_mask, "monthly_rental"].sum())
         _kpi_cards(st, [
-            ("📋 Total Notices", f"{na['total_notices']}"),
-            ("🚪 Upcoming Exits", f"{na['upcoming_exits']}"),
-            ("💸 Monthly Revenue Impact",
-             f"₹{na['monthly_revenue_impact']/1e5:.2f} L"),
+            ("📋 Active Notices", f"{active_notices}"),
+            ("🚪 Upcoming Exits (30d)", f"{upcoming_30}"),
+            ("💸 Expected Revenue at Risk", f"₹{rev_at_risk/1e5:.2f} L"),
             ("📅 Avg Notice Period", f"{na['avg_notice_days']:.0f} days"),
         ])
+        st.caption(f"KPIs count only active/upcoming notices ({active_notices} of "
+                   f"{len(nn)} total). Completed notices are excluded from KPIs but "
+                   "remain in the history charts and tables below.")
         st.info("ℹ️ **Notice reasons are not shown** — the notices dataset has no "
                 "reason/remarks column.")
         c1, c2 = st.columns(2)
@@ -1047,69 +1164,133 @@ def run_streamlit():
                    f"across {na['total_notices']} notices.")
 
     # 13) Business Insights ----------------------------------------------------- #
-    with tabs[12]:
+    if page == PAGES[12]:
         st.subheader("📊 Business Insights")
-        st.caption("Actionable insights from real data only. Per-apartment occupancy "
-                   "is the current bed snapshot (the dataset has no per-apartment "
-                   "occupancy history); peak-month occupancy uses the real monthly "
-                   "booking series. Nothing is estimated — unavailable metrics show "
-                   "“Not Available”.")
-        bi = ops.business_insights(cleaned, feats)
+        st.caption("Apartment insights from the Phase-2 outputs — apartment_features "
+                   "(current bed snapshot) and property_month. Per-apartment occupancy "
+                   "is the CURRENT snapshot only (no historical apartment bookings). "
+                   "Unavailable metrics show “Not Available”.")
+        af = feats["apartment_features"].copy()
+        bpm = feats["property_month"].sort_values("billing_period")
+        bf = feats["bed_features"].copy()
+        NA = "Not Available"
 
         c1, c2 = st.columns(2)
-        mb = bi["most_booked"]
-        if mb:
+        # 1) Highest Current Occupancy Apartment — apartment_features (snapshot).
+        if len(af):
+            top = af.sort_values(["occupancy_pct", "occupied_beds"],
+                                 ascending=False).iloc[0]
             c1.markdown(
                 f"<div class='kpi-card'><div class='kpi-label'>🏆 Highest Current "
-                f"Occupancy Apartment</div><div class='kpi-value'>{mb['apartment']}"
-                f"</div>"
-                f"<div class='kpi-label'>Block {mb['block']} · "
-                f"{mb['occupancy_pct']:.1f}% occupancy · {mb['active_beds']} active "
-                f"beds</div></div>", unsafe_allow_html=True)
+                f"Occupancy Apartment</div><div class='kpi-value'>"
+                f"{top['apartment_code']}</div><div class='kpi-label'>"
+                f"{top['occupancy_pct']:.1f}% · {int(top['occupied_beds'])}/"
+                f"{int(top['total_beds'])} beds (current snapshot)</div></div>",
+                unsafe_allow_html=True)
         else:
             c1.markdown("<div class='kpi-card'><div class='kpi-label'>🏆 Highest "
-                        "Current Occupancy Apartment</div><div class='kpi-value'>Not "
-                        "Available</div></div>", unsafe_allow_html=True)
-        pk = bi["peak_month"]
-        if pk:
+                        "Current Occupancy Apartment</div><div class='kpi-value'>"
+                        f"{NA}</div></div>", unsafe_allow_html=True)
+        # 2) Peak Occupancy Month — property_month.
+        if "occupancy_pct" in bpm.columns and bpm["occupancy_pct"].notna().any():
+            pk = bpm.loc[bpm["occupancy_pct"].idxmax()]
             c2.markdown(
                 f"<div class='kpi-card'><div class='kpi-label'>📈 Peak Occupancy "
-                f"Month</div><div class='kpi-value'>{pk['month']}</div>"
+                f"Month</div><div class='kpi-value'>{str(pk['billing_period'])}</div>"
                 f"<div class='kpi-label'>{pk['occupancy_pct']:.1f}% · "
-                f"{pk['occupied_beds']}/{pk['total_beds']} beds</div></div>",
+                f"{int(pk['occupied_beds'])}/{config.TOTAL_BEDS} beds</div></div>",
                 unsafe_allow_html=True)
         else:
             c2.markdown("<div class='kpi-card'><div class='kpi-label'>📈 Peak "
-                        "Occupancy Month</div><div class='kpi-value'>Not Available"
-                        "</div></div>", unsafe_allow_html=True)
+                        f"Occupancy Month</div><div class='kpi-value'>{NA}</div>"
+                        "</div>", unsafe_allow_html=True)
         st.markdown("")
 
-        # 🏚️ Longest vacant rooms/beds — duration not in data, list vacant beds.
-        st.markdown("#### 🏚️ Vacant Rooms / Beds")
-        vb = bi["vacant_beds"]
-        if len(vb):
-            st.caption("Vacancy duration is not stored in the dataset (beds are a "
-                       "current snapshot), so it shows “Not Available”. Listing the "
-                       "currently vacant beds instead.")
-            st.dataframe(vb, use_container_width=True, height=280)
-        else:
-            st.success("No vacant beds right now.")
+        # 3) Vacant Apartments / Beds — presentation sourced from live_bed_snapshot
+        # so this section is IDENTICAL to the Available Beds dashboard's operational
+        # vacancy. It intentionally does NOT use apartment_features/bed_features
+        # vacancy here. No backend calculation, feature or health-score is changed;
+        # apartment_features/bed_features/property_month remain untouched and are
+        # still used by every other Business Insights metric above/below.
+        live_snap = _live_bed_snapshot(cleaned["bookings"])
+        _tenant_states = ["Occupied", "Notice", "Notice-Booked"]
+        _apt = (live_snap.groupby("apartment_code", as_index=False)
+                .agg(vacant_beds=("is_vacant", "sum"),
+                     total_beds=("bed_id", "count"),
+                     inactive_beds=("is_inactive", "sum"),
+                     occupied_now=("live_status",
+                                   lambda s: int(s.isin(_tenant_states).sum()))))
+        _apt["operational_beds"] = _apt["total_beds"] - _apt["inactive_beds"]
+        _apt["occupancy_pct"] = np.where(
+            _apt["operational_beds"] > 0,
+            (_apt["occupied_now"] / _apt["operational_beds"] * 100).round(1),
+            0.0)
 
-        # 💰 Rent increase opportunity — recommendation only, no rent calculation.
-        st.markdown("#### 💰 Rent Increase Opportunity")
-        ro = bi["rent_opportunity"]
-        if len(ro):
-            st.dataframe(ro, use_container_width=True, height=240)
+        st.markdown("#### 🏚️ Vacant Apartments / Beds")
+        st.caption("Operational vacancy uses the same live bed classification as the "
+                   "Available Beds dashboard (live_bed_snapshot), so both tabs match.")
+        va = (_apt[_apt["vacant_beds"] > 0]
+              .sort_values("vacant_beds", ascending=False)
+              [["apartment_code", "vacant_beds", "occupancy_pct"]].copy())
+        va["Status"] = "Vacant"
+        va = va.rename(columns={"apartment_code": "Apartment",
+                                "vacant_beds": "Vacant Beds",
+                                "occupancy_pct": "Occupancy %"})
+        if len(va):
+            st.dataframe(va, use_container_width=True, height=240)
         else:
-            st.info("No apartment is currently above 95% occupancy — Not Available.")
+            st.success("No operational vacant beds right now.")
 
-        # 📉 Low demand apartments — most vacant beds.
-        st.markdown("#### 📉 Low Demand Apartments")
-        ld = bi["low_demand"]
-        if len(ld):
-            st.dataframe(ld, use_container_width=True, height=280)
+        # Inactive inventory shown separately (all-Not-Active beds, e.g. A22).
+        inact = (_apt[_apt["inactive_beds"] > 0]
+                 .sort_values("inactive_beds", ascending=False)
+                 [["apartment_code", "inactive_beds"]].copy())
+        if len(inact):
+            inact["Status"] = "Inactive"
+            inact = inact.rename(columns={"apartment_code": "Apartment",
+                                          "inactive_beds": "Inactive Beds"})
+            st.caption("Inactive inventory (Not-Active beds, excluded from "
+                       "operational vacancy):")
+            st.dataframe(inact, use_container_width=True, height=140)
+
+        vbeds = (live_snap[live_snap["live_status"] == "Vacant"]
+                 [["apartment_code", "bed_code", "live_status",
+                   "current_rate"]].copy())
+        if len(vbeds):
+            vbeds["Estimated Vacant Duration"] = NA          # not in the data
+            st.caption("Vacancy duration is not stored in the data — shown as "
+                       f"“{NA}”. Currently vacant operational beds "
+                       "(from live_bed_snapshot):")
+            st.dataframe(vbeds.rename(columns={
+                "apartment_code": "Apartment", "bed_code": "Bed Code",
+                "live_status": "Current Status", "current_rate": "Monthly Rent"}),
+                use_container_width=True, height=220)
+
+        # 4) Rent Review Opportunity — apartment_features, occupancy >= 95%.
+        st.markdown("#### 💰 Rent Review Opportunity")
+        high = af[af["occupancy_pct"] >= 95].sort_values(
+            "occupancy_pct", ascending=False).copy()
+        if len(high):
+            high["Current Status"] = np.where(high["occupancy_pct"] >= 100,
+                                              "Fully Occupied", "Highly Occupied")
+            st.dataframe(high[["apartment_code", "occupancy_pct", "Current Status"]]
+                         .rename(columns={"apartment_code": "Apartment",
+                                          "occupancy_pct": "Occupancy %"}),
+                         use_container_width=True, height=240)
+            st.caption("Apartment is currently highly occupied. Monitor future "
+                       "occupancy before considering a rent revision.")
         else:
-            st.success("No apartment has vacant beds right now.")
+            st.info(f"No apartment is currently ≥95% occupied — {NA}.")
+
+        # 5) Low Occupancy Apartments — apartment_features (lowest occupancy).
+        st.markdown("#### 📉 Low Occupancy Apartments")
+        low = (af.sort_values("occupancy_pct", ascending=True).head(10)
+               [["apartment_code", "occupied_beds", "total_beds", "occupancy_pct"]]
+               .rename(columns={"apartment_code": "Apartment",
+                                "occupied_beds": "Occupied Beds",
+                                "total_beds": "Total Beds",
+                                "occupancy_pct": "Occupancy %"}))
+        st.dataframe(low, use_container_width=True, height=300)
 
 
 # --------------------------------------------------------------------------- #

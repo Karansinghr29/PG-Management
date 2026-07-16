@@ -1,9 +1,9 @@
 FeatureSet,Model,MAE,RMSE,MAPE,R2
-Revenue+Occupancy,Ridge,137796.37,172170.79,4.73,0.38
-RevenueOnly,LinearRegression,141308.95,190115.85,4.81,0.24
-RevenueOnly,Ridge,142274.15,180387.7,4.87,0.32
-Revenue+Occupancy,RandomForest,155537.85,180454.19,5.29,0.32
-RevenueOnly,RandomForest,165291.97,203887.42,5.67,0.13
-Revenue+Occupancy,XGBoost,171251.56,195774.09,5.82,0.2
-RevenueOnly,XGBoost,179199.65,214128.04,6.11,0.04
-Revenue+Occupancy,LinearRegression,322929.35,529479.54,10.37,-4.87
+Revenue+Occupancy,Ridge,119273.16,153172.06,4.08,0.58
+RevenueOnly,LinearRegression,120692.06,166745.81,4.09,0.51
+RevenueOnly,Ridge,124811.51,165425.83,4.26,0.51
+Revenue+Occupancy,RandomForest,149873.0,178638.88,5.05,0.43
+Revenue+Occupancy,XGBoost,153557.58,176645.93,5.22,0.45
+RevenueOnly,XGBoost,163263.69,198636.58,5.57,0.3
+RevenueOnly,RandomForest,165336.58,205219.64,5.62,0.25
+Revenue+Occupancy,LinearRegression,181969.68,233547.03,6.06,0.03

@@ -119,11 +119,15 @@ def model_bank(task: str) -> dict:
 # training on the future to predict the past (temporal leakage).
 def _xy_late_payment(feats):
     df = feats["invoice_features"]
-    # DROP identifiers and post-hoc fields. prior_* are legit lagged history.
-    drop = ["invoice_id", "tenant_id", "property_id", "billing_month",
-            "billing_period", "is_unpaid"]
+    # Leakage-safe KEEP list. The new invoices carry UUIDs, datetimes and the
+    # realised payment fields (status/amount_paid/balance) that ARE the target,
+    # so we select only pre-payment drivers instead of dropping a few columns.
     y = df["is_unpaid"]
-    X = df.drop(columns=drop)
+    keep = ["rent_amount", "electricity_amount", "other_charges", "credit_days",
+            "month_num", "year", "quarter", "prior_invoices", "prior_unpaid",
+            "prior_unpaid_ratio", "is_new_tenant", "elec_share",
+            "has_other_charges", "rent_growth"]
+    X = df[[c for c in keep if c in df.columns]]
     order = df["billing_period"]
     return X, y, "classification", order
 
@@ -156,6 +160,18 @@ PROBLEMS = {
     "monthly_revenue": _xy_monthly_revenue,
     "electricity_cost": _xy_electricity,
 }
+
+# Tenant / occupancy COUNT predictions must never exceed physical bed capacity.
+_CAPACITY_TARGETS = {"active_tenants", "active_tenants_occ", "occupied_beds",
+                     "occupancy"}
+
+
+def _cap_capacity(name: str, pred, task: str):
+    """Cap any tenant/occupancy-count regression prediction at the physical bed
+    capacity (config.TOTAL_BEDS). Inert for non-count targets."""
+    if task == "regression" and name in _CAPACITY_TARGETS:
+        return np.minimum(np.asarray(pred, dtype=float), config.TOTAL_BEDS)
+    return pred
 
 
 # --------------------------------------------------------------------------- #
@@ -193,7 +209,7 @@ def run_problem(name: str, feats: dict) -> pd.DataFrame:
     for mname, model in model_bank(task).items():
         pipe = _build_pipeline(model, X)
         pipe.fit(X_tr, y_tr)
-        pred = pipe.predict(X_te)
+        pred = _cap_capacity(name, pipe.predict(X_te), task)
         if task == "regression":
             m = utils.regression_metrics(y_te, pred)
         else:

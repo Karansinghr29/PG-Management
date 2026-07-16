@@ -12,7 +12,7 @@ from pathlib import Path
 # Paths
 # --------------------------------------------------------------------------- #
 ROOT = Path(__file__).resolve().parent
-RAW_DIR = ROOT.parent                  # the folder holding the source CSVs
+RAW_DIR = ROOT.parent / "Data"         # new production datasets live in ./Data
 OUT_DIR = ROOT / "outputs"
 FIG_DIR = OUT_DIR / "figures"
 MODEL_DIR = OUT_DIR / "models"
@@ -26,45 +26,63 @@ for _d in (OUT_DIR, FIG_DIR, MODEL_DIR, REPORT_DIR):
 #   The uploads are named "Supabase Snippet Untitled query (N).csv".
 #   We give each a business name so the rest of the code is readable.
 # --------------------------------------------------------------------------- #
+# Only files that PHYSICALLY exist in the new Data/ folder are listed here.
+# beds_snapshot, beds_catalog and notices no longer exist as files — they are
+# DERIVED in preprocessing from the bookings dataset.
 RAW_FILES = {
-    "invoices":     "Supabase Snippet Untitled query (6).csv",   # billing fact table
-    "electricity":  "Supabase Snippet Untitled query (7).csv",   # apartment-month EB usage
-    "beds_snapshot": "Supabase Snippet Untitled query (8).csv",  # current bed occupancy
-    "notices":      "Supabase Snippet Untitled query (10).csv",  # exit notices
-    "beds_catalog": "Supabase Snippet Untitled query (15).csv",  # bed inventory + pricing
-    "assets":       "Supabase Snippet Untitled query (16).csv",  # physical assets
-    "meters":       "Supabase Snippet Untitled query (17).csv",  # EB meter master
-    "tickets":      "Supabase Snippet Untitled query (18).csv",  # maintenance tickets
-    "bookings":     "Supabase Snippet Untitled query (20).csv",  # booking / stay history
+    "invoices":    "Supabase Snippet Untitled query (28).csv",  # billing fact table
+    "bookings":    "Supabase Snippet Untitled query (22).csv",  # booking / stay history
+    "electricity": "Supabase Snippet Untitled query (26).csv",  # EB meter readings
+    "meters":      "Supabase Snippet Untitled query (26).csv",  # EB meter master (same file)
+    "eb_bills":    "Supabase Snippet Untitled query (25).csv",  # EB bill payments
+    "tickets":     "Supabase Snippet Untitled query (24).csv",  # maintenance tickets
+    "assets":      "Supabase Snippet Untitled query (27).csv",  # physical assets
+    "tenants":     "Supabase Snippet Untitled query (23).csv",  # tenant master (KYC/rating)
+    "payments":    "Supabase Snippet Untitled query (29).csv",  # payments / receipts ledger
+    "expenses":    "Supabase Snippet Untitled query (30).csv",  # expenses ledger
 }
 
-TOTAL_BEDS = 192   # physical bed capacity (distinct bed_id in booking history)
+TOTAL_BEDS = 192   # physical bed capacity
 
 # --------------------------------------------------------------------------- #
-# Column roles (used by preprocessing / EDA)
+# Column roles (used by preprocessing)
 # --------------------------------------------------------------------------- #
 DATE_COLS = {
-    "invoices": [],                       # billing_month is a period string
-    "notices": ["notice_date", "estimated_exit_date"],
+    "invoices": ["invoice_date", "due_date", "created_at"],  # billing_month -> period
+    "bookings": ["onboarding_date", "estimated_exit_date", "actual_exit_date",
+                 "notice_date"],
     "tickets": ["created_at", "sla_deadline", "resolved_at", "closed_at"],
-    "assets": ["purchase_date", "warranty_expiry"],
-    "bookings": ["booking_date", "onboarding_date", "estimated_exit_date",
-                 "actual_exit_date", "notice_date"],
+    "assets": ["purchase_date", "warranty_expiry", "invoice_date"],
+    "electricity": ["reading_date"],
+    "eb_bills": ["bill_date", "payment_date", "billing_period_start",
+                 "billing_period_end"],
+    "payments": ["payment_date", "created_at"],
+    "expenses": ["expense_date", "created_at"],
+    "tenants": ["created_at", "date_of_joining", "rating_last_computed"],
+    # derived tables:
+    "notices": ["notice_date", "estimated_exit_date"],
 }
 
-# Columns that are 100% null / constant in the raw data -> drop on load.
+# Columns dropped on load only when present (drop_dead_cols is null-safe).
 DEAD_COLS = {
-    "assets": ["apartment_code", "warranty_expiry"],
     "meters": ["eb_card_number", "eb_consumer_number", "eb_sanctioned_load"],
     "tickets": ["assigned_to"],
-    "bookings": ["expected_payment_date", "kyc_front_url", "kyc_back_url"],
 }
 
 # Categorical text columns that need case normalisation.
 CASE_NORMALISE = {
-    "beds_snapshot": ["gender_allowed"],
-    "beds_catalog": ["gender_allowed"],
     "tickets": ["priority"],
+    "bookings": ["staying_status"],
+    "tenants": ["staying_status"],
+}
+
+# staying_status -> bed_lifecycle_status (used when deriving the bed snapshot).
+STAYING_STATUS_MAP = {
+    "staying": "occupied",
+    "on-notice": "notice",
+    "booked": "booked",
+    "new": "booked",
+    "exited": "vacant",
 }
 
 # --------------------------------------------------------------------------- #

@@ -1,5 +1,5 @@
-series,method,MAE,MAPE,windows,next_month
-revenue,seasonal_naive,120289.5,3.88,6,3096351.0
-active_tenants,seasonal_naive,11.2,6.19,6,199.0
-elec_cost,holt_winters,17389.8,5.23,6,412260.4
-occupied_beds,holt_winters,3.7,2.14,6,192.0
+series,method,MAE,RMSE,MAPE,windows,next_month
+revenue,holt_winters,86815.7,100390.8,2.78,6,3327880.7
+active_tenants,seasonal_naive,8.7,12.0,4.75,6,199.0
+elec_cost,holt_winters,104300.1,254214.1,100.0,6,0.0
+occupied_beds,holt_winters,3.7,4.9,2.14,6,192.0

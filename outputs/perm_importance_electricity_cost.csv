@@ -1,9 +1,9 @@
 ,0
-units_consumed,2.028507787412096
-apartment_code,5.943834024160211e-05
-abs_deviation,2.92126094402656e-05
-high_usage_flag,1.8381393986577343e-05
-year,1.0124150027190915e-05
-unit_cost,0.0
-month_num,-2.771795140965594e-07
-apt_avg_units,-4.440904423663738e-06
+apt_avg_units,0.5933825586278846
+units_consumed,0.5933825586278842
+month_num,0.0
+year,0.0
+high_usage_flag,0.0
+abs_deviation,0.0
+apartment_code,0.0
+unit_cost,-0.00023398925757873724

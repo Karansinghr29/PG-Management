@@ -187,6 +187,65 @@ def run():
     return comp
 
 
+def predict_live(pm=None, model_name: str = "Ridge", steps: int = 6) -> dict:
+    """Live multivariate revenue prediction — NO file writes, NO plots.
+
+    Single source of truth for the Ridge multivariate next-month revenue shown on
+    the Revenue Forecast KPI card, AI Recommendations and Financial Overview.
+    Fixed to the Ridge multivariate model (Option A). Uses the exact same frame,
+    walk-forward windows and recursive future-forecast logic as ``run`` so the
+    number matches the persisted model output, but is recomputed live from the
+    passed ``property_month`` (never reads model_meta_multivariate.json).
+
+    The headline ``next_month_revenue`` (first future step) depends only on the
+    live property_month (its occupancy lag is the last observed month), so it
+    tracks the data automatically. Returns model, walk-forward MAE/RMSE/MAPE,
+    next_month_revenue, ±5% scenario, occupancy↔revenue correlation and the
+    6-month future frame.
+    """
+    if pm is None:
+        pm = fe.build_all()["property_month"]
+    df = _frame(pm)
+    usable = df.dropna(subset=MULTI_FEATURES).index.to_numpy()
+    test_idx = usable[usable >= len(df) - N_TEST]
+    test_idx = [i for i in test_idx if len([u for u in usable if u < i]) >= 6]
+    actuals = df.loc[test_idx, TARGET].to_numpy(float)
+
+    # Ridge-only walk-forward metrics (same expanding windows as run()).
+    preds = []
+    for i in test_idx:
+        tr = [u for u in usable if u < i]
+        mdl = _models()[model_name]
+        mdl.fit(df.loc[tr, MULTI_FEATURES].to_numpy(float),
+                df.loc[tr, TARGET].to_numpy(float))
+        preds.append(float(mdl.predict(df.loc[[i], MULTI_FEATURES].to_numpy(float))[0]))
+    if len(actuals):
+        m = utils.regression_metrics(actuals, np.array(preds))
+    else:
+        m = {"MAE": float("nan"), "RMSE": float("nan"),
+             "MAPE": float("nan"), "R2": float("nan")}
+
+    final = _models()[model_name]
+    final.fit(df.loc[usable, MULTI_FEATURES].to_numpy(float),
+              df.loc[usable, TARGET].to_numpy(float))
+    future = _future_forecast(df, final, steps=steps)
+
+    valid = pm[["occupancy_pct", "revenue"]].dropna()
+    corr = (float(stats.pearsonr(valid["occupancy_pct"], valid["revenue"])[0])
+            if len(valid) > 1 else float("nan"))
+
+    return {
+        "model": model_name,
+        "mape": round(float(m["MAPE"]), 2),
+        "mae": float(m["MAE"]),
+        "rmse": float(m["RMSE"]),
+        "next_month_revenue": float(future["revenue"].iloc[0]),
+        "scenario": _scenario(df, final),
+        "occupancy_revenue_corr": round(corr, 3),
+        "future": future,
+    }
+
+
 def _feature_importance(model, X, y, model_name):
     from sklearn.inspection import permutation_importance
     cols = list(X.columns)

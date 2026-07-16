@@ -95,10 +95,12 @@ def _rolling_backtest(y: np.ndarray, method: str, horizon: int = 1,
         errs.append(abs(actual - pred)); preds.append(pred)
         actuals.append(actual); ends.append(end + horizon - 1)
     if not errs:
-        return {"MAE": float("nan"), "MAPE": float("nan"), "windows": 0,
-                "preds": [], "actuals": [], "positions": []}
+        return {"MAE": float("nan"), "RMSE": float("nan"), "MAPE": float("nan"),
+                "windows": 0, "preds": [], "actuals": [], "positions": []}
+    a, p = np.array(actuals), np.array(preds)
     return {"MAE": float(np.mean(errs)),
-            "MAPE": _mape(np.array(actuals), np.array(preds)),
+            "RMSE": float(np.sqrt(np.mean((a - p) ** 2))),
+            "MAPE": _mape(a, p),
             "windows": len(errs),
             "preds": preds, "actuals": actuals, "positions": ends}
 
@@ -131,8 +133,121 @@ def forecast_series(pm: pd.DataFrame, col: str, steps: int = 6,
     return pd.DataFrame({"billing_period": future.astype(str), col: fc})
 
 
+# --------------------------------------------------------------------------- #
+# Feature-based revenue model + Holt-Winters vs ML comparison (auto-select)
+# --------------------------------------------------------------------------- #
+def _metrics(actual, pred) -> dict:
+    a, p = np.asarray(actual, float), np.asarray(pred, float)
+    return {"MAE": float(np.mean(np.abs(a - p))),
+            "RMSE": float(np.sqrt(np.mean((a - p) ** 2))),
+            "MAPE": _mape(a, p)}
+
+
+def _feature_model():
+    """XGBoost if installed, else a gradient-boosting fallback. Not hardcoded as
+    the forecast winner — it competes with Holt-Winters on the same windows."""
+    try:
+        from xgboost import XGBRegressor
+        return "XGBoost", XGBRegressor(
+            n_estimators=300, learning_rate=0.05, max_depth=3, subsample=0.9,
+            random_state=config.RANDOM_STATE, verbosity=0)
+    except ImportError:
+        from sklearn.ensemble import GradientBoostingRegressor
+        return "GradientBoosting", GradientBoostingRegressor(
+            random_state=config.RANDOM_STATE)
+
+
+# Leakage-safe supervised features (all lagged / calendar) — uses the new
+# occupancy lag features incl. occupancy_pct_lag3.
+REV_FEATURES = ["rev_lag1", "rev_lag2", "rev_lag3", "rev_lag12", "rev_roll3_lag",
+                "tenants_lag1", "occupancy_pct_lag1", "occupancy_pct_lag3",
+                "month_num", "year"]
+
+
+def _revenue_frame(pm: pd.DataFrame) -> pd.DataFrame:
+    df = pm.sort_values("billing_period").reset_index(drop=True).copy()
+    if "occupancy_pct_lag3" not in df.columns:
+        df["occupancy_pct_lag3"] = df["occupancy_pct"].shift(3)
+    rev = df["revenue"]
+    df["rev_lag1"] = rev.shift(1)
+    df["rev_lag2"] = rev.shift(2)
+    df["rev_lag3"] = rev.shift(3)
+    df["rev_lag12"] = rev.shift(12)
+    df["rev_roll3_lag"] = rev.shift(1).rolling(3).mean()
+    df["tenants_lag1"] = df["active_tenants"].shift(1)
+    return df
+
+
+def revenue_comparison(pm: pd.DataFrame, n_test: int = 12):
+    """Walk-forward one-step: Holt-Winters vs feature-based ML on identical test
+    months. Returns (comparison_df, winner, ml_name, months, actual, hw, ml, n)."""
+    df = _revenue_frame(pm)
+    feats = [f for f in REV_FEATURES if f in df.columns]
+    rev = df["revenue"].to_numpy(float)
+    months = df["billing_period"].astype(str).to_numpy()
+    usable = df.dropna(subset=feats).index.to_numpy()
+    test_idx = [i for i in usable[usable >= len(df) - n_test]
+                if len([u for u in usable if u < i]) >= 6]
+    ml_name, model = _feature_model()
+    hw_p, ml_p, actual, tmonths = [], [], [], []
+    for i in test_idx:
+        tr = [u for u in usable if u < i]
+        X_tr = df.loc[tr, feats].to_numpy(float)
+        y_tr = df.loc[tr, "revenue"].to_numpy(float)
+        model.fit(X_tr, y_tr)
+        ml_p.append(float(model.predict(df.loc[[i], feats].to_numpy(float))[0]))
+        hw_p.append(float(_fit_forecast(rev[:i], 1, "holt_winters")[0]))
+        actual.append(float(rev[i])); tmonths.append(months[i])
+    actual = np.array(actual)
+    comp = pd.DataFrame([
+        {"Model": "Holt-Winters", **_metrics(actual, hw_p)},
+        {"Model": ml_name, **_metrics(actual, ml_p)},
+    ])[["Model", "MAE", "RMSE", "MAPE"]].round(2)
+    winner = comp.sort_values("MAPE").iloc[0]["Model"]      # lowest MAPE, not hardcoded
+    return comp, winner, ml_name, tmonths, actual, hw_p, ml_p, len(actual)
+
+
+def forecast_live(pm: pd.DataFrame, steps: int = 6,
+                  series: tuple[str, ...] = ("revenue", "occupied_beds")) -> dict:
+    """In-memory forecast for live consumers (e.g. AI Recommendations).
+
+    Reuses the exact same model selection / forecasting logic as ``run`` but
+    performs NO file writes and NO plotting, and does not rebuild features — the
+    caller passes the already-built ``property_month``. Returns the same shapes
+    the AI page previously read from disk:
+        {"forecast_summary": DataFrame(series, method, MAE, MAPE, windows,
+                                       next_month),
+         "occupancy_forecast": DataFrame(billing_period, occupancy_pct) | None}
+    The model is unchanged; only the delivery (live vs persisted CSV) differs.
+    """
+    pm = pm.copy()
+    if "occupancy_pct_lag3" not in pm.columns:
+        pm["occupancy_pct_lag3"] = pm["occupancy_pct"].shift(3)
+    rows: list[dict] = []
+    occ_df = None
+    for col in series:
+        y = _clean_series(pm, col)
+        method, bt = select_method(y)          # same walk-forward selection
+        fdf = forecast_series(pm, col, steps, method)
+        if col == "occupied_beds":
+            fdf[col] = fdf[col].clip(0, config.TOTAL_BEDS).round().astype(int)
+            fdf["occupancy_pct"] = (fdf[col] / config.TOTAL_BEDS * 100).round(2)
+            occ_df = fdf[["billing_period", "occupancy_pct"]].copy()
+        rows.append({"series": col, "method": method,
+                     "MAE": round(bt["MAE"], 1),
+                     "RMSE": round(bt.get("RMSE", float("nan")), 1),
+                     "MAPE": round(bt["MAPE"], 2),
+                     "windows": bt["windows"],
+                     "next_month": round(float(fdf[col].iloc[0]), 1)})
+    return {"forecast_summary": pd.DataFrame(rows), "occupancy_forecast": occ_df}
+
+
 def run(steps: int = 6):
-    pm = fe.build_all()["property_month"]
+    pm = fe.build_all()["property_month"].copy()
+    # Requirement: extend the feature set with occupancy_pct_lag3 if missing.
+    # (Only added when absent; existing lag columns are untouched.)
+    if "occupancy_pct_lag3" not in pm.columns:
+        pm["occupancy_pct_lag3"] = pm["occupancy_pct"].shift(3)
     engine = "Holt-Winters (statsmodels)" if HAVE_SM else "linear+seasonal fallback"
     print(f"Forecast engine: {engine}\n")
 
@@ -148,7 +263,9 @@ def run(steps: int = 6):
             fdf ["occupancy_pct"] = ( fdf[col] / config.TOTAL_BEDS * 100).round(2)
             fdf.to_csv(config.OUT_DIR / "forecast_occupancy_pct.csv", index=False)   
         summary.append({"series": col, "method": method,
-                        "MAE": round(bt["MAE"], 1), "MAPE": round(bt["MAPE"], 2),
+                        "MAE": round(bt["MAE"], 1),
+                        "RMSE": round(bt.get("RMSE", float("nan")), 1),
+                        "MAPE": round(bt["MAPE"], 2),
                         "windows": bt["windows"],
                         "next_month": round(float(fdf[col].iloc[0]), 1)})
         # Persist walk-forward pred-vs-actual for the dashboard accuracy chart.
@@ -173,7 +290,26 @@ def run(steps: int = 6):
 
     s = pd.DataFrame(summary)
     s.to_csv(config.OUT_DIR / "forecast_summary.csv", index=False)
+
+    # ---- Revenue: Holt-Winters vs feature-based ML (auto-select winner) ----- #
+    import json
+    comp, winner, ml_name, _tm, _act, _hw, _ml, n = revenue_comparison(pm)
+    comp.to_csv(config.OUT_DIR / "revenue_forecast_comparison.csv", index=False)
+    (config.OUT_DIR / "revenue_forecast_selected.json").write_text(json.dumps({
+        "candidates": ["Holt-Winters", ml_name],
+        "winner": winner, "n_test_months": int(n),
+        "metrics": comp.set_index("Model").round(2).to_dict("index"),
+    }, indent=2))
+
+    print(">> Time-series forecast summary")
     print(s.round(2).to_string(index=False))
+    print(f"\n>> Revenue model comparison (walk-forward, {n} test months)")
+    print(comp.to_string(index=False))
+    print(f"Selected revenue forecasting model: {winner}")
+    occ = s[s["series"] == "occupied_beds"].iloc[0]
+    print(f"\n>> Occupancy forecast: method={occ['method']} "
+          f"MAPE={occ['MAPE']}% next-month occupied={int(occ['next_month'])} "
+          f"({occ['next_month']/config.TOTAL_BEDS*100:.1f}%)")
     print(f"\nfigures -> {config.FIG_DIR / 'forecast.png'}")
     return s
 

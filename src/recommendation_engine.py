@@ -30,8 +30,18 @@ import pandas as pd
 sys.path.append(str(Path(__file__).resolve().parents[1]))
 import config  # noqa: E402
 from src import operational_analytics as ops  # noqa: E402
+from src import forecasting as fc  # noqa: E402
+from src import bed_snapshot as bs  # noqa: E402
+from src import revenue_multivariate as rmv  # noqa: E402
+from src import anomaly as anom  # noqa: E402
+from src import feature_engineering as fe  # noqa: E402
 
 _ORDER = {"High": 0, "Medium": 1, "Low": 2}
+
+# Energy-anomaly threshold as a fraction of the occupied-room monthly-units
+# median (data-driven, not a hardcoded kWh figure): a room with no paying tenant
+# drawing at least this share of a normal occupied room's usage is flagged.
+ENERGY_ANOMALY_FRACTION = 0.15
 
 
 def _load_csv(name: str):
@@ -58,54 +68,148 @@ def _safe(fn, default=None):
 
 
 def collect_business_outputs(cleaned: dict, feats: dict) -> dict:
-    """Gather each page's structured output by CALLING the same analytics
-    functions the pages use (operational_analytics) and reading the same
-    persisted forecast outputs the forecast pages display. No page logic is
-    recomputed here.
-
-    Each page is collected independently and defensively: if a page is later
-    removed, or its data/output is unavailable, that entry becomes None and the
-    other pages are unaffected. Nothing is hardcoded — every value is read live
-    from the current processed dataframes / persisted outputs."""
-    inv = cleaned.get("invoices")
+    """Gather the LATEST processed dataframes + forecasting outputs, live on every
+    call (never cached). Uses ONLY: property_month, apartment_features,
+    tenant_features, bed_features, notices, tickets, the live bed snapshot and a
+    live in-memory forecast — no persisted CSV/JSON, no raw-dataset calculations.
+    Each source is collected defensively; a missing source becomes None and the
+    rest are unaffected."""
     pm = feats.get("property_month")
+    af = feats.get("apartment_features")
+    tf = feats.get("tenant_features")
+    bf = feats.get("bed_features")
+    notices = cleaned.get("notices")
+    tickets = cleaned.get("tickets")
+    bookings = cleaned.get("bookings")
+    electricity = cleaned.get("electricity")
 
-    def _current_occupancy():
-        s = (pm["occupancy_pct"].dropna()
-             if pm is not None and "occupancy_pct" in pm.columns
-             else pd.Series(dtype=float))
-        return {
-            "current_pct": float(s.iloc[-1]) if len(s) else None,
-            "forecast": _load_csv("forecast_occupancy_pct.csv"),
-        }
+    def _active_notices():
+        if notices is None or not len(notices):
+            return notices
+        ex = pd.to_datetime(notices["estimated_exit_date"], utc=True,
+                            errors="coerce")
+        return notices[ex >= pd.Timestamp.now(tz="UTC")]
+
+    def _elec_alert():
+        # Vacant apartment drawing power — derived from apartment_features only.
+        if af is None or not len(af) or "occupancy_pct" not in af.columns:
+            return None
+        hit = af[(af["occupancy_pct"] == 0) & (af.get("elec_units", 0) > 0)]
+        return pd.DataFrame({"apartment_code": hit["apartment_code"].to_numpy(),
+                             "units_consumed": hit["elec_units"].to_numpy()})
+
+    # Live operational bed snapshot — SAME source of truth as the Available Beds
+    # page (src/bed_snapshot.py), so AI vacancy matches that page exactly.
+    snap = _safe(lambda: bs.live_bed_snapshot(bookings))
+
+    def _energy_anomaly():
+        """Vacant/Inactive rooms drawing electricity — live_bed_snapshot (current
+        room status) x electricity (latest-month units). A room with NO current
+        occupants should draw ~0; flag those consuming at least
+        ENERGY_ANOMALY_FRACTION of the occupied-room median (data-driven). Real
+        data only — no synthetic values."""
+        if (snap is None or not len(snap)
+                or electricity is None or not len(electricity)):
+            return None
+        e = electricity.copy()
+        e["_bp"] = e["billing_period"].astype(str)
+        latest = e.sort_values("_bp").groupby("apartment_code").tail(1)
+        period = latest["_bp"].max()
+        units = latest.set_index("apartment_code")["units_consumed"]
+        tenant_states = ["Occupied", "Notice", "Notice-Booked"]
+        apt = (snap.groupby("apartment_code")
+                   .agg(total=("bed_id", "count"),
+                        inactive=("is_inactive", "sum"),
+                        occupied_now=("live_status",
+                                      lambda s: int(s.isin(tenant_states).sum()))))
+        apt["operational"] = apt["total"] - apt["inactive"]
+        occ_codes = [a for a in apt.index[apt["occupied_now"] > 0]
+                     if a in units.index]
+        occ_units = units.loc[occ_codes].dropna()
+        baseline = float(occ_units.median()) if len(occ_units) else float("nan")
+        thr = ENERGY_ANOMALY_FRACTION * baseline if baseline == baseline else 0.0
+        rows = []
+        for a in apt.index[apt["occupied_now"] == 0]:
+            u = float(units.get(a, float("nan")))
+            if u == u and u > 0 and (thr <= 0 or u >= thr):
+                rows.append({
+                    "apartment_code": a,
+                    "units_consumed": round(u, 0),
+                    "billing_period": period,
+                    "status": ("Inactive" if apt.loc[a, "operational"] == 0
+                               else "Vacant"),
+                    "baseline_units": (round(baseline, 0)
+                                       if baseline == baseline else None),
+                    "threshold_units": round(thr, 0)})
+        return (pd.DataFrame(rows).sort_values("units_consumed", ascending=False)
+                if rows else pd.DataFrame())
+
+    def _ml_elec_anomaly():
+        """IsolationForest electricity anomalies — same detector as src/anomaly.py
+        (units_consumed, amount, deviation_from_avg). Model unchanged; this only
+        exposes its flagged rows to AI Recommendations. Uses electricity_features
+        so deviation_from_avg is present on the live cleaned electricity table."""
+        if electricity is None or not len(electricity):
+            return None
+        efeat = feats.get("electricity_features")
+        if efeat is None or not len(efeat) or "deviation_from_avg" not in efeat.columns:
+            efeat = fe.electricity_features(electricity)
+        cols = ["units_consumed", "amount", "deviation_from_avg"]
+        if not set(cols).issubset(efeat.columns):
+            return pd.DataFrame()
+        scored = anom._detect(efeat, cols)
+        hit = scored[scored["anomaly"] == 1].sort_values(
+            "anomaly_score", ascending=False)
+        keep = [c for c in ["apartment_code", "billing_period", "units_consumed",
+                            "amount", "anomaly_score", "deviation_from_avg"]
+                if c in hit.columns]
+        return hit[keep].reset_index(drop=True) if len(hit) else pd.DataFrame()
+
+    vacant_operational = None
+    vacant_opportunity = 0.0
+    top_vacant = None
+    if snap is not None and len(snap):
+        vac = snap[snap["live_status"] == "Vacant"]
+        vacant_operational = int(len(vac))
+        vacant_opportunity = float(vac["current_rate"].fillna(0).sum())
+        if vacant_operational:
+            by_apt = (vac.groupby("apartment_code").size()
+                         .sort_values(ascending=False))
+            top_vacant = (str(by_apt.index[0]), int(by_apt.iloc[0]))
+
+    # Revenue forecast — SINGLE SOURCE OF TRUTH: the live Ridge multivariate model
+    # (same value shown on the Revenue Forecast KPI card + Financial Overview).
+    # Occupancy forecast stays on the live Holt-Winters time series (kept for that
+    # purpose). Both are live in-memory: no file writes, no stale JSON/CSV.
+    mv_pred = _safe(lambda: rmv.predict_live(pm)) if pm is not None else None
+    occ = _safe(lambda: fc.forecast_live(pm, series=("occupied_beds",))) \
+        if pm is not None else None
+    occ = occ or {}
+    fsummary = None
+    if mv_pred is not None:
+        fsummary = pd.DataFrame([{
+            "series": "revenue", "method": f"{mv_pred['model']}_multivariate",
+            "MAE": mv_pred["mae"], "RMSE": mv_pred["rmse"],
+            "MAPE": mv_pred["mape"], "windows": None,
+            "next_month": mv_pred["next_month_revenue"]}])
 
     return {
-        # Financial Overview page
-        "financial": _safe(lambda: {
-            "fy": ops.financial_year_revenue(inv),
-            "by_fy": ops.revenue_by_financial_year(inv),
-        }),
-        # Executive Summary / Occupancy — booking-based occupancy (page's source)
-        "occupancy": _safe(_current_occupancy),
-        # Revenue Forecast page
-        "revenue_forecast": _safe(
-            lambda: _load_json("model_meta_multivariate.json")),
-        # Electricity / Apartment-wise Forecast pages
-        "electricity": _safe(lambda: {
-            "summary": _load_csv("forecast_summary.csv"),
-            "apartment": _load_csv("forecast_apartment_summary.csv"),
-        }),
-        # Notice & Exit page
-        "notices": _safe(lambda: ops.notice_analytics(cleaned["notices"])),
-        # Maintenance page
-        "maintenance": _safe(lambda: ops.maintenance_summary(cleaned["tickets"])),
-        # Available Beds page
-        "beds": _safe(lambda: ops.bed_availability(cleaned["beds_snapshot"])),
-        # Tenant Segmentation page
-        "segments": _safe(lambda: _load_csv("tenant_segments_profile.csv")),
-        # The one kept operational alert: vacant apartment consuming power.
-        "electricity_alert": _safe(
-            lambda: ops.vacant_apartment_power_alerts(cleaned)),
+        "property_month": _safe(lambda: pm),
+        "apartment_features": _safe(lambda: af),
+        "tenant_features": _safe(lambda: tf),
+        "bed_features": _safe(lambda: bf),
+        "notices_active": _safe(_active_notices),
+        "maintenance": _safe(lambda: ops.maintenance_summary(tickets)),
+        "occupancy_forecast": occ.get("occupancy_forecast"),
+        "forecast_summary": fsummary,
+        "revenue_forecast_selected": None,   # model label falls back to method
+        "electricity_alert": _safe(_elec_alert),
+        "energy_anomaly": _safe(_energy_anomaly),
+        "ml_elec_anomaly": _safe(_ml_elec_anomaly),
+        "bed_snapshot": snap,
+        "vacant_beds_operational": vacant_operational,
+        "vacant_revenue_opportunity": vacant_opportunity,
+        "top_vacant_apartment": top_vacant,
     }
 
 
@@ -113,9 +217,9 @@ def collect_business_outputs(cleaned: dict, feats: dict) -> dict:
 # Generate — summarise the collected outputs into prioritised recommendations
 # --------------------------------------------------------------------------- #
 def generate_recommendations(o: dict) -> list[dict]:
-    """Turn the structured page outputs in `o` into prioritised recommendation
-    cards. Reads ONLY from `o` — no dataset or model access here, so every value
-    traces back to a dashboard page's output."""
+    """Turn the collected processed outputs in `o` into prioritised recommendation
+    cards. Reads ONLY from `o`. Each category always emits a card — an action when
+    there is an issue, a positive note when there is none (never blank)."""
     recs: list[dict] = []
 
     def add(priority, category, icon, source, recommendation, impact):
@@ -123,119 +227,172 @@ def generate_recommendations(o: dict) -> list[dict]:
                          source=source, recommendation=recommendation,
                          impact=impact))
 
-    # 📈 Revenue — Financial Overview (current month) vs Revenue Forecast.
-    fin = (o.get("financial") or {}).get("fy")
-    rf = o.get("revenue_forecast")
-    monthly = fin.get("monthly") if fin else None
-    if rf and rf.get("next_month_revenue") and monthly is not None and len(monthly):
-        cur = float(monthly.iloc[-1]["revenue"])
-        nxt = float(rf["next_month_revenue"])
-        d = nxt - cur
-        pct = d / cur * 100 if cur else 0
+    # 📈 Revenue — property_month (latest vs previous month).
+    pm = o.get("property_month")
+    if pm is not None and len(pm):
+        p = pm.sort_values("billing_period")
+        cur = float(p["revenue"].iloc[-1])
+        prev = float(p["revenue"].iloc[-2]) if len(p) >= 2 else cur
+        d = cur - prev
+        pct = (d / prev * 100) if prev else 0
         if d >= 0:
-            add("Low", "Revenue", "📈", "Financial Overview + Revenue Forecast",
-                f"Revenue forecast to rise {pct:+.1f}% next month "
-                f"(₹{cur/1e5:.1f}L → ₹{nxt/1e5:.1f}L). Hold occupancy and service "
-                "quality to keep the trend.",
-                f"+₹{d/1e5:.2f}L projected next month.")
+            add("Low", "Revenue", "📈", "property_month",
+                f"Monthly revenue up {pct:+.1f}% to ₹{cur/1e5:.1f}L. Sustain "
+                "occupancy and collections to hold the trend.",
+                f"Revenue trending up (+₹{d/1e5:.2f}L MoM).")
         else:
-            add("High", "Revenue", "📈", "Financial Overview + Revenue Forecast",
-                f"Revenue forecast to fall {pct:.1f}% next month "
-                f"(₹{cur/1e5:.1f}L → ₹{nxt/1e5:.1f}L). Refill vacant beds and lift "
-                "occupancy to defend revenue.",
-                f"₹{abs(d)/1e5:.2f}L of monthly revenue at stake.")
+            add("High", "Revenue", "📈", "property_month",
+                f"Monthly revenue down {pct:.1f}% to ₹{cur/1e5:.1f}L. Refill vacant "
+                "beds and accelerate collections to defend revenue.",
+                f"₹{abs(d)/1e5:.2f}L revenue drop MoM.")
 
-    # 🛏️ Occupancy — Executive Summary current vs Occupancy Forecast.
-    occ = o.get("occupancy") or {}
-    cur_occ = occ.get("current_pct")
-    occ_fc = occ.get("forecast")
-    if cur_occ is not None and occ_fc is not None and len(occ_fc):
-        nxt_occ = float(occ_fc.iloc[0]["occupancy_pct"])
-        nxt_beds = int(occ_fc.iloc[0]["occupied_beds"])
-        vacant = config.TOTAL_BEDS - nxt_beds
-        if nxt_occ < cur_occ - 0.5:
-            add("High", "Occupancy", "🛏️", "Occupancy Forecast",
-                f"Occupancy forecast to drop {cur_occ:.1f}% → {nxt_occ:.1f}% next "
-                f"month. Market the {vacant} vacant beds now — push high-rate beds "
-                "first.",
-                f"~{vacant} beds to refill to hold occupancy.")
-        elif nxt_occ >= 95:
-            add("Medium", "Occupancy", "🛏️", "Occupancy Forecast",
-                f"Occupancy forecast high at {nxt_occ:.1f}% "
-                f"({nxt_beds}/{config.TOTAL_BEDS} beds). Prepare staffing, "
-                "maintenance and onboarding for near-full capacity.",
-                "Protect service quality at peak occupancy.")
+    # 🛏️ Occupancy — property_month + occupancy forecast.
+    if pm is not None and len(pm) and "occupancy_pct" in pm.columns:
+        p = pm.sort_values("billing_period")
+        cur_occ = float(p["occupancy_pct"].iloc[-1])
+        ofc = o.get("occupancy_forecast")
+        nxt = (float(ofc.iloc[0]["occupancy_pct"])
+               if ofc is not None and len(ofc) else None)
+        if nxt is not None and nxt < cur_occ - 0.5:
+            add("High", "Occupancy", "🛏️", "property_month + Occupancy Forecast",
+                f"Occupancy forecast to drop {cur_occ:.1f}% → {nxt:.1f}%. Market the "
+                "vacant beds now.", "Falling occupancy risks next-month revenue.")
+        elif cur_occ >= 95:
+            add("Low", "Occupancy", "🛏️", "property_month",
+                f"Occupancy strong at {cur_occ:.1f}%. Maintain retention and intake "
+                "pace.", "High occupancy supports revenue.")
         else:
-            add("Low", "Occupancy", "🛏️", "Occupancy Forecast",
-                f"Occupancy stable ({cur_occ:.1f}% → {nxt_occ:.1f}%). Maintain "
-                "current retention and intake pace.",
-                "Stable occupancy supports the revenue forecast.")
+            add("Medium", "Occupancy", "🛏️", "property_month",
+                f"Occupancy at {cur_occ:.1f}%. Fill vacant beds to lift it.",
+                "Room to grow occupancy.")
 
-    # ⚡ Electricity cost outlook — Electricity forecast page.
-    es = (o.get("electricity") or {}).get("summary")
-    if es is not None and "series" in es.columns:
-        el = es[es["series"] == "elec_cost"]
-        if len(el):
-            add("Low", "Electricity", "⚡", "Electricity Forecast",
-                f"Next-month electricity cost forecast "
-                f"₹{float(el['next_month'].iloc[0])/1e5:.1f}L "
-                f"(MAPE {float(el['MAPE'].iloc[0]):.1f}%). Budget accordingly.",
-                "Accurate operating-cost budgeting.")
+    # 🏠 Available Beds — live bed snapshot (SAME logic as the Available Beds page).
+    vac = o.get("vacant_beds_operational")
+    if vac is not None:
+        if vac:
+            top = o.get("top_vacant_apartment")
+            detail = (f" Highest-vacancy apartment {top[0]} ({top[1]} beds)."
+                      if top else "")
+            opp = float(o.get("vacant_revenue_opportunity", 0.0))
+            add("Medium", "Available Beds", "🏠", "live_bed_snapshot",
+                f"{vac} beds vacant.{detail} Re-list high-rate vacant beds first.",
+                f"₹{opp/1e5:.2f}L/mo revenue opportunity.")
+        else:
+            add("Low", "Available Beds", "🏠", "live_bed_snapshot",
+                "No vacant beds — the property is fully occupied.",
+                "Occupancy maximised.")
 
-    # 🚪 Exit notices — Notice & Exit page.
-    nt = o.get("notices") or {}
-    ue = int(nt.get("upcoming_exits", 0))
-    if ue:
-        add("High" if ue >= 5 else "Medium", "Exit Notices", "📤", "Notice & Exit",
-            f"{ue} tenants scheduled to vacate. Start replacement bookings now and "
-            "begin retention outreach for notice beds.",
-            f"₹{float(nt.get('monthly_revenue_impact', 0))/1e5:.2f}L monthly rent "
-            "at stake across notices.")
+    # 📤 Notice & Exit — active notices only.
+    na = o.get("notices_active")
+    if na is not None:
+        n = len(na)
+        if n:
+            risk = (float(na["monthly_rental"].sum())
+                    if "monthly_rental" in na.columns else 0.0)
+            add("High" if n >= 5 else "Medium", "Notice & Exit", "📤",
+                "notices (active)",
+                f"{n} active exit notices. Start replacement bookings and begin "
+                "retention outreach.",
+                f"₹{risk/1e5:.2f}L monthly rent at risk.")
+        else:
+            add("Low", "Notice & Exit", "📤", "notices (active)",
+                "No active exit notices — the tenant base is stable.",
+                "No imminent churn.")
 
-    # 🏠 Available beds — Available Beds page.
-    bd = o.get("beds") or {}
-    vac = int(bd.get("vacant_beds", 0))
-    if vac and len(bd.get("by_block", [])):
-        blk = bd["by_block"].iloc[0]
-        add("Medium", "Available Beds", "🏠", "Available Beds",
-            f"{vac} beds vacant. Promote the highest-vacancy block "
-            f"'{blk['block']}' ({blk['vacancy_pct']:.0f}% vacant) and re-list "
-            "high-rate beds first.",
-            f"₹{float(bd.get('vacant_revenue_opportunity', 0))/1e5:.2f}L/mo revenue "
-            "opportunity.")
-
-    # 🔧 Maintenance — Maintenance page.
+    # 🔧 Maintenance — tickets.
     ms = o.get("maintenance") or {}
-    if ms.get("open"):
-        sla = ms.get("sla_breach_pct")
-        top_issue = (ms["by_issue"].iloc[0]["issue_type"]
-                     if len(ms.get("by_issue", [])) else "open tickets")
-        add("Medium", "Maintenance", "🔧", "Maintenance",
-            f"{ms['open']} open maintenance tickets"
-            + (f", SLA breached on {sla}%" if sla else "")
-            + f". Clear the backlog — top issue: {top_issue}.",
-            "Faster resolution lifts tenant retention.")
+    if ms:
+        opn = int(ms.get("open", 0))
+        if opn:
+            sla = ms.get("sla_breach_pct")
+            top = (ms["by_issue"].iloc[0]["issue_type"]
+                   if len(ms.get("by_issue", [])) else "open tickets")
+            add("Medium", "Maintenance", "🔧", "tickets",
+                f"{opn} open maintenance tickets"
+                + (f", SLA breached on {sla}%" if sla else "")
+                + f". Clear the backlog — top issue: {top}.",
+                "Faster resolution lifts tenant retention.")
+        else:
+            add("Low", "Maintenance", "🔧", "tickets",
+                "No open maintenance tickets — all resolved.",
+                "Maintenance under control.")
 
-    # ⚡ Electricity alert — the ONE kept operational rule (vacant apt using power).
+    # 👥 Tenant Segmentation — tenant_features.
+    tf = o.get("tenant_features")
+    if tf is not None and len(tf) and "ltv_paid" in tf.columns:
+        add("Low", "Tenant Segmentation", "👥", "tenant_features",
+            f"{len(tf):,} tenants; average lifetime value "
+            f"₹{tf['ltv_paid'].mean()/1e5:.2f}L. Protect high-LTV tenants with "
+            "priority service and renewals.",
+            "Retain the highest-value tenants.")
+
+    # 🔮 Forecast — forecasting outputs (auto-selected model).
+    fs = o.get("forecast_summary")
+    sel = o.get("revenue_forecast_selected")
+    if fs is not None and len(fs[fs["series"] == "revenue"]):
+        r = fs[fs["series"] == "revenue"].iloc[0]
+        model = sel["winner"] if sel else r["method"]
+        add("Low", "Forecast", "🔮", "Revenue Forecast",
+            f"Next-month revenue forecast ₹{float(r['next_month'])/1e5:.1f}L "
+            f"(model: {model}, walk-forward MAPE {float(r['MAPE']):.1f}%). Use for "
+            "cash-flow planning.", "Forward visibility for planning.")
+
+    # ⚡ Electricity alert — apartment_features (vacant apartment drawing power).
     ea = o.get("electricity_alert")
     if ea is not None and len(ea):
         for _, r in ea.iterrows():
             units = int(round(float(r["units_consumed"])))
-            add("Medium", "Electricity Alert", "⚡", "Electricity Alert",
-                f"Apartment {r['apartment_code']} is currently vacant but consumed "
-                f"{units} units of electricity. Inspect the apartment and meter "
-                "immediately before the next billing cycle.",
-                "Electricity cost leakage in a vacant apartment.")
+            add("Medium", "Electricity", "⚡", "apartment_features",
+                f"Apartment {r['apartment_code']} is vacant but consumed {units} "
+                "units. Inspect the meter before the next billing cycle.",
+                "Electricity leakage in a vacant apartment.")
 
-    # 👥 Tenant segments — Tenant Segmentation page.
-    seg = o.get("segments")
-    if seg is not None and len(seg) and "ltv_paid" in seg.columns:
-        top = seg.sort_values("ltv_paid", ascending=False).iloc[0]
-        add("Low", "Tenant Segments", "👥", "Tenant Segmentation",
-            f"{int(top['n_tenants'])} tenants in the top-value segment average "
-            f"₹{float(top['ltv_paid'])/1e5:.2f}L lifetime value. Protect them with "
-            "priority service and renewal offers.",
-            "Retain the highest-value tenants.")
+    # ⚡ Energy anomalies — two complementary checks (neither changes the other):
+    #   1) IsolationForest ML electricity anomalies (src/anomaly._detect)
+    #   2) Vacant/inactive room electricity leakage (existing energy_anomaly rule)
+    # "No energy anomalies" only when BOTH return empty.
+    ml = o.get("ml_elec_anomaly")
+    en = o.get("energy_anomaly")
+    has_ml = ml is not None and len(ml) > 0
+    has_vacant = en is not None and len(en) > 0
+
+    if has_ml:
+        for _, r in ml.iterrows():
+            units = int(round(float(r["units_consumed"])))
+            bp = str(r["billing_period"]) if "billing_period" in r.index else ""
+            score = float(r["anomaly_score"]) if "anomaly_score" in r.index else None
+            score_txt = f", anomaly score {score:.2f}" if score is not None else ""
+            add("High", "ML electricity anomaly detected", "⚡",
+                "IsolationForest (anomaly.py)",
+                f"Apartment {r['apartment_code']} flagged by the IsolationForest "
+                f"electricity detector — {units} units"
+                f"{(' in ' + bp) if bp else ''}{score_txt}. "
+                "Possible causes: meter/billing outlier, unusually high consumption, "
+                "or a data error. Review the reading before the next cycle.",
+                "ML-detected electricity outlier — investigate meter and billing.")
+
+    if has_vacant:
+        for _, r in en.iterrows():
+            base = (f"~{int(r['baseline_units'])}-unit occupied-room median"
+                    if r.get("baseline_units") is not None else "occupied-room usage")
+            add("High", "Vacant room consuming abnormal electricity", "⚡",
+                "live_bed_snapshot + electricity",
+                f"Room {r['apartment_code']} is {r['status']} (no current tenant) "
+                f"but consumed {int(r['units_consumed'])} units in "
+                f"{r['billing_period']}, above the data-driven threshold of "
+                f"{int(r['threshold_units'])} units ({base}). "
+                "Possible causes: AC / geyser / lights left running, a meter "
+                "mis-mapping, unauthorised usage, or a faulty meter. Inspect the "
+                "room and its meter before the next billing cycle.",
+                "Electricity cost leakage on a room earning no rent — direct "
+                "margin loss and a possible metering/billing error.")
+
+    if (ml is not None or en is not None) and not has_ml and not has_vacant:
+        add("Low", "Energy anomaly detected", "⚡",
+            "IsolationForest + vacant-room rule",
+            "No energy anomalies — neither the IsolationForest electricity detector "
+            "nor the vacant-room leakage rule flagged any apartment.",
+            "No electricity anomalies detected by either check.")
 
     recs.sort(key=lambda c: _ORDER.get(c["priority"], 3))
     return recs
