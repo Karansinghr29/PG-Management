@@ -1,3 +1,4 @@
+
 """Central configuration for the Vista Heights real-estate analytics project.
 
 Single source of truth for paths, raw-file mapping, column roles and model
@@ -12,7 +13,10 @@ from pathlib import Path
 # Paths
 # --------------------------------------------------------------------------- #
 ROOT = Path(__file__).resolve().parent
-RAW_DIR = ROOT / "Data"        # new production datasets live in ./Data
+
+=======
+RAW_DIR = ROOT / "Data"         # new production datasets live in ./Data
+>>>>>>> 8294206 (Fix Data folder path)
 OUT_DIR = ROOT / "outputs"
 FIG_DIR = OUT_DIR / "figures"
 MODEL_DIR = OUT_DIR / "models"
