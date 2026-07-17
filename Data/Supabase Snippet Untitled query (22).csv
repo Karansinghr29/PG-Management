@@ -1,0 +1,1164 @@
+full_name,phone,property_name,apartment_code,bed_code,bed_type,onboarding_date,estimated_exit_date,actual_exit_date,notice_date,monthly_rental,deposit_paid,discount,staying_status,total_due,paid_amount,balance_due,payment_status,onboarding_charges,prorated_rent,expected_payment_date,expected_stay_days
+Aachman Arora,9583283295,Vista Heights,C11,C2,Double,2025-08-01,2026-06-30,2026-06-30,2026-05-31,14500.00,0.00,0.00,Exited,0,21750,0,partial,0,0,null,null
+Aachman Arora,9583283295,Vista Heights,B44,C2,Double,2025-06-01,2025-07-31,2025-07-31,2025-07-31,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Aaditya Roshan,8582841444,Vista Heights,B33,C1,Double,2026-05-02,2026-07-20,null,2026-06-20,14500.00,21750.00,0.00,On-Notice,36783,36790,0,paid,1000,14033,null,null
+Aakanksha Rajhans,8700126391,Vista Heights,C34,C1,Double,2025-09-06,null,2026-05-23,null,14500.00,0.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Aakanksha Rajhans,8700126391,Vista Heights,B12,C2,Double,2026-05-23,null,null,null,14500.00,21750.00,0.00,Staying,0,0,0,pending,0,0,null,null
+Aakarshni V,9025121142,Vista Heights,C42,C2,Double,2024-06-17,2025-08-06,2025-08-06,2025-08-06,13500.00,20250.00,0.00,Exited,0,20250,4274,partial,1000,0,null,null
+Aarathi Nambiar,8281636022,Vista Heights,B24,B1,Triple,2026-02-15,null,null,null,13500.00,20250.00,0.00,Staying,0,20250,0,partial,1000,0,null,null
+Aaron Pacheco,9552083411,Vista Heights,B34,A1,Single,2024-04-18,2024-05-18,2024-05-18,2024-05-18,19000.00,28500.00,0.00,Exited,0,28500,14000,partial,1000,0,null,null
+Aarushi Bhadu,6376639613,Vista Heights,C42,A1,Single,2023-08-06,2023-12-31,2023-12-31,2023-12-31,18300.00,27450.00,1800.00,Exited,0,27450,0,partial,1000,0,null,null
+Aarushi Bhadu,6376639613,Vista Heights,B24,A1,Single,2024-05-07,2024-05-31,2024-05-31,2024-05-31,19000.00,28500.00,2500.00,Exited,0,28500,30214,partial,1000,0,null,null
+Aashlesh Ashok,9074469700,Vista Heights,C31,A1,Single,2025-01-05,2025-03-15,2025-03-15,2025-03-15,19000.00,28500.00,1000.00,Exited,0,28500,32762,partial,1000,0,null,null
+Aayush Patel,9875157558,Vista Heights,B34,B1,Double,2025-03-01,2025-07-18,2025-07-05,2025-07-18,14500.00,21750.00,0.00,Exited,0,21750,13379,partial,1000,0,null,null
+Abdulkasim Fayas Sathik Batcha,8438713402,Vista Heights,B41,C2,Double,2026-05-03,null,null,null,14500.00,21750.00,0.00,Staying,36315,36316,0,paid,1000,13565,null,null
+Abdulkasim Fayas Sathik Batcha,8438713402,Vista Heights,B41,C2,Double,null,null,null,null,null,0.00,0.00,Cancelled,null,1000,1,partial,1000,null,null,null
+Abhilash S,6364503231,Vista Heights,C11,B1,Double,2023-01-11,2023-05-25,2023-05-25,2023-05-25,13600.00,20400.00,0.00,Exited,0,20400,30512,partial,1000,0,null,null
+Abhilash V,9526517709,Vista Heights,A44,B1,Double,2025-07-08,2026-07-24,null,2026-06-15,15500.00,23250.00,0.00,On-Notice,0,23250,0,partial,1000,0,null,null
+Abhilasha Choudhary,7078528465,Vista Heights,C43,C1,Double,2025-05-23,2025-08-21,2025-08-21,2025-08-21,14500.00,21750.00,0.00,Exited,0,21750,468,partial,1000,0,null,null
+Abhinandan M B,8123714730,Vista Heights,B41,D1,Single,2023-09-01,2023-09-30,2023-09-30,2023-09-30,24000.00,36000.00,0.00,Exited,0,36000,18850,partial,1000,0,null,null
+Abhinav Putrevu,9849469206,Vista Heights,C11,C2,Double,2024-02-25,2024-07-17,2024-07-17,2024-07-17,13500.00,20250.00,0.00,Exited,0,20250,11585,partial,1000,0,null,null
+Abhishek Chauthe,7420918471,Vista Heights,A24,B1,Triple,2026-03-12,null,null,null,13500.00,20250.00,0.00,Staying,0,20250,0,partial,1000,0,null,null
+Abhishek G,9902621539,Vista Heights,C21,C2,Double,2023-07-23,2023-10-31,2023-10-31,2023-10-31,12600.00,18900.00,0.00,Exited,0,18900,2250,partial,1000,0,null,null
+Abhishek Jena,8826817378,Vista Heights,B41,C1,Double,2023-05-01,2023-07-08,2023-07-08,2023-07-08,12600.00,18900.00,0.00,Exited,0,18900,7265,partial,1000,0,null,null
+Abhishek Kumar Jha,9334118844,Vista Heights,A41,C2,Double,2024-04-06,2024-06-08,2024-06-08,2024-06-08,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Abhishek Kumar Jha,9334118844,Vista Heights,A11,C2,Double,2026-03-01,null,null,null,14500.00,21750.00,0.00,Staying,0,21750,0,partial,1000,0,null,null
+Abhishek Meena,8447979362,Vista Heights,B13,C1,Double,2024-03-24,2024-07-31,2024-07-31,2024-07-31,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Abhishek Murarka,7892477949,Vista Heights,A44,B1,Double,2024-09-04,2024-11-22,2024-11-22,2024-11-22,14500.00,21750.00,0.00,Exited,0,21750,2249,partial,1000,0,null,null
+Abinaya B,6384392345,Vista Heights,A24,C1,Double,2025-05-13,2025-06-12,2025-06-08,2025-06-12,14500.00,21750.00,0.00,Exited,0,21750,3841,partial,1000,0,null,null
+Abu Saleha Md,8217869749,Vista Heights,A44,C2,Double,2024-10-07,2024-11-30,2024-11-30,2024-11-30,13500.00,20250.00,0.00,Exited,0,20250,2250,partial,1000,0,null,null
+Adhiraj Gupta,7007119880,Vista Heights,C11,A1,Single,2024-07-17,2024-07-18,2024-07-18,2024-07-18,19000.00,28500.00,0.00,Exited,0,28500,2250,partial,1000,0,null,null
+Aditi Aggarwal,7042959334,Vista Heights,B24,C1,Double,2025-04-08,2025-05-07,2025-05-07,2025-05-07,13500.00,20250.00,0.00,Exited,0,20250,4225,partial,1000,0,null,null
+Aditi Balaji,7348889275,Vista Heights,D21,B2,Double,2023-09-03,2023-11-10,2023-11-10,2023-11-10,13600.00,20400.00,0.00,Exited,0,20400,0,partial,1000,0,null,null
+Aditi Jaiswal,9902044095,Vista Heights,C24,B1,Triple,2024-08-11,2024-09-15,2024-09-15,2024-09-15,13000.00,19500.00,0.00,Exited,0,19500,5658,partial,1000,0,null,null
+Aditi Karra,+919981506324,Vista Heights,C24,C2,Double,2024-08-03,2024-12-31,2024-12-31,2024-12-31,13500.00,20250.00,0.00,Exited,0,20250,3250,partial,1000,0,null,null
+Aditi Maurya,9532220247,Vista Heights,B24,A1,Single,2023-10-08,2023-12-31,2023-12-31,2023-12-31,18300.00,27450.00,2800.00,Exited,0,27450,11315,partial,1000,0,null,null
+Aditi Maurya,9532220247,Vista Heights,B22,A1,Single,2024-01-01,2024-06-08,2024-06-08,2024-06-08,18300.00,27450.00,2800.00,Exited,0,27450,32386,partial,1000,0,null,null
+Aditi Maurya,9532220247,Vista Heights,C12,A1,Single,2024-06-09,2025-03-10,2025-03-10,2025-03-10,19000.00,28500.00,0.00,Exited,0,28500,60469,partial,1000,0,null,null
+Aditi Shrivastava,9302348921,Vista Heights,B24,C1,Double,2026-01-11,null,null,null,14500.00,21750.00,0.00,Staying,0,21750,0,partial,1000,0,null,null
+Aditi Yadav,9.19513E+11,Vista Heights,B43,B2,Double,2024-07-14,2025-02-24,2025-02-24,2025-02-24,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Aditya Bakshi,8818895486,Vista Heights,B34,A1,Single,2024-07-24,2025-01-15,2025-01-15,2025-01-15,19000.00,28500.00,1000.00,Exited,0,28500,0,partial,1000,0,null,null
+Aditya Bissa,8619256651,Vista Heights,A44,C2,Double,2026-05-05,2026-07-20,null,2026-06-20,14500.00,21750.00,0.00,On-Notice,35380,35316,64,partial,1000,12630,null,null
+Aditya Bissa,8619256651,Vista Heights,A44,C2,Double,null,null,null,null,null,0.00,0.00,Cancelled,null,1000,0,partial,1000,null,null,null
+Aditya Das,8969904257,Vista Heights,A22,C1,Double,2025-08-10,2026-01-09,2026-01-10,2026-01-09,14500.00,0.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Aditya Das,8969904257,Vista Heights,C21,C1,Double,2026-01-10,null,null,null,14500.00,21750.00,500.00,Staying,0,27000,21750,partial,0,0,null,null
+Aditya Mijar Shenoy,7010228927,Vista Heights,B33,C1,Double,2022-07-27,2023-02-16,2023-02-16,2023-02-16,12600.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Aditya Prakash Singh,9643275986,Vista Heights,C21,A1,Single,2023-06-01,2023-10-30,2023-10-30,2023-10-30,18300.00,27450.00,1300.00,Exited,0,27450,4200,partial,1000,0,null,null
+Aditya Shinde,7875269644,Vista Heights,B34,B1,Double,2025-08-10,2025-11-06,2025-11-06,2025-11-06,15500.00,23250.00,0.00,Exited,0,23250,7148,partial,1000,0,null,null
+Aditya Srinivas A,7382982202,Vista Heights,A44,D1,Single,2025-01-12,null,null,null,24000.00,36000.00,0.00,Staying,0,36000,27930,partial,1000,0,null,null
+Aditya Srivardhan Bollapragada,9381470239,Vista Heights,B33,B1,Double,2024-07-07,2024-12-14,2024-12-14,2024-12-14,14500.00,21750.00,0.00,Exited,0,21750,2532,partial,1000,0,null,null
+Adya Rateria,7739905867,Vista Heights,C44,C1,Double,2023-07-01,2024-04-05,2024-04-05,2024-04-05,12600.00,18900.00,400.00,Exited,0,18900,16400,partial,1000,0,null,null
+Agni Sharman V,6282436859,Vista Heights,B41,C1,Double,2022-09-15,2023-01-15,2023-01-15,2023-01-15,12600.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Agni Sharman V,6282436859,Vista Heights,B41,B1,Double,2023-01-15,2023-04-30,2023-04-30,2023-04-30,13600.00,20400.00,0.00,Exited,0,20400,20920,partial,1000,0,null,null
+Aishwarya,9632496833,Vista Heights,D11,C1,Double,2022-06-23,2022-12-17,2022-12-17,2022-12-17,13600.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Aishwarya E V,8072093753,Vista Heights,B22,A1,Single,2024-07-01,2024-12-25,2024-12-25,2024-12-25,19000.00,28500.00,2000.00,Exited,0,28500,28917,partial,1000,0,null,null
+Aishwarya E V,8072093753,Vista Heights,C44,A1,Single,2024-03-14,2024-06-30,2024-06-30,2024-06-30,19000.00,28500.00,2000.00,Exited,0,28500,5250,partial,1000,0,null,null
+Aiswaryaa Krishnasamy Thandapani,8056785038,Vista Heights,C43,B2,Double,2026-05-26,null,null,null,15500.00,23250.00,0.00,Staying,27250,27750,0,paid,1000,3000,null,null
+Ajay Adithyan,8524083080,Vista Heights,B41,B1,Double,2025-06-02,2026-04-18,2026-04-10,2026-04-18,15500.00,23250.00,0.00,Exited,0,23250,0,partial,1000,0,null,null
+Ajay Ak,9747432223,Vista Heights,B13,A1,Single,2024-04-17,2024-08-09,2024-08-09,2024-08-09,19000.00,28500.00,0.00,Exited,0,28500,9346,partial,1000,0,null,null
+Ajayanumandhan T,9566621118,Vista Heights,A41,B1,Triple,2025-05-10,2025-08-06,2025-08-06,2025-08-06,13500.00,20250.00,0.00,Exited,0,20250,7200.3,partial,1000,0,null,null
+Akanksha Goswami,8954353909,Vista Heights,A12,B2,Double,2026-04-06,2026-06-30,2026-06-13,2026-06-01,15500.00,23250.00,0.00,Exited,37167,37167,17750,paid,1000,12917,null,null
+Akansha Seth,90330 20392,Vista Heights,D41,B2,Double,2022-12-10,2023-05-31,2023-05-31,2023-05-31,13600.00,20400.00,0.00,Exited,0,20400,12582,partial,1000,0,null,null
+Akarsh Shrivatsava,7303746144,Vista Heights,A24,C2,Double,2026-01-17,2026-08-09,null,2026-07-10,14500.00,21750.00,0.00,On-Notice,0,21750,0,partial,0,0,null,null
+Akarsh Shrivatsava,7303746144,Vista Heights,A41,D2,Double,2024-04-12,2024-06-12,2024-06-12,2024-06-12,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Akhil Vanukuri,9573259861,Vista Heights,B14,A1,Single,2022-07-12,2022-11-17,2022-12-17,2022-11-17,18300.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Aksh Sood,7807126961,Vista Heights,B11,C2,Double,2023-01-31,2023-05-31,2023-05-26,2023-05-31,12600.00,18900.00,0.00,Exited,0,18900,9550,partial,1000,0,null,null
+Akshaj Agrawal,9811572959,Vista Heights,A24,A1,Single,2026-01-18,2026-05-31,2026-05-14,2026-04-08,19500.00,0.00,1500.00,Exited,0,27000,0,partial,1000,0,null,null
+Akshay Balaji,9.19677E+11,Vista Heights,B11,B1,Double,2022-07-10,2023-06-15,2023-06-15,2023-06-15,13600.00,20400.00,0.00,Exited,0,20400,20586,partial,1000,0,null,null
+Akshay Bhole,9403848788,Vista Heights,C41,B2,Double,2024-09-22,2024-12-20,2024-12-20,2024-12-20,14500.00,21750.00,0.00,Exited,0,21750,13224,partial,1000,0,null,null
+Akshay Kulangaravalappil Jini,8129240617,Vista Heights,B14,A1,Single,2023-05-01,2023-07-05,2023-07-05,2023-07-05,18300.00,27450.00,0.00,Exited,0,27450,6120,partial,1000,0,null,null
+Akshay R,8792346637,Vista Heights,C31,C1,Double,2023-07-23,2025-06-30,2025-06-30,2025-06-30,12600.00,18900.00,0.00,Exited,0,18900,0,partial,1000,0,null,null
+Akshay Verma,9317013199,Vista Heights,A41,B3,Triple,2025-07-06,null,null,null,13500.00,20250.00,0.00,Staying,0,20250,0,partial,1000,0,null,null
+Akshayaa M,6383703881,Vista Heights,B24,B3,Triple,2025-06-24,null,null,null,13500.00,20250.00,0.00,Staying,0,20250,0,partial,1000,0,null,null
+Akshit Pulluri,7032710858,Vista Heights,B42,B2,Double,2023-10-01,2026-04-26,2026-04-26,2026-04-08,13600.00,20400.00,0.00,Exited,0,20400,0,partial,1000,0,null,null
+Akshitha G,9944334635,Vista Heights,D12,C2,Double,2025-12-31,2025-12-31,2025-12-31,2025-12-31,14500.00,21750.00,0.00,Exited,0,21750,24000,partial,1000,0,null,null
+Akshuni Raghuwanshi,8839772184,Vista Heights,C42,A1,Single,2024-01-21,2025-12-31,2025-12-31,2025-12-31,18300.00,27450.00,0.00,Exited,0,27450,0,partial,1000,0,null,null
+Alapati Harshini,7337273315,Vista Heights,C12,D1,Double,2026-05-03,2026-07-07,2026-07-02,2026-06-07,14500.00,21750.00,0.00,Exited,36315,36315,7477,paid,1000,13565,null,null
+Aldreena Dsouza,8431546823,Vista Heights,D12,A1,Single,2024-03-01,2025-07-31,2025-07-31,2025-07-31,19000.00,28500.00,0.00,Exited,0,28500,1000,partial,1000,0,null,null
+Aleena Renny Philip,7045630938,Vista Heights,B44,B2,Triple,2026-05-01,null,null,null,13500.00,20250.00,0.00,Staying,34750,34750,0,paid,1000,13500,null,null
+Aleena Renny Philip,7045630938,Vista Heights,B44,B2,Triple,null,null,null,null,null,0.00,0.00,Cancelled,null,1000,0,partial,1000,null,null,null
+Alfred Melwin S,9361230385,Vista Heights,A44,B2,Double,2024-02-26,2024-05-05,2024-05-05,2024-05-05,14500.00,21750.00,0.00,Exited,0,21750,9066,partial,1000,0,null,null
+Alka Mongia,9417980488,Vista Heights,B24,A1,Single,2025-09-16,2025-12-27,2025-12-27,2025-12-27,19500.00,29250.00,500.00,Exited,0,29250,21558,partial,1000,0,null,null
+Amala Menon,9072868795,Vista Heights,B44,A1,Single,2025-06-21,2025-12-13,2025-12-13,2025-12-13,19500.00,28500.00,500.00,Exited,0,29250,0,partial,1000,0,null,null
+Amala Menon,9072868795,Vista Heights,D21,A1,Single,2025-12-14,null,null,null,25500.00,9000.00,500.00,Staying,0,37500,0,partial,0,0,null,null
+Aman Agarwala,9123790151,Vista Heights,B31,B2,Double,2024-10-20,null,null,null,14500.00,21750.00,0.00,Staying,0,21750,0,partial,1000,0,null,null
+Amar Kumar,8090013204,Vista Heights,B33,B2,Double,2025-08-04,2025-10-31,2025-10-31,2025-10-31,15500.00,23250.00,0.00,Exited,0,23250,0,partial,1000,0,null,null
+Amita Asthana,9971383322,Vista Heights,C24,B1,Triple,2024-06-01,2025-10-20,2025-10-20,2025-10-20,13000.00,19500.00,0.00,Exited,0,19500,9771,partial,1000,0,null,null
+Amita Asthana,9971383322,Vista Heights,A24,C2,Double,2023-02-12,2023-10-31,2023-10-31,2023-10-31,12600.00,18900.00,0.00,Exited,0,18900,3894,partial,1000,0,null,null
+Amita Asthana,9971383322,Vista Heights,A24,B2,Triple,2024-02-04,2024-05-31,2024-05-31,2024-05-31,13000.00,19500.00,0.00,Exited,0,19500,27200,partial,1000,0,null,null
+Amruta Puranik,7722091145,Vista Heights,A24,A1,Single,2025-03-15,2025-04-26,2025-04-26,2025-04-26,19000.00,28500.00,0.00,Exited,0,28500,0,partial,1000,0,null,null
+Amruta Puranik,7722091145,Vista Heights,A24,A1,Single,2024-08-18,2024-10-04,2024-10-04,2024-10-04,19000.00,28500.00,0.00,Exited,0,28500,5885,partial,1000,0,null,null
+Anagh Manamal,8086212678,Vista Heights,B13,B2,Double,2025-09-29,2025-11-30,2025-11-30,2025-11-30,15500.00,23250.00,0.00,Exited,0,23250,0,partial,1000,0,null,null
+Ananay Gupta,8130781382,Vista Heights,C41,B2,Double,2025-01-21,2025-10-02,2025-10-02,2025-10-02,14500.00,21750.00,0.00,Exited,0,21750,2000,partial,1000,0,null,null
+Ananaya B,9830332130,Vista Heights,B22,B1,Double,2024-10-01,2025-01-18,2025-01-18,2025-01-18,14500.00,21750.00,0.00,Exited,0,21750,34469,partial,1000,0,null,null
+Anandhu Raveendran,9447584784,Vista Heights,B34,C1,Double,2024-05-16,2024-06-15,2024-06-15,2024-06-15,13500.00,20250.00,0.00,Exited,0,20250,3135,partial,1000,0,null,null
+Ananthalakshmi P,8870976246,Vista Heights,D12,C2,Double,2024-02-18,2025-03-03,2025-03-03,2025-03-03,13500.00,20250.00,0.00,Exited,0,20250,1894,partial,1000,0,null,null
+Ananya Bompalli,9000192299,Vista Heights,B22,B1,Double,2024-01-28,2024-06-30,2024-06-30,2024-06-30,13600.00,20400.00,0.00,Exited,0,20400,0,partial,1000,0,null,null
+Ananya Ganguli,9953615603,Vista Heights,C42,C1,Double,2023-08-07,2023-12-25,2023-12-25,2023-12-25,12600.00,18900.00,0.00,Exited,0,18900,2250,partial,1000,0,null,null
+Ananya Ganguli,9953615603,Vista Heights,C42,C1,Double,2024-05-07,2024-05-31,2024-05-31,2024-05-31,13500.00,20250.00,900.00,Exited,0,20250,21364,partial,1000,0,null,null
+Ananya Sardana,8860092129,Vista Heights,A44,B2,Double,2023-01-24,2023-02-18,2023-02-18,2023-02-18,13600.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Angel V John,7975496417,Vista Heights,A12,B1,Double,2026-01-04,2026-03-31,2026-03-31,2026-03-31,15500.00,23250.00,0.00,Exited,0,23250,18590,partial,1000,0,null,null
+Anil Raagu,9966999511,Vista Heights,B11,D1,Single,2022-07-05,2023-07-08,2023-07-08,2023-07-08,24000.00,36000.00,0.00,Exited,0,36000,30661,partial,1000,0,null,null
+Anirban Basu,8617273409,Vista Heights,A24,B3,Triple,2025-06-08,2025-07-08,2025-07-06,2025-07-08,13500.00,20250.00,0.00,Exited,0,20250,19690,partial,1000,0,null,null
+Anjali Gupta,7408670405,Vista Heights,A23,C2,Double,2023-04-10,2023-06-03,2023-06-03,2023-06-03,12600.00,18900.00,0.00,Exited,0,18900,18695,partial,1000,0,null,null
+Anjali Raj,9573611731,Vista Heights,D12,C1,Double,2023-08-08,2023-10-07,2023-10-07,2023-10-07,12600.00,18900.00,0.00,Exited,0,18900,20346,partial,1000,0,null,null
+Anjali Raj,9573611731,Vista Heights,B24,B1,Triple,2023-08-03,2023-08-08,2023-08-08,2023-08-08,11500.00,17250.00,0.00,Exited,0,17250,22532,partial,1000,0,null,null
+Anjali S R,9746188766,Vista Heights,C42,C2,Double,2023-08-01,2023-12-25,2023-12-25,2023-12-25,12600.00,18900.00,0.00,Exited,0,18900,0,partial,1000,0,null,null
+Anjali Saluja,7470848106,Vista Heights,C24,B2,Triple,2025-06-23,2025-07-23,2025-07-23,2025-07-23,13500.00,20250.00,0.00,Exited,0,20250,19571,partial,1000,0,null,null
+Anjali Saluja,7470848106,Vista Heights,C43,C1,Double,2025-08-20,2025-11-09,2025-11-09,2025-11-09,14500.00,21750.00,0.00,Exited,0,21750,8450,partial,1000,0,null,null
+Anjali Saluja,7470848106,Vista Heights,C43,C1,Double,2024-02-01,2024-12-08,2024-12-08,2024-12-08,13500.00,20250.00,0.00,Exited,0,20250,12173,partial,1000,0,null,null
+Anjalyshyjan Engoor,9061665358,Vista Heights,B44,B1,Triple,2022-06-06,2022-12-22,2022-12-22,2022-12-22,13600.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Anjana K,9946591999,Vista Heights,B12,B2,Double,2024-05-04,2024-06-08,2024-06-08,2024-06-08,14500.00,21750.00,0.00,Exited,0,21750,23235,partial,1000,0,null,null
+Anjana K,9946591999,Vista Heights,A24,A1,Single,2024-04-10,2024-05-04,2024-05-04,2024-05-04,19000.00,28500.00,0.00,Exited,0,28500,6517,partial,1000,0,null,null
+Ankit Mishra,7982516415,Vista Heights,A24,C1,Double,2025-07-01,2025-09-18,2025-09-18,2025-09-18,14500.00,21750.00,0.00,Exited,0,21750,12562,partial,1000,0,null,null
+Ankita Saini,9041303476,Vista Heights,C12,D2,Double,2025-07-27,2025-09-24,2025-09-24,2025-09-24,14500.00,21750.00,0.00,Exited,0,21750,15741,partial,1000,0,null,null
+Ankitha Shanbhag,9483277210,Vista Heights,C42,A1,Single,2026-02-01,2026-07-02,2026-06-04,2026-06-02,19500.00,29250.00,0.00,Exited,0,29250,0,partial,1000,0,null,null
+Annamalai Perikaruppan,6383239454,Vista Heights,B11,B2,Double,2026-06-08,null,null,null,null,0.00,0.00,Cancelled,0,1000,0,partial,1000,0,null,null
+Annamalai Perikaruppan,6383239454,Vista Heights,B11,C1,Double,null,null,null,null,null,0.00,0.00,Cancelled,null,1000,0,partial,1000,null,null,null
+Annette Joseph,8810281639,Vista Heights,B44,C1,Double,2023-08-05,2023-08-08,2023-08-08,2023-08-08,12600.00,18900.00,0.00,Exited,0,18900,2250,partial,1000,0,null,null
+Annette Joseph,8810281639,Vista Heights,B12,B2,Double,2023-08-08,2024-01-25,2024-01-25,2024-01-25,13600.00,20400.00,0.00,Exited,0,20400,31212,partial,1000,0,null,null
+Anoohya Pinninti,6379236645,Vista Heights,B12,A1,Single,2024-07-15,2024-07-15,2024-07-15,2024-07-15,19000.00,28500.00,0.00,Exited,0,28500,31215,partial,1000,0,null,null
+Anshika Agrawal,8770097459,Vista Heights,C12,C2,Triple,2026-02-01,2026-06-30,2026-06-30,2026-05-11,13500.00,0.00,0.00,Exited,0,20250,4269,partial,0,0,null,null
+Anshika Agrawal,8770097459,Vista Heights,C24,B1,Triple,2026-01-11,2026-01-31,2026-01-31,2026-01-31,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Anshika Mittal,8569846678,Vista Heights,A24,B3,Triple,2024-08-04,2024-12-15,2024-12-15,2024-12-15,13000.00,19500.00,0.00,Exited,0,19500,2250,partial,1000,0,null,null
+Antara Chakraverty,9701343973,Vista Heights,A12,A1,Single,2025-12-22,null,null,null,19500.00,29250.00,0.00,Staying,0,29250,0,partial,1000,0,null,null
+Anu Divya,8056423239,Vista Heights,B24,B2,Triple,2024-08-30,2024-08-30,2024-08-30,2024-08-30,13000.00,19500.00,0.00,Exited,0,19500,21750,partial,1000,0,null,null
+Anu Ramya Ramesh,9578822211,Vista Heights,B44,B2,Triple,2023-07-26,2023-12-01,2023-12-01,2023-12-01,13600.00,20400.00,0.00,Exited,0,20400,0,partial,1000,0,null,null
+Anubhab Ghosh,9083742286,Vista Heights,B14,A1,Single,2025-08-16,2025-08-16,2025-08-16,2025-08-16,19500.00,29250.00,0.00,Exited,0,29250,31500,partial,1000,0,null,null
+Anudatt Sunith,9892808551,Vista Heights,A44,C1,Double,2025-10-18,null,null,null,14500.00,21750.00,0.00,Staying,0,21750,0,partial,1000,0,null,null
+Anup Easo Varghese,9663677032,Vista Heights,C21,D1,Single,2026-01-14,null,null,null,25500.00,38250.00,0.00,Staying,0,38250,0,partial,1000,0,null,null
+Anupam Kumari,8252772592,Vista Heights,C24,B3,Triple,2024-08-04,2024-08-31,2024-08-31,2024-08-31,13000.00,19500.00,0.00,Exited,0,19500,2591,partial,1000,0,null,null
+Anupam Kumari,8252772592,Vista Heights,A24,B1,Triple,2024-09-01,2024-09-24,2024-09-24,2024-09-24,13000.00,19500.00,0.00,Exited,0,19500,21597,partial,1000,0,null,null
+Anupam Singh,7970350604,Vista Heights,B32,C2,Double,2026-07-13,null,null,null,14500.00,21750.00,0.00,Staying,31638,31637,1,partial,1000,8888,null,null
+Anupam Varma,9380343467,Vista Heights,B11,C1,Double,2026-06-20,2026-07-01,2026-07-01,2026-06-29,14500.00,0.00,0.00,Exited,28067,29567,0,paid,1000,5317,null,null
+Anupam Varma,9380343467,Vista Heights,B42,B2,Double,2026-07-01,null,null,null,15500.00,21750.00,0.00,Staying,0,0,0,pending,0,0,null,null
+Anurag Madipelly,7386289213,Vista Heights,C44,C2,Double,2023-04-02,2023-05-31,2023-05-31,2023-05-31,12600.00,18900.00,0.00,Exited,0,18900,15558,partial,1000,0,null,null
+Anuragh Sri Vighna Sai Yarlagadda,8897341959,Vista Heights,C31,D1,Single,2024-02-05,2024-05-26,2024-05-26,2024-05-26,24000.00,36000.00,2000.00,Exited,0,36000,25963,partial,1000,0,null,null
+Anusuya Nachiyappan,9655835449,Vista Heights,D11,B1,Single,2023-01-16,2023-06-02,2023-06-02,2023-06-02,24000.00,36000.00,0.00,Exited,0,36000,17320,partial,1000,0,null,null
+Anuya Karangale,7974779295,Vista Heights,C24,C1,Double,2024-08-03,2024-12-31,2024-12-31,2024-12-31,13500.00,20250.00,0.00,Exited,0,20250,2250,partial,1000,0,null,null
+Aparna D,8903570838,Vista Heights,B12,A1,Single,2022-08-28,2023-03-06,2023-03-06,2023-03-06,18300.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Apoorva Chintapalli,9.19676E+11,Vista Heights,A23,B1,Double,2023-04-08,2023-06-03,2023-06-03,2023-06-03,13600.00,20400.00,0.00,Exited,0,20400,18887,partial,1000,0,null,null
+Aradhana M,7339419507,Vista Heights,B22,B2,Double,2024-10-01,2024-10-01,2024-10-01,2024-10-01,14500.00,21750.00,0.00,Exited,0,21750,24000,partial,1000,0,null,null
+Aravind Dutta,8885833226,Vista Heights,B33,B1,Double,2023-02-01,2023-04-02,2023-04-03,2023-04-02,13600.00,20400.00,0.00,Exited,0,20400,20716,partial,1000,0,null,null
+Aravind Dutta,8885833226,Vista Heights,B34,A1,Single,2023-01-25,2023-01-31,2023-01-31,2023-01-31,18300.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Aravind G,9003205602,Vista Heights,B34,A1,Single,2023-05-01,2023-07-02,2023-07-02,2023-07-02,18300.00,27450.00,1800.00,Exited,0,27450,15705,partial,1000,0,null,null
+Aravindhraj M,7603848874,Vista Heights,C31,C1,Double,2026-01-26,2026-06-25,2026-06-19,2026-05-26,14500.00,21750.00,0.00,Exited,0,21750,16943,partial,1000,0,null,null
+Archana S,8281387198,Vista Heights,A24,B1,Triple,2022-08-02,2023-04-06,2023-04-06,2023-04-06,11500.00,17250.00,0.00,Exited,0,17250,20500,partial,1000,0,null,null
+Archana S,8281387198,Vista Heights,C42,A1,Single,2023-02-05,2023-06-05,2023-06-05,2023-06-05,18300.00,27450.00,0.00,Exited,0,27450,9043.25,partial,1000,0,null,null
+Archit Kumar,9548298970,Vista Heights,B13,B2,Double,2023-06-01,2024-04-15,2024-04-15,2024-04-15,13600.00,20400.00,0.00,Exited,0,20400,11422,partial,1000,0,null,null
+Ardra John,9495351673,Vista Heights,C34,B2,Double,2025-12-15,null,null,null,15500.00,23250.00,0.00,Staying,0,23250,0,partial,1000,0,null,null
+Arindrajit Kundu,8420790792,Vista Heights,B42,C1,Double,2025-04-01,null,null,null,13500.00,0.00,0.00,Staying,0,20250,0,partial,0,0,null,null
+Arindrajit Kundu,8420790792,Vista Heights,B41,C1,Double,2024-12-30,2025-03-31,2025-03-31,2025-03-31,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Arindrajit Kundu,8420790792,Vista Heights,B41,C1,Double,2023-09-12,2024-09-27,2024-09-27,2024-09-27,12600.00,18900.00,0.00,Exited,0,18900,0,partial,1000,0,null,null
+Aritra Kumar Das,8013034024,Vista Heights,A11,C1,Double,2025-08-08,2026-01-12,2026-01-12,2026-01-12,14500.00,21750.00,0.00,Exited,0,21750,245.98,partial,1000,0,null,null
+Arjjun Sellamuthu,9003356003,Vista Heights,C21,B1,Double,2022-01-31,2024-09-10,2024-09-10,2024-09-10,13600.00,20400.00,0.00,Exited,0,20400,21499,partial,1000,0,null,null
+Arjunan G,7904334401,Vista Heights,B13,B2,Double,2026-02-15,2026-05-01,2026-05-01,2026-04-01,15500.00,23250.00,0.00,Exited,0,23250,885,partial,1000,0,null,null
+Armaan Thakur,8360639314,Vista Heights,B34,A1,Single,2025-01-15,2025-10-05,2025-10-05,2025-10-05,19000.00,28500.00,0.00,Exited,0,28500,1245,partial,1000,0,null,null
+Arnav Bahuguna,9540540232,Vista Heights,A41,C1,Double,2025-02-19,2025-04-30,2025-04-30,2025-04-30,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Arnav Raj,9608606198,Vista Heights,A41,B2,Triple,2024-04-03,2025-09-30,2025-09-30,2025-09-30,13000.00,19500.00,0.00,Exited,0,19500,0,partial,1000,0,null,null
+Arnav Saharan,9678838220,Vista Heights,A24,B3,Triple,2025-06-08,2025-06-08,2025-06-08,2025-06-08,13500.00,20250.00,0.00,Exited,0,20250,22500,partial,1000,0,null,null
+Arpit A,9556039025,Vista Heights,B13,C1,Double,2024-08-01,2024-08-01,2024-08-01,2024-08-01,13500.00,20250.00,0.00,Exited,0,20250,22500,partial,1000,0,null,null
+Arti Rastogi,8588915672,Vista Heights,C44,B1,Double,2023-07-02,2024-06-13,2024-06-13,2024-06-13,13600.00,20400.00,400.00,Exited,0,20400,10342,partial,1000,0,null,null
+Arun Er,8848039369,Vista Heights,C44,A1,Single,2025-11-01,null,null,null,19500.00,27750.00,1000.00,Staying,0,27750,0,partial,1000,0,null,null
+Arun Kumar K,8526449210,Vista Heights,C44,B1,Double,2023-04-02,2023-06-03,2023-06-03,2023-06-03,13600.00,20400.00,0.00,Exited,0,20400,19287,partial,1000,0,null,null
+Arun Prasad,9037080043,Vista Heights,C31,D1,Single,2026-02-14,null,null,null,25500.00,38250.00,0.00,Staying,0,38250,0,partial,1000,0,null,null
+Aruna Govindarajan,9791208043,Vista Heights,C24,B3,Triple,2024-09-01,2025-04-30,2025-04-30,2025-04-30,13000.00,19500.00,0.00,Exited,0,19500,19499,partial,1000,0,null,null
+Aruna Govindarajan,9791208043,Vista Heights,A24,B3,Triple,2023-05-01,2024-08-31,2024-08-31,2024-08-31,11500.00,17250.00,0.00,Exited,0,17250,1536,partial,1000,0,null,null
+Arunima Shandilya,9064213834,Vista Heights,B24,A1,Single,2026-01-31,null,null,null,19500.00,27000.00,1500.00,Staying,0,27000,0,partial,1000,0,null,null
+Arushi Saxena,9028530042,Vista Heights,C12,D1,Double,2025-05-02,2025-05-31,2025-05-31,2025-05-31,14500.00,21750.00,0.00,Exited,0,21750,17140,partial,1000,0,null,null
+Arvind Asokan,9962638675,Vista Heights,B34,B1,Double,2025-03-01,2025-03-01,2025-03-01,2025-03-01,14500.00,21750.00,0.00,Exited,0,21750,24468,partial,1000,0,null,null
+Aryan Barnwal,6295632355,Vista Heights,B33,B1,Double,2025-08-04,2025-10-31,2025-10-31,2025-10-31,15500.00,23250.00,0.00,Exited,0,23250,0,partial,1000,0,null,null
+Aryan Garg,8219383122,Vista Heights,C21,C2,Double,2023-12-01,2024-04-08,2024-04-08,2024-04-08,12600.00,18900.00,0.00,Exited,0,18900,19444,partial,1000,0,null,null
+Aryan Garg,8219383122,Vista Heights,C11,C2,Double,2023-07-05,2023-11-30,2023-11-30,2023-11-30,12600.00,18900.00,0.00,Exited,0,18900,22150,partial,1000,0,null,null
+Aryan Garg,8219383122,Vista Heights,B11,B1,Double,2023-06-10,2023-07-05,2023-07-05,2023-07-05,13600.00,20400.00,0.00,Exited,0,20400,2250,partial,1000,0,null,null
+Aryananda V,8921451401,Vista Heights,B43,C2,Double,2026-06-28,null,null,null,14500.00,21750.00,0.00,Staying,24200,24200,0,paid,1000,1450,null,null
+Ashish Maurya,8765044510,Vista Heights,C21,C1,Double,2025-01-19,2025-01-19,2025-01-19,2025-01-19,13500.00,20250.00,0.00,Exited,0,20250,23500,partial,1000,0,null,null
+Ashish Maurya,8765044510,Vista Heights,C21,C1,Double,2024-06-10,2024-10-15,2024-10-15,2024-10-15,13500.00,20250.00,0.00,Exited,0,20250,2250,partial,1000,0,null,null
+Ashmita Baidya,8927329721,Vista Heights,D41,C2,Double,2025-07-11,null,null,null,14500.00,21750.00,0.00,Staying,0,21750,0,partial,1000,0,null,null
+Ashmitha Sherine,7708705185,Vista Heights,B44,B1,Triple,2025-03-04,2025-06-05,2025-06-05,2025-06-05,14500.00,21750.00,0.00,Exited,0,21750,21245,partial,1000,0,null,null
+Ashuthosh N B,9482112411,Vista Heights,C11,B2,Double,2024-07-19,2025-07-26,2025-07-26,2025-07-26,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Ashuthosh N B,9482112411,Vista Heights,B33,C1,Double,2025-08-01,2025-10-12,2025-10-12,2025-10-12,14500.00,21750.00,0.00,Exited,0,21750,25000,partial,1000,0,null,null
+Ashwin Lakshmi C J K,8870117731,Vista Heights,C12,C3,Triple,2023-01-02,2023-09-15,2023-09-15,2023-09-15,11500.00,17250.00,0.00,Exited,0,17250,20500,partial,1000,0,null,null
+Ashwin Lakshmi C J K,8870117731,Vista Heights,C12,A1,Single,2023-09-15,2023-11-07,2023-11-07,2023-11-07,18300.00,27450.00,0.00,Exited,0,27450,56900,partial,1000,0,null,null
+Asit Kumar Negi,9718076264,Vista Heights,A41,A1,Single,2026-03-05,2026-06-30,2026-06-26,2026-05-06,19500.00,29250.00,0.00,Exited,0,29250,46681,partial,1000,0,null,null
+Asmita Dhuldhule,9.17589E+11,Vista Heights,A44,D1,Single,2023-10-01,2024-01-26,2024-01-26,2024-01-26,24000.00,36000.00,2000.00,Exited,0,36000,28250,partial,1000,0,null,null
+Asmitha R,9344458669,Vista Heights,D12,B1,Double,2025-03-13,2025-09-06,2025-09-06,2025-09-06,14500.00,21750.00,0.00,Exited,0,21750,22750,partial,1000,0,null,null
+Asritha Boddu,7204692925,Vista Heights,C42,B1,Double,2025-02-22,2025-11-16,2025-11-16,2025-11-16,14500.00,21750.00,0.00,Exited,0,21750,13276,partial,1000,0,null,null
+Asuwin Prabu R G,9994334103,Vista Heights,B13,C1,Double,2023-06-18,2023-08-31,2023-08-31,2023-08-31,12600.00,18900.00,0.00,Exited,0,18900,2250,partial,1000,0,null,null
+Aswin Kumaran M,6380882962,Vista Heights,B34,A1,Single,2024-02-11,2024-04-13,2024-04-13,2024-04-13,19000.00,28500.00,1000.00,Exited,0,28500,1500,partial,1000,0,null,null
+Aswin s,9496713532,Vista Heights,C44,B1,Double,2024-11-22,2024-12-23,2024-12-23,2024-12-23,14500.00,21750.00,0.00,Exited,0,21750,20692,partial,1000,0,null,null
+Aswin s,9496713532,Vista Heights,A41,A1,Single,2026-06-07,null,null,null,19500.00,29250.00,0.00,Staying,44850,44850,0,paid,0,15600,null,null
+Aswini A T,9446201940,Vista Heights,D41,C1,Double,2024-08-12,2025-07-10,2025-07-10,2025-07-10,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Atharva Vaishampayan,9175146054,Vista Heights,B33,B2,Double,2026-02-09,null,null,null,15500.00,23250.00,0.00,Staying,0,23250,0,partial,1000,0,null,null
+Athreya Guru,6362479509,Vista Heights,B33,C2,Double,2023-09-01,2025-05-30,2025-05-30,2025-05-30,12600.00,18900.00,0.00,Exited,0,18900,35228,partial,1000,0,null,null
+Athreya Guru,6362479509,Vista Heights,B33,A1,Single,2023-06-14,2023-08-31,2023-08-31,2023-08-31,18300.00,27450.00,800.00,Exited,0,27450,1032,partial,1000,0,null,null
+Athul Ashok K,7639223322,Vista Heights,A44,B2,Double,2024-05-19,2024-08-31,2024-08-31,2024-08-31,14500.00,21750.00,0.00,Exited,0,21750,7183,partial,1000,0,null,null
+Aurobinda Bharat Maharana,9309988241,Vista Heights,B41,D1,Single,2023-11-21,2025-02-05,2025-02-05,2025-02-05,24000.00,36000.00,2000.00,Exited,0,36000,55114,partial,1000,0,null,null
+Avantika Singh,7078810887,Vista Heights,C24,B2,Triple,2024-08-11,2024-09-15,2024-09-15,2024-09-15,13000.00,19500.00,0.00,Exited,0,19500,5658,partial,1000,0,null,null
+Avijeet Nair,8240274120,Vista Heights,C44,A1,Single,2025-07-05,2025-07-05,2025-07-05,2025-07-05,19500.00,29250.00,0.00,Exited,0,29250,31500,partial,1000,0,null,null
+Avilekh Gautam,9864056999,Vista Heights,C41,A1,Single,2024-10-01,2026-08-02,null,2026-07-09,19000.00,28500.00,0.00,On-Notice,0,28500,0,partial,1000,0,null,null
+Avinash Kothapalli,7331148689,Vista Heights,B41,C1,Double,2023-01-24,2023-01-31,2023-01-31,2023-01-31,12600.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Avinash Kothapalli,7331148689,Vista Heights,B33,B2,Double,2023-02-01,2023-04-02,2023-04-03,2023-04-02,13600.00,20400.00,0.00,Exited,0,20400,20716,partial,1000,0,null,null
+Ayushi Raj,9431637918,Vista Heights,B24,B2,Triple,2024-01-01,2024-05-03,2024-05-03,2024-05-03,11500.00,17250.00,500.00,Exited,0,17250,3587,partial,1000,0,null,null
+Ayushi Saini,8279765846,Vista Heights,A44,D1,Single,2020-10-29,2023-02-25,2023-02-25,2023-02-25,0.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Azhagu Lakshmi Thangamalai,7904929662,Vista Heights,D21,A1,Single,2024-04-10,2024-09-10,2024-09-10,2024-09-10,24000.00,36000.00,0.00,Exited,0,36000,7973,partial,1000,0,null,null
+B H Abhinav Manohar,8925445777,Vista Heights,A24,C2,Double,2025-06-10,2025-06-10,2025-06-10,2025-06-10,14500.00,21750.00,0.00,Exited,0,21750,2250,partial,1000,0,null,null
+Babu Abraham,9745476832,Vista Heights,B31,B1,Double,2025-04-03,null,null,null,14500.00,21750.00,0.00,Staying,0,21750,0,partial,1000,0,null,null
+Bala Saraswathi R,6369229711,Vista Heights,B43,C1,Double,2025-05-18,2025-08-31,2025-08-31,2025-08-31,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Balasanthan K,7448824477,Vista Heights,B34,B2,Double,2025-10-06,2025-12-06,2025-12-06,2025-12-06,15500.00,23250.00,0.00,Exited,0,23250,7080,partial,1000,0,null,null
+Baldev Singh,9650292659,Vista Heights,B13,B1,Double,2021-08-02,2023-09-15,2023-09-15,2023-09-15,0.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Benentia Alice Sanjana N,8072684579,Vista Heights,D12,B2,Double,2025-05-01,null,null,null,15500.00,23250.00,0.00,Staying,0,23250,0,partial,1000,0,null,null
+Bhakti Soni,9607268159,Vista Heights,A24,B2,Triple,2025-05-13,2025-06-12,2025-06-12,2025-06-12,13500.00,20250.00,0.00,Exited,0,20250,19241,partial,1000,0,null,null
+Bharathi Mb,7019271985,Vista Heights,C42,B1,Double,2026-02-11,2026-05-13,2026-05-13,2026-04-11,15500.00,0.00,0.00,Exited,0,23250,0,partial,1000,0,null,null
+Bharathi Priyadharshini,8610469234,Vista Heights,D12,B1,Double,2024-07-08,2024-09-25,2024-09-25,2024-09-25,14500.00,21750.00,0.00,Exited,0,21750,15603,partial,1000,0,null,null
+Bhumika KR,9686419269,Vista Heights,B12,A1,Single,2026-05-06,null,null,null,19500.00,29250.00,0.00,Staying,46605,46605,0,paid,1000,16355,null,null
+Bhumika KR,9686419269,Vista Heights,B12,A1,Single,2026-05-06,null,null,null,null,0.00,0.00,Cancelled,0,1000,0,partial,1000,0,null,null
+Bhuvanikha S,8667850803,Vista Heights,B24,B3,Triple,2024-09-05,2025-03-10,2025-03-10,2025-03-10,13000.00,19500.00,0.00,Exited,0,19500,6424,partial,1000,0,null,null
+Bidisha Das,9.16002E+11,Vista Heights,A44,B1,Double,2023-07-13,2024-01-31,2024-01-31,2024-01-31,13600.00,20400.00,0.00,Exited,0,20400,0,partial,1000,0,null,null
+Bidisha Das,9.16002E+11,Vista Heights,B44,B2,Triple,2024-02-01,2024-03-27,2024-03-27,2024-03-27,14500.00,21750.00,0.00,Exited,0,21750,40040,partial,1000,0,null,null
+Binayak Debgupta,9791572890,Vista Heights,B11,A1,Single,2023-02-23,2024-08-03,2024-08-03,2024-08-03,18300.00,27450.00,0.00,Exited,0,27450,8636,partial,1000,0,null,null
+Bindushree B,8792111931,Vista Heights,D41,B1,Double,2024-06-30,2024-09-27,2024-09-27,2024-09-27,14500.00,21750.00,0.00,Exited,0,21750,2400,partial,1000,0,null,null
+Binu John,9566952274,Vista Heights,B14,C1,Double,2023-07-01,2024-06-02,2024-06-02,2024-06-02,12600.00,18900.00,0.00,Exited,0,18900,19137,partial,1000,0,null,null
+Binu John,9566952274,Vista Heights,C21,C2,Double,2022-09-13,2023-06-30,2023-06-30,2023-06-30,12600.00,18900.00,0.00,Exited,0,18900,8443,partial,1000,0,null,null
+Bornali Barua,7002106773,Vista Heights,C43,C1,Double,2025-02-01,2025-05-20,2025-05-20,2025-05-20,13500.00,20250.00,0.00,Exited,0,20250,12624,partial,1000,0,null,null
+Brinda Vivek Kotha,7981582658,Vista Heights,C34,C2,Double,2024-03-23,2024-03-30,2024-03-30,2024-03-30,13500.00,20250.00,0.00,Exited,0,20250,2250,partial,1000,0,null,null
+Brinda Vivek Kotha,7981582658,Vista Heights,B44,B2,Triple,2024-04-01,2026-03-30,2026-03-30,2026-03-30,14500.00,21750.00,0.00,Exited,0,21750,19950,partial,1000,0,null,null
+Brucelee B,9310507739,Vista Heights,A41,B3,Triple,2025-02-02,2025-07-05,2025-07-05,2025-07-05,13000.00,19500.00,0.00,Exited,0,19500,6946,partial,1000,0,null,null
+C Jayamma Byrappa,8105925485,Vista Heights,C42,B2,Double,2026-02-11,2026-05-13,2026-05-13,2026-04-11,15500.00,0.00,0.00,Exited,0,23250,0,partial,1000,0,null,null
+Ca Shivang Gupta,7579393220,Vista Heights,C21,A1,Single,2025-08-17,2025-10-31,2025-10-31,2025-10-31,19500.00,29250.00,0.00,Exited,0,29250,0,partial,1000,0,null,null
+Caroline Elizabeth,9591507502,Vista Heights,D11,B1,Single,2023-08-06,2023-08-20,2023-08-20,2023-08-20,24000.00,36000.00,600.00,Exited,0,36000,31252,partial,1000,0,null,null
+Chaithra CD,7736198640,Vista Heights,D11,D3,Triple,2025-08-03,2025-10-20,2025-10-20,2025-10-20,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Chaitra Yn,7259139401,Vista Heights,A44,C2,Double,2023-08-05,2023-08-20,2023-08-20,2023-08-20,12600.00,18900.00,0.00,Exited,0,18900,0,partial,1000,0,null,null
+Chaitra Yn,7259139401,Vista Heights,D41,C2,Double,2023-08-20,2023-08-31,2023-08-31,2023-08-31,12600.00,18900.00,0.00,Exited,0,18900,27394,partial,1000,0,null,null
+Chaitra Yn,7259139401,Vista Heights,D11,B1,Single,2023-09-01,2023-12-31,2023-12-31,2023-12-31,24000.00,36000.00,600.00,Exited,0,36000,39250,partial,1000,0,null,null
+Chaman Jain,8925309775,Vista Heights,B33,C1,Double,2026-05-06,null,null,null,null,0.00,0.00,Cancelled,0,1000,0,partial,1000,0,null,null
+Chaman Jain,8925309775,Vista Heights,B33,C1,Double,2026-04-05,2026-05-02,2026-05-02,2026-05-09,14500.00,21750.00,0.00,Exited,35317,35317,0,paid,1000,12567,null,30
+Chandana Sai Bade,6281911049,Vista Heights,B24,C1,Double,2023-02-11,2025-04-26,2025-04-26,2025-04-26,12600.00,18900.00,0.00,Exited,0,18900,12139,partial,1000,0,null,null
+Chandni S,9566880670,Vista Heights,B22,B1,Double,2025-01-05,null,null,null,14500.00,21750.00,0.00,Staying,0,21750,0,partial,1000,0,null,null
+Chandra Mouli M K,9343999741,Vista Heights,C21,A1,Single,2026-01-05,2026-07-21,null,2026-06-06,19500.00,29250.00,0.00,On-Notice,0,29250,0,partial,1000,0,null,null
+Chandra Mouli M K,9343999741,Vista Heights,B42,B2,Double,2022-12-14,2023-01-13,2023-02-06,2023-01-13,13600.00,0.00,0.00,Exited,0,0,0,partial,0,0,null,null
+Chandrasekar Y,8008646495,Vista Heights,B13,B2,Double,2024-05-01,2024-05-31,2024-05-31,2024-05-31,14500.00,21750.00,0.00,Exited,0,21750,25000,partial,1000,0,null,null
+Chandrasekar Y,8008646495,Vista Heights,B11,C2,Double,2024-04-22,2024-04-30,2024-04-30,2024-04-30,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Chandru Rajendran,8148913579,Vista Heights,B32,B2,Double,2024-04-18,2024-04-18,2024-04-18,2024-04-18,14500.00,21750.00,0.00,Exited,0,21750,25000,partial,1000,0,null,null
+Chendra Haasa Kuthadi Kuthadi,6281123952,Vista Heights,B11,B2,Double,2025-03-24,2025-09-28,2025-09-28,2025-09-28,14500.00,21750.00,0.00,Exited,0,21750,13653,partial,1000,0,null,null
+Chirag Nagpal,8826835881,Vista Heights,A44,C2,Double,2024-07-01,2024-09-06,2024-09-06,2024-09-06,13500.00,20250.00,0.00,Exited,0,20250,7088,partial,1000,0,null,null
+Crescent P,7356015199,Vista Heights,C31,C1,Double,2026-07-01,null,null,null,14500.00,21750.00,0.00,Staying,37250,38976,0,paid,1000,14500,null,null
+Daniel Deepak Charles,7200831491,Vista Heights,B14,C1,Double,2022-10-07,2023-05-31,2023-05-31,2023-05-31,12600.00,18900.00,0.00,Exited,0,18900,10924,partial,1000,0,null,null
+Darshika Nemani,7226951659,Vista Heights,D21,B1,Double,2024-12-28,2025-04-27,2025-04-27,2025-04-27,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Debargha Adhikary,9432492015,Vista Heights,C41,B1,Double,2024-09-02,2025-06-29,2025-06-27,2025-06-29,14500.00,21750.00,0.00,Exited,0,21750,19589,partial,1000,0,null,null
+Debargha Adhikary,9432492015,Vista Heights,C44,A1,Single,2025-07-19,2025-09-19,2025-09-19,2025-09-19,19500.00,29250.00,1000.00,Exited,0,29250,18135,partial,1000,0,null,null
+Deborah Roseline,9360494487,Vista Heights,B43,B1,Double,2022-07-05,2023-05-31,2023-05-31,2023-05-31,13600.00,20400.00,0.00,Exited,0,20400,19960,partial,1000,0,null,null
+Deepa R S,9361073014,Vista Heights,A24,B1,Triple,2024-05-16,2024-08-15,2024-08-15,2024-08-15,13000.00,19500.00,0.00,Exited,0,19500,10971,partial,1000,0,null,null
+Deepa Shankar,9945177468,Vista Heights,C42,B1,Double,2023-08-01,2023-12-26,2023-12-26,2023-12-26,13600.00,20400.00,0.00,Exited,0,20400,2250,partial,1000,0,null,null
+Deepa Shankar,9945177468,Vista Heights,C34,B2,Double,2024-05-07,2024-05-31,2024-05-31,2024-05-31,14500.00,21750.00,900.00,Exited,0,21750,24160,partial,1000,0,null,null
+Deepa Singh,8754570921,Vista Heights,C34,C2,Double,2023-02-01,2023-06-08,2023-06-08,2023-06-08,12600.00,18900.00,0.00,Exited,0,18900,21044,partial,1000,0,null,null
+Deepa Singh,8754570921,Vista Heights,C34,C1,Double,2022-01-21,2023-01-31,2023-01-31,2023-01-31,12600.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Deepanjan Gupta,7099220281,Vista Heights,B41,B2,Double,2026-04-12,2026-05-31,2026-05-31,2026-05-01,15500.00,22500.00,500.00,Exited,33000,33000,4606,paid,1000,9500,null,null
+Deepanshu Tahalramani,7000642514,Vista Heights,B14,A1,Single,2023-08-01,2023-12-31,2023-12-31,2023-12-31,18300.00,27450.00,2800.00,Exited,0,27450,0,partial,1000,0,null,null
+Deepanshu Tahalramani,7000642514,Vista Heights,C11,A1,Single,2024-01-01,2024-06-15,2024-06-15,2024-06-15,18300.00,27450.00,2800.00,Exited,0,27450,43052,partial,1000,0,null,null
+Deepika Balamurugan,8300321465,Vista Heights,B43,C1,Double,2023-07-02,2023-07-30,2023-07-30,2023-07-30,12600.00,18900.00,0.00,Exited,0,18900,15850,partial,1000,0,null,null
+Deepthi Krishna,9381254410,Vista Heights,B43,B2,Double,2024-04-15,2024-04-30,2024-04-30,2024-04-30,14500.00,21750.00,0.00,Exited,0,21750,2250,partial,1000,0,null,null
+Deepthi Krishna,9381254410,Vista Heights,C44,B2,Double,2024-05-01,2024-06-14,2024-06-14,2024-06-14,14500.00,21750.00,0.00,Exited,0,21750,22750,partial,1000,0,null,null
+Deexith Varun,8248838744,Vista Heights,C21,A1,Single,2025-05-02,2025-08-02,2025-08-02,2025-08-02,19500.00,29250.00,500.00,Exited,0,29250,590,partial,1000,0,null,null
+Dena Dinesh M M,9150912795,Vista Heights,A44,B2,Double,2025-07-26,null,null,null,15500.00,23250.00,0.00,Staying,0,23250,0,partial,1000,0,null,null
+Dev Bhasin,6395305011,Vista Heights,A24,B3,Triple,2025-09-28,null,null,null,13500.00,0.00,0.00,Staying,0,21750,0,partial,0,0,null,null
+Dev Bhasin,6395305011,Vista Heights,A44,C2,Double,2025-08-08,2025-09-27,2025-09-27,2025-09-27,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Dev Patel,9106637243,Vista Heights,A44,B1,Double,2025-01-06,2025-07-18,2025-07-04,2025-07-18,14500.00,21750.00,0.00,Exited,0,21750,13770,partial,1000,0,null,null
+Dev Sakaria,9901753839,Vista Heights,C41,B2,Double,2026-03-01,2026-07-30,null,2026-06-30,15500.00,23250.00,0.00,On-Notice,0,23250,0,partial,1000,0,null,null
+Devanathan Chandrasekaran,9751421451,Vista Heights,B11,B2,Double,2025-01-07,2025-03-23,2025-03-23,2025-03-23,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Devanathan Chandrasekaran,9751421451,Vista Heights,B33,B1,Double,2025-07-01,2025-07-31,2025-07-31,2025-07-31,15500.00,23250.00,0.00,Exited,0,23250,3250,partial,1000,0,null,null
+Devarakonda Rajasimha,7095679320,Vista Heights,B42,B2,Double,2026-04-28,2026-04-28,2026-04-28,2026-05-07,15500.00,23250.00,0.00,Exited,25800,25800,0,paid,1000,1550,null,null
+Devashish Dewangan,8819980007,Vista Heights,C11,A1,Single,null,null,null,null,19500.00,21750.00,0.00,Booked,0,0,0,pending,0,0,null,null
+Devashish Dewangan,8819980007,Vista Heights,B11,C1,Double,2026-07-09,2026-07-16,null,2026-07-10,14500.00,21750.00,0.00,On-Notice,33509,43589,0,paid,1000,10759,null,null
+Devatha Vishnu,7306193371,Vista Heights,D12,B2,Double,2025-03-02,2025-05-02,2025-05-02,2025-05-02,14500.00,21750.00,0.00,Exited,0,21750,5020,partial,1000,0,null,null
+Devayani Nair,8850059567,Vista Heights,B44,B1,Triple,2026-05-24,2026-07-22,null,2026-06-02,13500.00,20250.00,0.00,On-Notice,24734,24734,0,paid,1000,3484,null,60
+Devesh Vishnoi,8736022724,Vista Heights,C21,C2,Double,2024-06-10,2024-10-19,2024-10-19,2024-10-19,13500.00,20250.00,0.00,Exited,0,20250,1205,partial,1000,0,null,null
+Dhairiyaraj Sinh Jadeja,9904065142,Vista Heights,B41,A1,Single,2023-01-22,2023-10-31,2023-10-31,2023-10-31,18300.00,27450.00,0.00,Exited,0,27450,17530,partial,1000,0,null,null
+Dhanaganapathy Madhavan,9500542138,Vista Heights,B32,A1,Single,2021-12-12,2025-09-30,2025-09-30,2025-09-30,0.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Dhananjai Kullu,7780521568,Vista Heights,B14,C1,Double,2024-09-01,2024-11-03,2024-11-03,2024-11-03,13500.00,20250.00,0.00,Exited,0,20250,4871,partial,1000,0,null,null
+Dhanasuriya D,7904172149,Vista Heights,D11,D3,Triple,2026-03-09,2026-04-16,2026-04-16,2026-04-16,13500.00,20250.00,500.00,Exited,0,20250,0,partial,1000,0,null,null
+Dhanush Kumar,7349603004,Vista Heights,C41,B1,Double,2026-05-27,2026-07-27,null,2026-06-06,15500.00,23250.00,0.00,On-Notice,26750,26750,0,paid,1000,2500,null,null
+Dhayanithi Rp,9.19788E+11,Vista Heights,B13,C2,Double,2023-10-03,2024-11-04,2024-11-04,2024-11-04,12600.00,18900.00,900.00,Exited,0,18900,24007,partial,1000,0,null,null
+Dheeraj Bhardwaj,7389488793,Vista Heights,A23,C2,Double,2024-03-26,2024-05-31,2024-05-31,2024-05-31,13500.00,20250.00,0.00,Exited,0,20250,2250,partial,1000,0,null,null
+Dhivya Parthasarathy,9894180746,Vista Heights,D11,D2,Triple,2023-11-09,null,null,null,13000.00,18000.00,0.00,Staying,0,18000,476,partial,1000,0,null,null
+Dhyey Jakhariya,9428285432,Vista Heights,A41,B1,Triple,2026-07-01,null,null,null,13500.00,20250.00,0.00,Staying,34750,34750,0,paid,1000,13500,null,null
+Dikshanth Jain,8149732813,Vista Heights,C21,A1,Single,2024-04-13,2024-06-15,2024-06-15,2024-06-15,19000.00,28500.00,0.00,Exited,0,28500,1371,partial,1000,0,null,null
+Dinesh Kumar,9176364976,Vista Heights,B41,A1,Single,2023-12-01,2025-05-08,2025-05-08,2025-05-08,18300.00,27450.00,0.00,Exited,0,27450,56926,partial,1000,0,null,null
+Dinesh Kumar,9176364976,Vista Heights,C11,A1,Single,2022-03-21,2023-12-31,2023-12-31,2023-12-31,18300.00,27450.00,0.00,Exited,0,27450,31362,partial,1000,0,null,null
+Dipshikha Basumatary,8811996609,Vista Heights,C12,C1,Triple,2022-02-14,2022-12-30,2022-12-24,2022-12-30,11500.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Disha Girish,8861432201,Vista Heights,C42,B1,Double,2023-02-05,2023-06-15,2023-06-15,2023-06-15,13600.00,20400.00,0.00,Exited,0,20400,0,partial,1000,0,null,null
+Disha Midha,8080654067,Vista Heights,B12,C2,Double,2025-02-13,2025-07-01,2025-07-01,2025-07-01,13500.00,20250.00,0.00,Exited,0,20250,3668,partial,1000,0,null,null
+Divvya D,9470590976,Vista Heights,A23,B2,Double,2023-04-04,2023-06-03,2023-06-03,2023-06-03,13600.00,20400.00,0.00,Exited,0,20400,20295,partial,1000,0,null,null
+Divya Ponnuvel,7708868723,Vista Heights,C42,C1,Double,2024-06-15,2025-10-27,2025-10-27,2025-10-27,13500.00,20250.00,0.00,Exited,0,20250,1871,partial,1000,0,null,null
+Divyakriti Singh,9680444100,Vista Heights,D41,A1,Single,2022-12-15,2023-06-16,2023-06-16,2023-06-16,18300.00,27450.00,800.00,Exited,0,27450,23986,partial,1000,0,null,null
+Divyaratna Joshi,9021423703,Vista Heights,C21,A1,Single,null,null,null,null,19500.00,23250.00,0.00,Booked,0,0,0,pending,0,0,null,null
+Divyaratna Joshi,9021423703,Vista Heights,C21,B2,Double,2026-07-08,2026-07-22,null,2026-07-08,15500.00,23250.00,0.00,On-Notice,36250,43540,0,paid,1000,12000,null,null
+Diya Suresh,6282303424,Vista Heights,B43,B2,Double,2025-07-03,2025-12-08,2025-12-08,2025-12-08,15500.00,23250.00,0.00,Exited,0,23250,0,partial,1000,0,null,null
+Diya Suresh,6282303424,Vista Heights,B43,A1,Single,2025-12-09,null,null,null,19500.00,0.00,0.00,Staying,0,29250,2000,partial,0,0,null,null
+Dongkame Karimchi O Sangma,8133009998,Vista Heights,A12,B2,Double,2025-08-06,2025-12-10,2025-12-10,2025-12-10,15500.00,23250.00,0.00,Exited,0,23250,7910,partial,1000,0,null,null
+Dr Prashanth Jk,9486770139,Vista Heights,C41,D1,Single,2024-04-01,2024-04-30,2024-04-30,2024-04-30,24000.00,36000.00,0.00,Exited,0,36000,0,partial,1000,0,null,null
+Dr RAM SHIROMANI,8840367322,Vista Heights,A23,C1,Double,2026-03-26,null,null,null,14500.00,21750.00,0.00,Staying,25557,23250,16080,partial,1000,2807,null,null
+Drishti Sudhakar,9008715609,Vista Heights,B22,B2,Double,2025-09-02,null,null,null,15500.00,23250.00,0.00,Staying,0,23250,0,partial,1000,0,null,null
+Dudala Sai Sujay,8978093748,Vista Heights,C11,C2,Double,2026-07-01,null,null,null,14500.00,21750.00,0.00,Staying,37250,22750,14500,partial,1000,14500,null,null
+Dwija Das,9863703312,Vista Heights,D11,C1,Double,2026-06-09,2026-08-02,null,2026-07-02,15500.00,23250.00,0.00,On-Notice,35617,35617,0,paid,1000,11367,null,60
+Ebrahim Marakkar,8921554575,Vista Heights,A41,B2,Triple,2025-10-01,null,null,null,13500.00,0.00,0.00,Staying,0,27750,0,partial,0,0,null,null
+Ebrahim Marakkar,8921554575,Vista Heights,A24,A1,Single,2025-06-16,2025-09-30,2025-09-30,2025-09-30,19500.00,27750.00,1000.00,Exited,0,29250,1000,partial,0,0,null,null
+Ebrahim Marakkar,8921554575,Vista Heights,B33,B1,Double,2024-12-20,2025-03-31,2025-03-31,2025-03-31,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Elias Abraham,8281067153,Vista Heights,C31,C1,Double,2021-10-08,2023-07-05,2023-07-05,2023-07-05,0.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Elijh Yani B,8838944567,Vista Heights,B34,C1,Double,2024-04-26,2024-06-15,2024-05-31,2024-06-15,13500.00,20250.00,0.00,Exited,0,20250,15990,partial,1000,0,null,null
+Esaimozhi K,7339363204,Vista Heights,A24,B2,Triple,2024-06-02,2024-06-06,2024-06-06,2024-06-06,13000.00,19500.00,0.00,Exited,0,19500,0,partial,1000,0,null,null
+Esaimozhi K,7339363204,Vista Heights,B44,C1,Double,2024-06-06,2024-08-04,2024-08-04,2024-08-04,13500.00,20250.00,0.00,Exited,0,20250,20946,partial,1000,0,null,null
+Eshita Sharma,6362740771,Vista Heights,A24,A1,Single,2023-08-10,2023-10-09,2023-10-09,2023-10-09,18300.00,27450.00,0.00,Exited,0,27450,30728,partial,1000,0,null,null
+Faraaz Khan,9591015986,Vista Heights,C21,D1,Single,2023-09-03,2023-11-10,2023-11-10,2023-11-10,24000.00,36000.00,0.00,Exited,0,36000,11861,partial,1000,0,null,null
+Faris Gani,7397110845,Vista Heights,C31,D1,Single,2024-05-25,2024-08-06,2024-08-06,2024-08-06,24000.00,36000.00,0.00,Exited,0,36000,0,partial,1000,0,null,null
+Fathima Nazrin,9497822280,Vista Heights,C42,B1,Double,2026-07-01,2026-08-01,null,2026-07-09,15500.00,23250.00,0.00,On-Notice,39750,24100,15650,partial,1000,15500,null,null
+Fathima Nazrin,9497822280,Vista Heights,C42,C2,Double,null,null,null,null,14500.00,23250.00,0.00,Booked,0,0,0,pending,0,0,null,null
+Firoz Uddin Gauhar,9990291532,Vista Heights,C41,C1,Double,null,null,null,null,null,0.00,0.00,Cancelled,null,1000,0,partial,1000,null,null,null
+Firoz Uddin Gauhar,9990291532,Vista Heights,C41,C1,Double,2026-05-01,null,null,null,14500.00,21750.00,0.00,Staying,37250,37250,0,paid,1000,14500,null,null
+Fiza Faizal,7736605599,Vista Heights,D41,B1,Double,2025-08-03,2025-10-15,2025-10-15,2025-10-15,15500.00,23250.00,0.00,Exited,0,23250,0,partial,1000,0,null,null
+Gaayathri Ghantasala,7396987043,Vista Heights,D11,D3,Triple,2025-04-14,2025-07-02,2025-06-27,2025-07-02,13000.00,19500.00,0.00,Exited,0,19500,2250,partial,1000,0,null,null
+Gaddameedhi Bhavani,9618689072,Vista Heights,B24,A1,Single,2024-06-01,2024-06-30,2024-06-30,2024-06-30,19000.00,28500.00,0.00,Exited,0,28500,2250,partial,1000,0,null,null
+Gadiparti Yamini,7036858826,Vista Heights,D41,C2,Double,2023-01-20,2023-03-31,2023-03-19,2023-03-31,12600.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Gadireddy Keerthana,9494207447,Vista Heights,D41,C2,Double,2024-07-26,2024-12-07,2024-12-07,2024-12-07,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Ganesh Selvam,9500164128,Vista Heights,C44,C1,Double,2025-08-17,null,null,null,14500.00,21750.00,0.00,Staying,0,21750,0,partial,1000,0,null,null
+Ganesha M,9025022390,Vista Heights,B13,C1,Double,2024-08-05,2025-02-28,2025-02-28,2025-02-28,13500.00,20250.00,0.00,Exited,0,20250,2343,partial,1000,0,null,null
+Gargi Mishra,7252992649,Vista Heights,C12,D1,Double,2025-06-01,2025-06-01,2025-06-01,2025-06-01,14500.00,21750.00,0.00,Exited,0,21750,24000,partial,1000,0,null,null
+Garvit Mittal,7737521979,Vista Heights,A23,C2,Double,2023-07-03,2024-02-24,2024-02-24,2024-02-24,12600.00,18900.00,0.00,Exited,0,18900,488,partial,1000,0,null,null
+Gaurav Agarwal,9150286969,Vista Heights,A24,B1,Triple,2025-08-01,2025-10-20,2025-10-20,2025-10-20,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Gauri Singh,9468643106,Vista Heights,C44,B2,Double,2024-01-09,2024-04-05,2024-04-05,2024-04-05,13600.00,20400.00,0.00,Exited,0,20400,5958,partial,1000,0,null,null
+Gautam Jyotishi,8236877655,Vista Heights,A11,A1,Single,2025-08-08,2026-02-01,2026-02-01,2026-02-01,19500.00,29250.00,0.00,Exited,0,29250,0,partial,1000,0,null,null
+Gautam Vijay Hanchinal,8904232230,Vista Heights,B33,C2,Double,2026-05-03,2026-07-07,2026-06-28,2026-06-07,14500.00,21750.00,0.00,Exited,36315,36322,7655,paid,1000,13565,null,null
+Gayathri Sudhakaran,8138914521,Vista Heights,C42,B2,Double,2023-08-06,2023-12-25,2023-12-25,2023-12-25,13600.00,20400.00,0.00,Exited,0,20400,2250,partial,1000,0,null,null
+Gayathri Sudhakaran,8138914521,Vista Heights,C34,B1,Double,2024-05-07,2024-05-31,2024-05-31,2024-05-31,14500.00,21750.00,900.00,Exited,0,21750,24160,partial,1000,0,null,null
+GD Harsha,9345485252,Vista Heights,C24,B2,Triple,null,null,null,null,null,0.00,0.00,Cancelled,null,1000,13065,partial,1000,null,null,null
+GD Harsha,9345485252,Vista Heights,C24,B2,Triple,2026-05-02,null,null,null,13500.00,20250.00,0.00,Staying,34315,34312,0,partial,1000,13065,null,null
+Geetesh Gangone,8179295909,Vista Heights,C44,C1,Double,2023-04-04,2023-06-03,2023-06-03,2023-06-03,12600.00,18900.00,0.00,Exited,0,18900,17301,partial,1000,0,null,null
+Geethanjali,8220078860,Vista Heights,B44,C1,Double,2022-04-06,2023-08-04,2023-08-04,2023-08-04,12600.00,18900.00,0.00,Exited,0,18900,10025,partial,1000,0,null,null
+Gheethica Sudeesh,9360366208,Vista Heights,A44,C1,Double,2022-03-07,2023-05-31,2023-05-31,2023-05-31,12600.00,18900.00,0.00,Exited,0,18900,17389,partial,1000,0,null,null
+Girish Kalaimanee,7904083714,Vista Heights,C31,C2,Double,2026-06-01,2026-06-30,2026-06-30,2026-06-08,14500.00,21750.00,0.00,Exited,37250,22750,18324,partial,1000,14500,null,30
+Gitansh Anand,7014608981,Vista Heights,B34,A1,Single,2026-04-05,null,null,null,19500.00,29250.00,0.00,Staying,47150,47150,0,paid,1000,16900,null,null
+Gnanamuthu Pragasamuthu,9591266684,Vista Heights,C41,C1,Double,2024-08-01,2024-11-30,2024-11-30,2024-11-30,13500.00,20250.00,0.00,Exited,0,20250,2250,partial,1000,0,null,null
+Gokul Prakash,9496628422,Vista Heights,B14,C2,Double,2022-09-19,2024-06-02,2024-06-02,2024-06-02,12600.00,18900.00,0.00,Exited,0,18900,19786,partial,1000,0,null,null
+Gokul Raj Dharmarajan,9176322563,Vista Heights,B11,D1,Single,2025-01-11,2025-04-17,2025-04-17,2025-04-17,24000.00,36000.00,0.00,Exited,0,36000,0,partial,1000,0,null,null
+Gokul Raj Sekar,9986042466,Vista Heights,A44,A1,Single,2026-02-07,2026-05-15,2026-05-15,2026-04-16,19500.00,27000.00,1500.00,Exited,0,27000,14605,partial,1000,0,null,null
+Gomathi Nayagam,9940105878,Vista Heights,C31,D1,Single,2022-08-29,2022-12-25,2022-12-25,2022-12-25,24000.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Gouri Renjith,8111001922,Vista Heights,B43,C1,Double,2026-06-28,null,null,null,14500.00,21750.00,0.00,Staying,24200,24200,0,paid,1000,1450,null,null
+Gowsalya,8012152987,Vista Heights,D21,B1,Double,2024-11-04,2024-11-04,2024-11-04,2024-11-04,14500.00,21750.00,0.00,Exited,0,21750,24000,partial,1000,0,null,null
+Grace Roshini,9566228509,Vista Heights,D21,A1,Single,2024-01-01,2024-03-31,2024-03-31,2024-03-31,24000.00,36000.00,1000.00,Exited,0,36000,3750,partial,1000,0,null,null
+Greeshma Krishna,9497778350,Vista Heights,B22,B2,Double,2024-03-18,2024-08-31,2024-08-31,2024-08-31,14500.00,21750.00,0.00,Exited,0,21750,22750,partial,1000,0,null,null
+Greeshma Krishna,9497778350,Vista Heights,C42,B2,Double,2023-02-05,2023-07-31,2023-07-31,2023-07-31,13600.00,20400.00,0.00,Exited,0,20400,0,partial,1000,0,null,null
+Greeshma Krishna,9497778350,Vista Heights,B22,B2,Double,2023-08-01,2024-03-01,2024-02-29,2024-03-01,13600.00,20400.00,0.00,Exited,0,20400,22240,partial,1000,0,null,null
+Gunalan Rajendran,8056773242,Vista Heights,C21,B2,Double,2026-04-21,2026-07-07,2026-07-07,2026-06-05,15500.00,23250.00,0.00,Exited,29417,28583,10837,partial,1000,5167,null,null
+Harenthri Devy Alagir Rajah,8122178986,Vista Heights,B44,A1,Single,2023-02-07,2023-07-31,2023-07-31,2023-07-31,18300.00,27450.00,0.00,Exited,0,27450,10715,partial,1000,0,null,null
+Hari Prasad M,9159093338,Vista Heights,C31,D1,Single,2025-03-25,2025-10-01,2025-10-01,2025-10-01,24000.00,36000.00,0.00,Exited,0,36000,33569,partial,1000,0,null,null
+Hari Vignesh M,8838751717,Vista Heights,A41,B1,Triple,2024-06-12,2025-04-30,2025-04-30,2025-04-30,13000.00,19500.00,0.00,Exited,0,19500,3250,partial,1000,0,null,null
+Harida Pk,7339654878,Vista Heights,D41,B1,Double,2022-09-02,2022-11-04,2022-12-04,2022-11-04,13600.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Harika L,7337024378,Vista Heights,B24,C1,Double,2025-04-28,2025-06-30,2025-06-30,2025-06-30,13500.00,20250.00,0.00,Exited,0,20250,628,partial,1000,0,null,null
+Harikrishnan P,7825835134,Vista Heights,B11,B1,Double,2024-04-14,null,null,null,14500.00,21750.00,0.00,Staying,0,21750,0,partial,1000,0,null,null
+Hariram M,9344735407,Vista Heights,C44,B1,Double,2024-06-24,2024-11-20,2024-11-20,2024-11-20,14500.00,21750.00,0.00,Exited,0,21750,2250,partial,1000,0,null,null
+Harish Kumar M,9164596531,Vista Heights,B14,C1,Double,2025-02-03,null,null,null,13500.00,20250.00,0.00,Staying,0,20250,0,partial,1000,0,null,null
+Harissh G,9486266172,Vista Heights,A41,C1,Double,2025-08-24,null,null,null,14500.00,21750.00,0.00,Staying,0,21750,0,partial,0,0,null,null
+Harissh G,9486266172,Vista Heights,C41,C2,Double,2024-08-01,2025-06-30,2025-06-07,2025-06-30,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Harrsha T,9176526121,Vista Heights,C24,C1,Double,2024-08-04,null,null,null,13500.00,20250.00,0.00,Staying,0,20250,0,partial,1000,0,null,null
+Harsh Ashish,9742156574,Vista Heights,A41,B1,Triple,2024-04-07,2024-06-08,2024-06-08,2024-06-08,13000.00,19500.00,0.00,Exited,0,19500,0,partial,1000,0,null,null
+Harsh Ashish,9742156574,Vista Heights,A24,C1,Double,2026-01-17,2026-04-15,2026-04-15,2026-04-10,14500.00,21750.00,0.00,Exited,0,21750,390,partial,0,0,null,null
+Harsh Gupta,8933822842,Vista Heights,B33,B2,Double,2025-01-23,2025-06-24,2025-06-25,2025-06-24,14500.00,21750.00,0.00,Exited,0,21750,0,partial,0,0,null,null
+Harsh Gupta,8933822842,Vista Heights,A41,D2,Double,2026-02-26,2026-06-11,2026-06-10,2026-05-12,15500.00,23250.00,0.00,Exited,0,23250,0,partial,0,0,null,null
+Harsh Gupta,8933822842,Vista Heights,B33,B2,Double,2023-08-13,2023-11-18,2023-11-18,2023-11-18,13600.00,20400.00,0.00,Exited,0,20400,13355,partial,1000,0,null,null
+Harsh Gupta,8933822842,Vista Heights,B34,C2,Double,2024-08-22,2024-10-18,2024-10-18,2024-10-18,13500.00,20250.00,0.00,Exited,0,20250,0,partial,0,0,null,null
+Harsh Gupta,8933822842,Vista Heights,B31,C2,Double,2025-11-06,2026-01-06,2026-01-06,2026-01-06,15500.00,23250.00,0.00,Exited,0,23250,26582,partial,0,0,null,null
+Harsh Gupta,8933822842,Vista Heights,B33,B1,Double,2024-01-25,2024-07-11,2024-07-11,2024-07-11,13600.00,20400.00,0.00,Exited,0,20400,0,partial,0,0,null,null
+Harsh Gupta,8933822842,Vista Heights,B31,C2,Double,2025-08-11,2025-10-02,2025-10-02,2025-10-02,15500.00,23250.00,0.00,Exited,0,23250,0,partial,0,0,null,null
+Harsh Kamboj,8826575443,Vista Heights,C43,B1,Double,2023-03-12,2023-07-07,2023-07-07,2023-07-07,13600.00,20400.00,0.00,Exited,0,20400,4651,partial,1000,0,null,null
+Harshanand S V,8072300795,Vista Heights,C44,B1,Double,2026-06-01,null,null,null,15500.00,23250.00,0.00,Staying,39750,39750,0,paid,1000,15500,null,null
+Harshil Arora,7838777130,Vista Heights,C11,A1,Single,2026-07-01,2026-07-16,null,2026-07-08,19500.00,29250.00,0.00,On-Notice,49750,30250,19500,partial,1000,19500,null,null
+Harshil Arora,7838777130,Vista Heights,A23,A1,Single,null,null,null,null,19500.00,29250.00,0.00,Booked,0,0,0,pending,0,0,null,null
+Harshit Rajwar,9582604001,Vista Heights,B41,C2,Double,2024-02-27,2024-04-26,2024-04-26,2024-04-26,13500.00,20250.00,0.00,Exited,0,20250,16461,partial,1000,0,null,null
+Hashmitraa V P,8270110008,Vista Heights,C42,C1,Double,2024-06-01,2024-06-01,2024-06-01,2024-06-01,13500.00,20250.00,0.00,Exited,0,20250,22500,partial,1000,0,null,null
+Hemanth Koka,9505042019,Vista Heights,A22,A1,Single,2025-08-13,2025-10-07,2025-10-07,2025-10-07,19500.00,29250.00,500.00,Exited,0,29250,8280,partial,1000,0,null,null
+Hemanth M Reddy,9845966668,Vista Heights,C11,B1,Double,2022-09-21,2022-11-20,2022-11-20,2022-11-20,13600.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Hemavarshini Gnanavel,6385550717,Vista Heights,D12,C1,Double,2024-02-01,2026-03-31,2026-03-31,2026-03-31,13500.00,20250.00,0.00,Exited,0,20250,11950,partial,1000,0,null,null
+Hemavarshini Gnanavel,6385550717,Vista Heights,B44,B1,Triple,2023-12-01,2024-01-31,2024-01-31,2024-01-31,13600.00,20400.00,0.00,Exited,0,20400,2250,partial,1000,0,null,null
+Himadri Das,7001807014,Vista Heights,C11,B1,Double,2024-06-08,2024-09-30,2024-09-30,2024-09-30,14500.00,21750.00,0.00,Exited,0,21750,18641,partial,1000,0,null,null
+Himanshu Dixit,9721953436,Vista Heights,C21,C2,Double,2025-01-19,2025-01-19,2025-01-19,2025-01-19,13500.00,20250.00,0.00,Exited,0,20250,23935,partial,1000,0,null,null
+Himanshu Dixit,9721953436,Vista Heights,A41,B3,Triple,2024-06-13,2024-10-27,2024-10-27,2024-10-27,13000.00,19500.00,0.00,Exited,0,19500,603,partial,1000,0,null,null
+Himika Bhagwat,7987731381,Vista Heights,A12,C1,Double,2025-08-05,null,null,null,14500.00,21750.00,0.00,Staying,0,21750,0,partial,1000,0,null,null
+Himja Dave,8107376075,Vista Heights,C12,C1,Triple,2025-12-03,2026-01-31,2026-01-31,2026-01-31,13500.00,20250.00,0.00,Exited,0,20250,16649,partial,1000,0,null,null
+Hiral Shah,8980311211,Vista Heights,C12,C2,Triple,2023-01-15,2023-09-30,2023-09-30,2023-09-30,11500.00,17250.00,0.00,Exited,0,17250,2500,partial,1000,0,null,null
+Hiranmayee Ganorkar,8788684046,Vista Heights,B24,B2,Triple,2025-03-15,2025-07-04,2025-06-21,2025-07-04,13000.00,19500.00,0.00,Exited,0,19500,2250,partial,1000,0,null,null
+Hitesh Kanwar,9816620315,Vista Heights,A24,B2,Triple,2025-06-10,2025-07-08,2025-07-06,2025-07-08,13500.00,20250.00,0.00,Exited,0,20250,19690,partial,1000,0,null,null
+Hrithik Parikh,9007757968,Vista Heights,C44,C1,Double,2025-05-26,2025-08-17,2025-08-17,2025-08-17,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Hrithik Parikh,9007757968,Vista Heights,B32,C2,Double,2025-11-02,2026-07-07,2026-07-06,2026-06-08,14500.00,0.00,0.00,Exited,0,21750,8259.020000000019,partial,1000,0,null,null
+Ibrahim Kazi,9769063308,Vista Heights,A44,D1,Single,2024-09-25,2024-12-07,2024-12-07,2024-12-07,24000.00,36000.00,0.00,Exited,0,36000,9397,partial,1000,0,null,null
+Ibrahim Kazi,9769063308,Vista Heights,C21,D1,Single,2025-05-07,2025-07-31,2025-07-16,2025-07-31,25500.00,38250.00,0.00,Exited,0,38250,58415,partial,1000,0,null,null
+Indira Ch,9676133876,Vista Heights,B12,C1,Double,2022-10-15,null,null,null,12600.00,12000.00,0.00,Staying,0,12000,0,partial,0,0,null,null
+Indrodeep Chakraborty,7677565954,Vista Heights,A44,A1,Single,2024-02-25,2024-05-20,2024-05-20,2024-05-20,19000.00,28500.00,0.00,Exited,0,28500,1050,partial,1000,0,null,null
+Iravati Datta,8900531947,Vista Heights,B44,C1,Double,2025-02-04,null,null,null,13500.00,20250.00,0.00,Staying,0,20250,0,partial,1000,0,null,null
+Irene Mary Alias,8921487108,Vista Heights,D41,C2,Double,2025-02-01,2025-07-05,2025-07-05,2025-07-05,13500.00,20250.00,0.00,Exited,0,20250,6217,partial,1000,0,null,null
+Ishan Achinta,9435719675,Vista Heights,B13,A1,Single,2024-03-12,2024-04-08,2024-04-23,2024-04-08,19000.00,28500.00,0.00,Exited,0,28500,19461,partial,1000,0,null,null
+Ishan Dubey,9399949737,Vista Heights,B42,B1,Double,2026-06-20,null,null,null,15500.00,23250.00,0.00,Staying,29934,29934,0,paid,1000,5684,null,null
+Jachinn Edwin,7845749940,Vista Heights,B13,B2,Double,2024-06-29,2025-01-28,2025-01-28,2025-01-28,14500.00,21750.00,0.00,Exited,0,21750,16370,partial,1000,0,null,null
+Jaimin Vaghela,9106859916,Vista Heights,C41,B1,Double,2024-08-01,2024-08-01,2024-08-01,2024-08-01,14500.00,21750.00,0.00,Exited,0,21750,24000,partial,1000,0,null,null
+Jaishnu Biradha,8293070386,Vista Heights,B43,B2,Double,2026-07-06,null,null,null,15500.00,23250.00,0.00,Staying,37250,37250,0,paid,1000,13000,null,null
+Jakka Venkat Chandan,9381258914,Vista Heights,B14,A1,Single,2025-08-21,2025-11-30,2025-11-30,2025-11-30,19500.00,29250.00,1000.00,Exited,0,29250,629,partial,1000,0,null,null
+Janardhanan Gopal,8807986354,Vista Heights,B11,B2,Double,2022-03-06,2023-03-30,2023-03-30,2023-03-30,13600.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Janarthana Krishna Venkatesan,8610429396,Vista Heights,B41,B1,Double,2024-07-27,2024-12-02,2024-12-02,2024-12-02,14500.00,21750.00,0.00,Exited,0,21750,4021,partial,1000,0,null,null
+Janmesh Ukey,7454849189,Vista Heights,C31,A1,Single,2025-08-21,2025-09-12,2025-09-12,2025-09-12,19500.00,29250.00,0.00,Exited,0,29250,1697.67,partial,1000,0,null,null
+Janmesh Ukey,7454849189,Vista Heights,C21,B2,Double,2025-09-13,2025-12-15,2025-12-15,2025-12-15,15500.00,23250.00,0.00,Exited,0,23250,26843.11,partial,1000,0,null,null
+Jawahar Muthuramu,9626779144,Vista Heights,A44,A1,Single,2026-05-15,null,null,null,null,0.00,0.00,Cancelled,0,1000,0,partial,1000,0,null,null
+Jay Murjani,9152077679,Vista Heights,A23,B1,Double,2024-03-17,2024-06-01,2024-06-01,2024-06-01,14500.00,21750.00,0.00,Exited,0,21750,4017,partial,1000,0,null,null
+Jayagowri Karthikeyan,7604957249,Vista Heights,C24,C2,Double,2025-01-19,null,null,null,13500.00,20250.00,0.00,Staying,0,20250,0,partial,1000,0,null,null
+Jayakanth S,7358610266,Vista Heights,C31,C2,Double,2023-06-25,2024-05-02,2024-05-02,2024-05-02,12600.00,18900.00,0.00,Exited,0,18900,4380,partial,1000,0,null,null
+Jayanthan Ramesh Vellore,9566266108,Vista Heights,C44,B2,Double,2025-01-02,2025-04-30,2025-04-30,2025-04-30,14500.00,21750.00,0.00,Exited,0,21750,1731.38,partial,1000,0,null,null
+Jayanthan Ramesh Vellore,9566266108,Vista Heights,C21,D1,Single,2024-04-03,2024-09-02,2024-09-02,2024-09-02,24000.00,36000.00,0.00,Exited,0,36000,613.88,partial,1000,0,null,null
+Jayashree Arun,8870160477,Vista Heights,D41,C1,Double,2025-09-01,2026-05-31,2026-05-23,2026-05-01,14500.00,21750.00,0.00,Exited,0,21750,1955,partial,1000,0,null,null
+Jayashri,9545500280,Vista Heights,B12,B1,Double,2022-06-02,2023-05-01,2023-05-01,2023-05-01,13600.00,20400.00,0.00,Exited,0,20400,13672,partial,1000,0,null,null
+Jazib,8563983918,Vista Heights,C11,A1,Single,2024-07-29,2024-07-29,2024-07-29,2024-07-29,19000.00,28500.00,0.00,Exited,0,28500,30750,partial,1000,0,null,null
+Jeevitha Bethulakshmi Kannan,8428217076,Vista Heights,B43,B1,Double,2025-10-02,2026-01-07,2026-01-07,2026-01-07,15500.00,23250.00,0.00,Exited,0,23250,24040,partial,1000,0,null,null
+Jeevitha Bethulakshmi Kannan,8428217076,Vista Heights,C12,B1,Double,2025-07-13,2025-10-01,2025-10-01,2025-10-01,15500.00,23250.00,0.00,Exited,0,23250,2210,partial,1000,0,null,null
+Jerome Fernando,9986165935,Vista Heights,C44,C2,Double,2025-06-07,2025-07-17,2025-07-17,2025-07-17,14500.00,21750.00,0.00,Exited,0,21750,19636,partial,1000,0,null,null
+Jetin Raju Chamarthi,8310164237,Vista Heights,B33,A1,Single,2024-12-16,2025-02-15,2025-02-15,2025-02-15,19000.00,28500.00,0.00,Exited,0,28500,33292,partial,1000,0,null,null
+Jeya Lakshmi Ramakrishnan,8939052344,Vista Heights,D11,B1,Single,2025-04-04,2025-07-15,2025-07-15,2025-07-15,24000.00,36000.00,0.00,Exited,0,36000,0,partial,1000,0,null,null
+Jhanvi Pandey,9921120669,Vista Heights,B44,C1,Double,2024-01-20,2024-06-01,2024-06-01,2024-06-01,12600.00,18900.00,900.00,Exited,0,18900,5356.34,partial,1000,0,null,null
+Jithin K Purushu,7012651263,Vista Heights,C21,D1,Single,2024-08-18,2025-04-30,2025-04-30,2025-04-30,24000.00,36000.00,0.00,Exited,0,36000,0,partial,1000,0,null,null
+Joan Betcy B,9080155826,Vista Heights,D41,B2,Double,2025-06-07,null,null,null,15500.00,23250.00,0.00,Staying,0,23250,0,partial,1000,0,null,null
+Joel Shajan,9061834615,Vista Heights,A11,B1,Double,2025-08-15,null,null,null,15500.00,23250.00,0.00,Staying,0,23250,0,partial,1000,0,null,null
+Jomon P A,8884395666,Vista Heights,A23,B2,Double,2026-04-20,null,null,null,15500.00,23250.00,0.00,Staying,29934,29934,0,paid,1000,5684,null,null
+Joppachan Zacharias,8281645861,Vista Heights,B11,B1,Double,2023-07-10,2023-09-15,2023-09-15,2023-09-15,13600.00,20400.00,0.00,Exited,0,20400,10351,partial,1000,0,null,null
+Juveriyah Hassan,7393912670,Vista Heights,A24,B2,Triple,2024-08-04,2024-12-15,2024-12-15,2024-12-15,13000.00,19500.00,0.00,Exited,0,19500,1380,partial,1000,0,null,null
+Jyotsna B,9535442515,Vista Heights,B22,C1,Double,2024-06-29,2024-06-29,2024-06-29,2024-06-29,13500.00,20250.00,0.00,Exited,0,20250,22500,partial,1000,0,null,null
+Jyotsna Pv,8754079273,Vista Heights,A24,C1,Double,2023-12-02,2024-05-03,2024-05-03,2024-05-03,12600.00,18900.00,0.00,Exited,0,18900,18876,partial,1000,0,null,null
+K Abhishek -,9537962932,Vista Heights,B42,B2,Double,2026-05-01,2026-06-30,2026-06-30,2026-06-17,15500.00,23250.00,0.00,Exited,39750,39750,5133,paid,1000,15500,null,60
+Kaarthika,7063909473,Vista Heights,C43,C2,Double,2024-02-01,null,null,null,13500.00,20250.00,0.00,Staying,0,20250,0,partial,1000,0,null,null
+Kaila Jagadish Reddy,9542435120,Vista Heights,B33,C2,Double,2025-10-13,2026-04-04,2026-04-04,2026-04-04,14500.00,21750.00,0.00,Exited,0,21750,894,partial,1000,0,null,null
+Kalaivani Baskar,9008541132,Vista Heights,C12,A1,Single,2023-11-24,2024-05-31,2024-05-31,2024-05-31,18300.00,27450.00,0.00,Exited,0,27450,29975,partial,1000,0,null,null
+Kalaivani Baskar,9008541132,Vista Heights,B44,B1,Triple,2023-10-19,2023-11-24,2023-11-24,2023-11-24,13600.00,20400.00,0.00,Exited,0,20400,0,partial,1000,0,null,null
+Kalaivani Baskar,9008541132,Vista Heights,B24,B3,Triple,2024-06-01,2024-08-30,2024-08-30,2024-08-30,13000.00,19500.00,0.00,Exited,0,19500,19807,partial,1000,0,null,null
+Kalyanasundaram Subramani,9900113393,Vista Heights,B11,D1,Single,2025-04-18,2025-06-18,2025-06-18,2025-06-18,24000.00,36000.00,0.00,Exited,0,36000,19627,partial,1000,0,null,null
+Kalyani Ganesh,9500895145,Vista Heights,C34,A1,Single,2024-02-25,2024-05-31,2024-05-31,2024-05-31,19000.00,28500.00,2000.00,Exited,0,28500,5250,partial,1000,0,null,null
+Kanimozhi Udayakumar,7598452344,Vista Heights,C24,B2,Triple,2025-08-28,2026-02-28,2026-02-28,2026-02-28,13500.00,20250.00,0.00,Exited,0,20250,2250,partial,1000,0,null,null
+Kanishka A C,8838401957,Vista Heights,C42,B1,Double,2026-05-16,2026-07-11,2026-06-30,2026-06-06,15500.00,0.00,0.00,Exited,0,0,0,pending,0,0,null,null
+Kanishka A C,8838401957,Vista Heights,B12,C2,Double,2026-05-11,null,2026-05-16,null,14500.00,0.00,0.00,Exited,32573,34073,0,paid,1000,9823,null,null
+Kanishka Prasath Kumar,9345404795,Vista Heights,D11,C2,Double,2026-06-03,null,null,null,15500.00,23250.00,0.00,Staying,38717,38717,0,paid,1000,14467,null,null
+Kannan Nair,7356659338,Vista Heights,C21,C1,Double,2024-03-05,2024-04-30,2024-04-30,2024-04-30,13500.00,20250.00,0.00,Exited,0,20250,24004,partial,1000,0,null,null
+Karan M,9080691442,Vista Heights,C31,D1,Single,2025-09-09,2026-01-11,2026-01-11,2026-01-11,25500.00,38250.00,0.00,Exited,0,38250,0,partial,1000,0,null,null
+Kareena Dhore,9179663863,Vista Heights,B31,C2,Double,2025-09-01,2025-09-01,2025-09-01,2025-09-01,15500.00,23250.00,0.00,Exited,0,23250,26500,partial,1000,0,null,null
+Karthick Prasanna Cr,9750783112,Vista Heights,A11,B2,Double,2026-02-22,null,null,null,15500.00,23250.00,0.00,Staying,0,23250,0,partial,1000,0,null,null
+Karthik N,9566222699,Vista Heights,C31,A1,Single,2026-02-12,2026-03-09,2026-03-09,2026-03-09,19500.00,29250.00,0.00,Exited,0,29250,38238.25,partial,1000,0,null,null
+Karthik N,9566222699,Vista Heights,B13,B1,Double,2026-02-09,2026-02-11,2026-02-11,2026-02-11,15500.00,23250.00,0.00,Exited,0,23250,0,partial,1000,0,null,null
+Karthik Thilakan,9497165909,Vista Heights,C44,A1,Single,2025-02-02,2025-02-02,2025-02-02,2025-02-02,19000.00,28500.00,0.00,Exited,0,28500,31429,partial,1000,0,null,null
+Karthikesan E,6385932825,Vista Heights,A23,B1,Double,2025-12-08,null,null,null,15500.00,23250.00,0.00,Staying,0,23250,0,partial,1000,0,null,null
+Karthikeyan Muthukrishnan,9025092661,Vista Heights,B32,C2,Double,2025-05-03,2025-10-28,2025-10-28,2025-10-28,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Karthikeyan Siva,9902408296,Vista Heights,C11,C1,Double,2024-01-06,2024-01-06,2024-01-06,2024-01-06,12600.00,18900.00,0.00,Exited,0,18900,900,partial,1000,0,null,null
+Kashika Rao,9845279148,Vista Heights,B44,C2,Double,2023-08-08,2023-12-24,2023-12-24,2023-12-24,12600.00,18900.00,0.00,Exited,0,18900,0,partial,1000,0,null,null
+Kaustubh Kachare,8424989518,Vista Heights,B42,A1,Single,2024-04-27,2024-04-27,2024-04-27,2024-04-27,19000.00,28500.00,0.00,Exited,0,28500,30750,partial,1000,0,null,null
+Kaviswetha Muthukumar,8838014400,Vista Heights,B12,B1,Double,2023-06-25,2023-08-31,2023-08-31,2023-08-31,13600.00,20400.00,0.00,Exited,0,20400,0,partial,1000,0,null,null
+Kaviya Matta,9959857514,Vista Heights,D41,B1,Double,2024-12-01,2024-12-31,2024-12-31,2024-12-31,14500.00,21750.00,0.00,Exited,0,21750,2250,partial,1000,0,null,null
+Kaviya Ravichandran,9894725979,Vista Heights,D41,B2,Double,2024-12-01,2024-12-31,2024-12-31,2024-12-31,14500.00,21750.00,0.00,Exited,0,21750,2250,partial,1000,0,null,null
+Keerdthe R S,9788190030,Vista Heights,D41,B1,Double,2024-04-18,2024-04-18,2024-04-18,2024-04-18,14500.00,21750.00,0.00,Exited,0,21750,24000,partial,1000,0,null,null
+Keerthana M C,8754803878,Vista Heights,C34,B2,Double,2024-11-16,2025-12-08,2025-12-08,2025-12-08,14500.00,21750.00,0.00,Exited,0,21750,4630,partial,1000,0,null,null
+Keerthiga K,6369353526,Vista Heights,B43,B2,Double,2026-01-03,2026-07-01,2026-07-01,2026-05-31,15500.00,0.00,0.00,Exited,0,23250,0,partial,1000,0,null,null
+Keerthiga K,6369353526,Vista Heights,C12,C2,Triple,2026-07-01,null,null,null,13500.00,23250.00,0.00,Staying,0,0,0,pending,0,0,null,null
+Keshav Lalit,9306185677,Vista Heights,A44,C2,Double,2024-02-25,2024-06-22,2024-06-22,2024-06-22,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Ketki Falle,9167005222,Vista Heights,A44,D1,Single,2022-09-08,2022-12-30,2022-12-27,2022-12-30,24000.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Khansa Shahnawaz,8334802164,Vista Heights,C11,A1,Single,2025-09-09,2026-01-17,2026-01-17,2026-01-17,19500.00,29250.00,0.00,Exited,0,29250,44910,partial,1000,0,null,null
+Khansa Shahnawaz,8334802164,Vista Heights,D12,A1,Single,2025-08-09,2025-09-08,2025-09-08,2025-09-08,19500.00,29250.00,0.00,Exited,0,29250,24672,partial,1000,0,null,null
+Khansa Shahnawaz,8334802164,Vista Heights,D41,C1,Double,2025-07-11,2025-08-08,2025-08-08,2025-08-08,14500.00,21750.00,0.00,Exited,0,21750,1586,partial,1000,0,null,null
+Khushboo Sahani,8416928356,Vista Heights,C34,C2,Double,2024-04-06,null,null,null,13500.00,20250.00,0.00,Staying,0,20250,0,partial,0,0,null,null
+Kingsly Sam Raj,7010144058,Vista Heights,C41,C1,Double,2024-05-01,2024-07-31,2024-07-31,2024-07-31,13500.00,20250.00,0.00,Exited,0,20250,2250,partial,1000,0,null,null
+Kiran Tr,8289916141,Vista Heights,C21,C2,Double,2025-02-09,null,null,null,13500.00,20250.00,0.00,Staying,0,20250,0,partial,1000,0,null,null
+Kiruba Shankar Sn,9942608462,Vista Heights,B33,A1,Single,2022-10-28,2023-02-28,2023-03-09,2023-02-28,18300.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Kishore Kumar,7397444756,Vista Heights,C11,B2,Double,2021-08-15,2023-01-02,2023-01-02,2023-01-02,0.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Komal Kumari,6205575564,Vista Heights,C12,D1,Double,2025-07-27,2025-09-24,2025-09-24,2025-09-24,14500.00,21750.00,0.00,Exited,0,21750,15741,partial,1000,0,null,null
+Koustubh Mandhare,9890788974,Vista Heights,C11,B1,Double,2024-01-07,2024-02-07,2024-02-07,2024-02-07,13600.00,20400.00,0.00,Exited,0,20400,6709,partial,1000,0,null,null
+Kripii Verma,9.1885E+11,Vista Heights,A44,D1,Single,2023-04-26,2023-05-31,2023-05-31,2023-05-31,24000.00,36000.00,0.00,Exited,0,36000,19889,partial,1000,0,null,null
+Krishanu Kashyap,9365258004,Vista Heights,A23,C2,Double,2024-06-06,null,null,null,13500.00,20250.00,0.00,Staying,0,20250,0,partial,1000,0,null,null
+Krishna Srikar Gudipati,8978977890,Vista Heights,B33,B1,Double,2025-06-01,2025-07-05,2025-06-27,2025-07-05,15500.00,23250.00,0.00,Exited,0,23250,2250,partial,1000,0,null,null
+Krishnan D,9489119275,Vista Heights,B14,A1,Single,2025-12-21,null,null,null,19500.00,28500.00,500.00,Staying,0,28500,0,partial,1000,0,null,null
+Krithiga Nagarajan,9629622572,Vista Heights,D21,B2,Double,2024-06-08,null,null,null,14500.00,21750.00,0.00,Staying,0,21750,0,partial,1000,0,null,null
+Krithika K,9361544500,Vista Heights,B43,C1,Double,2023-04-18,2023-06-15,2023-06-15,2023-06-15,12600.00,18900.00,0.00,Exited,0,18900,19132,partial,1000,0,null,null
+Krithika Vjk,6385187569,Vista Heights,D12,A1,Single,2026-02-12,null,null,null,19500.00,28500.00,500.00,Staying,0,28500,0,partial,1000,0,null,null
+Kriti Agrawal,9.18588E+11,Vista Heights,B43,A1,Single,2023-06-17,2023-07-16,2023-07-16,2023-07-16,18300.00,27450.00,0.00,Exited,0,27450,16430,partial,1000,0,null,null
+Kritika Patwary,8015585186,Vista Heights,C12,C1,Triple,2024-02-25,2024-10-21,2024-10-21,2024-10-21,13000.00,19500.00,0.00,Exited,0,19500,13769,partial,1000,0,null,null
+Kshitij Gautam,8824072900,Vista Heights,B14,C2,Double,2025-08-25,2025-12-23,2025-12-23,2025-12-23,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Kumaran S,6380613678,Vista Heights,C31,A1,Single,2025-03-01,2025-05-24,2025-05-24,2025-05-24,19000.00,28500.00,0.00,Exited,0,28500,276,partial,1000,0,null,null
+Kumaraswamy K,9945667271,Vista Heights,B14,B1,Double,2021-12-17,null,null,null,0.00,13000.00,0.00,Staying,0,13000,0.06,partial,0,0,null,null
+Kumari Nisha Singh,9673001591,Vista Heights,D11,B1,Single,2024-12-26,2025-02-14,2025-02-14,2025-02-14,24000.00,36000.00,0.00,Exited,0,36000,39912,partial,1000,0,null,null
+Kundan Lenka,9056559033,Vista Heights,B41,B2,Double,2025-02-04,2025-10-03,2025-10-03,2025-10-03,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Kurian Benoy,9400125402,Vista Heights,B42,A1,Single,2024-05-01,2024-10-01,2024-10-01,2024-10-01,19000.00,28500.00,0.00,Exited,0,28500,33641,partial,1000,0,null,null
+Kurian Benoy,9400125402,Vista Heights,B13,B1,Double,2024-04-22,2024-04-30,2024-03-30,2024-04-30,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Kurian Benoy,9400125402,Vista Heights,D15,A1,Executive,2026-05-04,null,null,null,25500.00,48000.00,0.00,Staying,76904,76903,1,partial,0,28904,null,null
+Lalith Aditya Teegala,7031545678,Vista Heights,B14,A1,Single,2024-07-06,2025-03-21,2025-03-21,2025-03-21,19000.00,28500.00,1500.00,Exited,0,28500,17105,partial,1000,0,null,null
+Laxmi Kumari,9973733495,Vista Heights,D12,A1,Single,2026-01-15,2026-01-15,2026-01-15,2026-01-15,19500.00,29250.00,0.00,Exited,0,29250,31500,partial,1000,0,null,null
+Likhitha Naga Vigneswari Satuluri,8143428893,Vista Heights,C42,C2,Double,2026-05-18,2026-07-31,null,2026-06-06,14500.00,21750.00,0.00,On-Notice,28299,28298,1,partial,0,6549,null,30
+Likhitha Naga Vigneswari Satuluri,8143428893,Vista Heights,C42,C2,Double,2025-10-13,2026-02-02,2026-02-02,2026-02-02,14500.00,0.00,0.00,Exited,0,21750,5239,partial,1000,0,null,null
+Lilavati Mhaske,9075075516,Vista Heights,B22,C1,Double,2023-12-25,2024-06-30,2024-06-30,2024-06-30,12600.00,18900.00,0.00,Exited,0,18900,0,partial,1000,0,null,null
+Lohit Roy,8777594028,Vista Heights,B41,D1,Single,2022-07-14,2023-04-20,2023-04-20,2023-04-20,24000.00,36000.00,0.00,Exited,0,36000,37430,partial,1000,0,null,null
+Lovely John,9880352064,Vista Heights,A12,B2,Double,2026-01-04,2026-03-31,2026-03-31,2026-03-31,15500.00,23250.00,0.00,Exited,0,23250,17590,partial,1000,0,null,null
+M Nishtha,6281010797,Vista Heights,B44,C1,Double,2023-08-09,2023-12-22,2023-12-22,2023-12-22,12600.00,18900.00,0.00,Exited,0,18900,0,partial,1000,0,null,null
+Madhav Vinnakota,9490009933,Vista Heights,B33,B2,Double,2024-07-17,2024-12-14,2024-12-14,2024-12-14,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Madhavan Maruthapillai,9092633708,Vista Heights,C11,A1,Single,2025-03-17,2025-06-14,2025-06-14,2025-06-14,19000.00,28500.00,0.00,Exited,0,28500,4846,partial,1000,0,null,null
+Madhavan S,7892214707,Vista Heights,A41,C1,Double,2025-05-18,2025-07-14,2025-07-11,2025-07-14,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Madhumitha Marimuthu,9952176671,Vista Heights,D11,C2,Double,2025-05-01,2025-12-27,2025-12-27,2025-12-27,15500.00,23250.00,0.00,Exited,0,23250,17460,partial,1000,0,null,null
+Madumitaa Anbu,9600621103,Vista Heights,C12,A1,Single,2023-07-30,2023-08-08,2023-08-08,2023-08-08,18300.00,27450.00,0.00,Exited,0,27450,33546,partial,1000,0,null,null
+Madumitaa Anbu,9600621103,Vista Heights,C43,C1,Double,2023-08-08,2023-12-24,2023-12-24,2023-12-24,12600.00,18900.00,0.00,Exited,0,18900,0,partial,1000,0,null,null
+Mahidhar Dharmapuri,7042463170,Vista Heights,B42,B2,Double,2023-02-15,2023-06-22,2023-06-22,2023-06-22,13600.00,20400.00,0.00,Exited,0,20400,3650,partial,1000,0,null,null
+Mahima Anup,9910422339,Vista Heights,C42,C2,Double,2024-05-07,2024-05-31,2024-05-31,2024-05-31,13500.00,20250.00,900.00,Exited,0,20250,18114,partial,1000,0,null,null
+Mahima Shree,9994342188,Vista Heights,D12,B1,Double,2024-02-03,2024-07-07,2024-07-07,2024-07-07,14500.00,21750.00,0.00,Exited,0,21750,6594,partial,1000,0,null,null
+Mahipal Rajpurohit,8209390327,Vista Heights,B33,B2,Double,2021-08-02,2023-01-28,2023-01-28,2023-01-28,0.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Maithilee Bhor,6374513569,Vista Heights,B44,B1,Triple,2025-06-11,2025-07-10,2025-07-05,2025-07-10,15500.00,23250.00,0.00,Exited,0,23250,23413.75,partial,1000,0,null,null
+Malavika Aiyer,9867410958,Vista Heights,B24,A1,Single,2024-07-07,2024-07-07,2024-07-07,2024-07-07,19000.00,28500.00,1500.00,Exited,0,28500,31750,partial,1000,0,null,null
+Malavika Aiyer,9867410958,Vista Heights,C12,D2,Double,2025-01-01,2025-04-30,2025-04-30,2025-04-30,13500.00,20250.00,0.00,Exited,0,20250,38870,partial,1000,0,null,null
+Malavika Aiyer,9867410958,Vista Heights,B24,B1,Triple,2024-07-30,2024-07-31,2024-07-31,2024-07-31,13000.00,19500.00,0.00,Exited,0,19500,2250,partial,1000,0,null,null
+Malavika Rajesh Nair,8330823913,Vista Heights,B44,B1,Triple,2024-11-10,2025-03-10,2025-03-10,2025-03-10,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Malika Gupta,9897889095,Vista Heights,C44,B2,Double,2023-07-01,2023-10-31,2023-10-31,2023-10-31,13600.00,20400.00,400.00,Exited,0,20400,13120,partial,1000,0,null,null
+Manan Jain,7426852968,Vista Heights,B11,C2,Double,2024-01-21,2024-04-17,2024-04-17,2024-04-17,12600.00,18900.00,0.00,Exited,0,18900,10441,partial,1000,0,null,null
+Manasi K Iyer,9884673159,Vista Heights,B12,C2,Double,2024-06-03,2024-12-31,2024-12-31,2024-12-31,13500.00,20250.00,0.00,Exited,0,20250,2249,partial,1000,0,null,null
+Mancy Vijayakumar,9025464442,Vista Heights,D41,B1,Double,2025-03-09,2025-08-04,2025-08-04,2025-08-04,14500.00,21750.00,0.00,Exited,0,21750,29573,partial,1000,0,null,null
+Maneesha Paruchuri,9059586373,Vista Heights,B44,B1,Triple,2023-06-04,2023-09-05,2023-09-05,2023-09-05,13600.00,20400.00,0.00,Exited,0,20400,5448,partial,1000,0,null,null
+Manish Joshi,7017836373,Vista Heights,A22,B2,Double,2025-08-10,2026-01-09,2026-01-09,2026-01-09,15500.00,23250.00,0.00,Exited,0,23250,391.88,partial,1000,0,null,null
+Manish Joshi,7017836373,Vista Heights,B34,C1,Double,2026-01-10,2026-05-18,2026-05-18,2026-04-10,14500.00,0.00,0.00,Exited,0,23250,1618.8800000000047,partial,0,0,null,null
+Manish Kumar,9430645320,Vista Heights,C44,C2,Double,2025-07-16,2026-03-22,2026-03-22,2026-03-22,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Manisha B,96894478392,Vista Heights,A24,C1,Double,2024-05-01,2024-05-31,2024-05-31,2024-05-31,13500.00,20250.00,0.00,Exited,0,20250,21610,partial,1000,0,null,null
+Manisha B,96894478392,Vista Heights,B22,A1,Single,2023-08-08,2024-01-03,2024-01-03,2024-01-03,18300.00,27450.00,1300.00,Exited,0,27450,6576,partial,1000,0,null,null
+Manisha V,6380878326,Vista Heights,D12,B1,Double,2024-11-21,2025-03-12,2025-03-12,2025-03-12,14500.00,21750.00,0.00,Exited,0,21750,31138,partial,1000,0,null,null
+Manmohan Sai Mohanty,9777891727,Vista Heights,C21,C2,Double,2024-05-27,2024-06-09,2024-06-09,2024-06-09,13500.00,20250.00,0.00,Exited,0,20250,2250,partial,1000,0,null,null
+Manmohan Sai Mohanty,9777891727,Vista Heights,A41,C2,Double,2024-06-09,2024-07-27,2024-07-27,2024-07-27,13500.00,20250.00,0.00,Exited,0,20250,23500,partial,1000,0,null,null
+Manoj Kalinga,9666805028,Vista Heights,C41,C1,Double,2025-09-06,2025-12-05,2025-12-05,2025-12-05,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Manoranjani Manoharan,9944015415,Vista Heights,B22,C1,Double,2024-07-08,2024-10-08,2024-10-08,2024-10-08,13500.00,20250.00,0.00,Exited,0,20250,7769,partial,1000,0,null,null
+Manoranjani Manoharan,9944015415,Vista Heights,D11,C2,Double,2022-05-08,2023-07-18,2023-07-18,2023-07-18,13600.00,20400.00,0.00,Exited,0,20400,3537,partial,1000,0,null,null
+Manoranjith Kumar,9025318193,Vista Heights,B42,A1,Single,2021-04-10,2022-12-15,2022-12-15,2022-12-15,0.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Mansi Dwivedi,6393239105,Vista Heights,B24,B2,Triple,2025-08-12,2025-10-16,2025-10-16,2025-10-16,13500.00,20250.00,0.00,Exited,0,20250,2160,partial,1000,0,null,null
+Manu Dhana Sri,6379029343,Vista Heights,C42,C2,Double,2024-06-01,2024-06-01,2024-06-01,2024-06-01,13500.00,20250.00,0.00,Exited,0,20250,22500,partial,1000,0,null,null
+Maria Navin Mazhuvancherry,9746331490,Vista Heights,C43,A1,Single,2026-06-01,null,null,null,19500.00,23250.00,0.00,Staying,0,0,0,pending,0,0,null,null
+Maria Navin Mazhuvancherry,9746331490,Vista Heights,C12,B2,Double,2026-05-29,2026-06-01,2026-06-01,2026-05-31,15500.00,0.00,0.00,Exited,25750,31750,0,paid,1000,1500,null,null
+Marina Johnson,9496440939,Vista Heights,C12,A1,Single,2025-06-01,null,null,null,19500.00,29250.00,0.00,Staying,0,29250,0,partial,1000,0,null,null
+Mariya Ginwala,9926648598,Vista Heights,A23,C1,Double,2023-04-03,2023-06-02,2023-06-02,2023-06-02,12600.00,18900.00,0.00,Exited,0,18900,18535,partial,1000,0,null,null
+Martin Rodgers,7691972967,Vista Heights,B13,C2,Double,2024-12-01,null,null,null,13500.00,20250.00,0.00,Staying,0,20250,0,partial,1000,0,null,null
+Matcha Pavani Chandrika,9000145068,Vista Heights,D11,B1,Single,2024-01-07,2024-06-30,2024-06-30,2024-06-30,24000.00,36000.00,0.00,Exited,0,36000,16500,partial,1000,0,null,null
+Mathange N,9629910650,Vista Heights,D12,B1,Double,2023-08-08,2024-01-02,2024-01-02,2024-01-02,13600.00,20400.00,0.00,Exited,0,20400,84,partial,1000,0,null,null
+Mathange N,9629910650,Vista Heights,B22,A1,Single,2023-08-03,2023-08-08,2023-08-08,2023-08-08,18300.00,27450.00,0.00,Exited,0,27450,32866,partial,1000,0,null,null
+Mathi Molzhi,9444269488,Vista Heights,B22,C1,Double,2023-07-30,2023-12-24,2023-12-24,2023-12-24,12600.00,18900.00,0.00,Exited,0,18900,2250,partial,1000,0,null,null
+Mayank Pal,7082519168,Vista Heights,A24,B2,Triple,2025-06-08,2025-06-08,2025-06-08,2025-06-08,13500.00,20250.00,0.00,Exited,0,20250,22500,partial,1000,0,null,null
+Mayuri Bhattacharjee,7872922054,Vista Heights,D12,C2,Double,2025-04-01,2025-06-06,2025-06-09,2025-06-06,13500.00,20250.00,0.00,Exited,0,20250,610,partial,1000,0,null,null
+Md Shadab,9859024694,Vista Heights,B33,C2,Double,2022-09-02,2023-02-28,2023-02-28,2023-02-28,12600.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Medona Shiny,9487266728,Vista Heights,A24,C2,Double,2024-07-13,2024-07-31,2024-07-31,2024-07-31,13500.00,20250.00,0.00,Exited,0,20250,2250,partial,1000,0,null,null
+Medona Shiny,9487266728,Vista Heights,B22,C2,Double,2024-08-01,2024-10-22,2024-10-22,2024-10-22,13500.00,20250.00,0.00,Exited,0,20250,20594,partial,1000,0,null,null
+Meera Ravikumar,9944381962,Vista Heights,D21,B2,Double,2023-12-03,2024-02-17,2024-02-17,2024-02-17,13600.00,20400.00,0.00,Exited,0,20400,11276,partial,1000,0,null,null
+Meghana Ks,9972391727,Vista Heights,A24,C2,Double,2024-05-01,2024-05-31,2024-05-31,2024-05-31,13500.00,20250.00,0.00,Exited,0,20250,18360,partial,1000,0,null,null
+Meghna Ravuru,8247874297,Vista Heights,C42,B2,Double,2024-01-21,2026-02-19,2026-02-19,2026-02-19,13600.00,20400.00,0.00,Exited,0,20400,0,partial,1000,0,null,null
+Meghna Ravuru,8247874297,Vista Heights,B12,B2,Double,2023-01-09,2023-07-23,2023-07-23,2023-07-23,13600.00,20400.00,0.00,Exited,0,20400,641,partial,1000,0,null,null
+Midhun Akash,8438569153,Vista Heights,A41,A1,Single,2025-09-07,2025-11-29,2025-11-29,2025-11-29,19500.00,29250.00,0.00,Exited,0,29250,22495,partial,1000,0,null,null
+Mihir Kadve,8866343414,Vista Heights,A23,C1,Double,2024-07-12,2025-10-09,2025-10-09,2025-10-09,13500.00,20250.00,0.00,Exited,0,20250,6980,partial,1000,0,null,null
+Mihir Patil,9689910636,Vista Heights,C11,B2,Double,2026-07-01,null,null,null,15500.00,23250.00,0.00,Staying,39750,24250,15500,partial,1000,15500,null,null
+Miit Sajnani,9662424956,Vista Heights,B11,D1,Single,2023-07-04,2023-07-31,2023-07-31,2023-07-31,24000.00,36000.00,0.00,Exited,0,36000,2250,partial,1000,0,null,null
+Mishti Rastogi,9670693888,Vista Heights,C34,C1,Double,2025-08-01,2025-08-01,2025-08-01,2025-08-01,14500.00,21750.00,0.00,Exited,0,21750,24000,partial,1000,0,null,null
+Mithil Mohan,9747034470,Vista Heights,C44,C2,Double,2026-04-05,null,null,null,14500.00,21750.00,0.00,Staying,35317,37250,0,paid,1000,12567,null,null
+Mohamed Saif,6383334714,Vista Heights,B32,B1,Double,2025-03-08,null,null,null,14500.00,21750.00,0.00,Staying,0,21750,0,partial,1000,0,null,null
+Mohammad Nauman Shahid,8178817442,Vista Heights,C41,C2,Double,2026-05-01,2026-06-30,2026-06-30,2026-05-29,14500.00,21750.00,0.00,Exited,37250,37250,0,paid,1000,14500,null,null
+Mohammad Nauman Shahid,8178817442,Vista Heights,C41,C2,Double,null,null,null,null,null,0.00,0.00,Cancelled,null,1000,14500,partial,1000,null,null,null
+Mohammad Shozab,9868379879,Vista Heights,C41,C2,Double,2026-02-28,2026-04-30,2026-04-30,2026-04-01,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Mohammed Imran,9363023104,Vista Heights,B42,B2,Double,2023-06-24,2023-09-30,2023-09-30,2023-09-30,13600.00,20400.00,0.00,Exited,0,20400,2250,partial,1000,0,null,null
+Mohammed Maaz,9742468784,Vista Heights,B14,C2,Double,2024-06-01,2024-09-02,2024-09-02,2024-09-02,13500.00,20250.00,0.00,Exited,0,20250,4668,partial,1000,0,null,null
+Mohammed Shoaib Khan,9770959473,Vista Heights,B33,C1,Double,2025-10-14,2026-04-04,2026-04-04,2026-04-04,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Mokana Ranee S,8903513516,Vista Heights,D41,C1,Double,2026-06-08,null,null,null,14500.00,21750.00,0.00,Staying,33867,33867,0,paid,1000,11117,null,null
+Moksh Verma,7073194555,Vista Heights,D12,A1,Single,2025-09-09,2025-11-29,2025-11-29,2025-11-29,19500.00,29250.00,0.00,Exited,0,29250,20216,partial,1000,0,null,null
+Monali Daburkar,9373303102,Vista Heights,C44,C2,Double,2023-07-01,2023-12-09,2023-12-09,2023-12-09,12600.00,18900.00,400.00,Exited,0,18900,7561,partial,1000,0,null,null
+Monika Sruthi K,6363665618,Vista Heights,D41,C2,Double,2024-05-07,2024-07-07,2024-07-07,2024-07-07,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Monish Shamukh Kasyap,6302408400,Vista Heights,A44,C1,Double,2024-06-26,2024-10-03,2024-10-03,2024-10-03,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Monitha Mohankumar,8072702422,Vista Heights,C34,C2,Double,2023-07-11,2024-02-07,2024-02-07,2024-02-07,12600.00,18900.00,0.00,Exited,0,18900,5066,partial,1000,0,null,null
+Mounika C S,9994715665,Vista Heights,D11,C1,Double,2022-12-27,2026-06-08,2026-06-08,2026-05-09,13600.00,13000.00,0.00,Exited,0,13000,13000,partial,1000,0,null,null
+Mrunmayi Deshpande,9663113939,Vista Heights,D41,C2,Double,2024-02-25,2024-06-06,2024-06-06,2024-06-06,13500.00,20250.00,0.00,Exited,0,20250,6653,partial,1000,0,null,null
+Mruthyunjay Kadavyanavarmath,9025787947,Vista Heights,B14,A1,Single,2023-03-05,2023-04-30,2023-04-30,2023-04-30,18300.00,27450.00,0.00,Exited,0,27450,10162,partial,1000,0,null,null
+Mudassir Ali,8468979139,Vista Heights,B34,C2,Double,2023-11-21,2024-08-09,2024-08-09,2024-08-09,12600.00,18900.00,900.00,Exited,0,18900,8511,partial,1000,0,null,null
+Murali Mano J,8122036331,Vista Heights,B41,B1,Double,2024-12-02,2025-06-12,2025-05-28,2025-06-12,14500.00,21750.00,0.00,Exited,0,21750,2250,partial,1000,0,null,null
+Muskan Agarwal,7259226557,Vista Heights,D21,B1,Double,2023-10-01,2023-11-10,2023-11-10,2023-11-10,13600.00,20400.00,0.00,Exited,0,20400,35924,partial,1000,0,null,null
+Muskan Agarwal,7259226557,Vista Heights,D21,A1,Single,2023-09-03,2023-09-30,2023-09-30,2023-09-30,24000.00,36000.00,0.00,Exited,0,36000,3750,partial,1000,0,null,null
+Muskan Chauhan,9368392010,Vista Heights,B44,C1,Double,2024-08-04,2024-12-31,2024-12-31,2024-12-31,13500.00,20250.00,0.00,Exited,0,20250,21003,partial,1000,0,null,null
+Muskan Goyal,9888583677,Vista Heights,C12,C2,Triple,2023-11-01,2026-01-17,2026-01-17,2026-01-17,11500.00,17250.00,0.00,Exited,0,17250,26613,partial,1000,0,null,null
+Muskan Singh,9667068997,Vista Heights,A44,C2,Double,2023-08-11,2023-12-22,2023-12-22,2023-12-22,12600.00,18900.00,0.00,Exited,0,18900,83453,partial,1000,0,null,null
+Muthumari Chandran,6361024592,Vista Heights,A12,B2,Double,2026-07-01,null,null,null,15500.00,23250.00,0.00,Staying,39750,39750,0,paid,1000,15500,null,null
+Nadini Santhosh,6302528597,Vista Heights,B24,B2,Triple,2025-12-28,2026-01-26,2026-01-26,2026-01-26,13500.00,20250.00,0.00,Exited,0,20250,19606.79,partial,1000,0,null,null
+Naga Anjana Ainam,9493779922,Vista Heights,C44,C2,Double,2024-03-19,2024-05-31,2024-05-31,2024-05-31,13500.00,20250.00,0.00,Exited,0,20250,26425,partial,1000,0,null,null
+Naga Anjana Ainam,9493779922,Vista Heights,D41,C2,Double,2023-04-02,2023-08-10,2023-08-10,2023-08-10,12600.00,18900.00,0.00,Exited,0,18900,14319,partial,1000,0,null,null
+Naga Raja Kurakula,9611689018,Vista Heights,B11,C2,Double,2024-05-01,null,null,null,13500.00,20250.00,0.00,Staying,0,20250,0,partial,1000,0,null,null
+Naga Sai Abheeshek Varma Chilakalapudi,7993199025,Vista Heights,A41,D2,Double,2025-01-15,2025-08-14,2025-08-14,2025-08-14,14500.00,21750.00,0.00,Exited,0,21750,11296,partial,1000,0,null,null
+Nandana Chitbabu,8939193221,Vista Heights,B24,B2,Triple,2026-04-01,2026-07-31,null,2026-06-30,13500.00,20250.00,0.00,On-Notice,34750,34750,0,paid,1000,13500,null,31
+Narendhren Rr,7598837702,Vista Heights,B14,C2,Double,2026-01-17,null,null,null,14500.00,21750.00,0.00,Staying,0,21750,0,partial,0,0,null,null
+Narendhren Rr,7598837702,Vista Heights,B34,C1,Double,2022-08-18,2024-04-17,2024-04-17,2024-04-17,12600.00,0.00,0.00,Exited,0,12000,969,partial,0,0,null,null
+Narendhren Rr,7598837702,Vista Heights,B34,B2,Double,2024-04-19,2025-10-02,2025-10-02,2025-10-02,14500.00,12000.00,0.00,Exited,0,0,13000,partial,0,0,null,null
+Narmada Vaman,9884537002,Vista Heights,A12,B1,Double,2026-04-04,2026-05-01,2026-05-01,2026-05-08,15500.00,23250.00,0.00,Exited,38200,18750,17750,partial,1000,13950,null,30
+Narmada Vaman,9884537002,Vista Heights,A12,B1,Double,null,null,null,null,null,0.00,0.00,Cancelled,null,1000,0,partial,1000,null,null,30
+Nashwa Basheer,7907519504,Vista Heights,D12,C2,Double,2025-09-14,2025-12-17,2025-12-17,2025-12-17,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Navaneeth Mohan Nair,7907912285,Vista Heights,C41,C2,Double,2024-05-01,2024-07-31,2024-07-31,2024-07-31,13500.00,20250.00,0.00,Exited,0,20250,2250,partial,1000,0,null,null
+Naveen Joseph,9895434090,Vista Heights,C31,B1,Double,2022-09-15,null,null,null,13600.00,13000.00,0.00,Staying,0,13000,0,partial,0,0,null,null
+Naveen Raj,9321863306,Vista Heights,C11,C1,Double,2024-01-28,2024-01-28,2024-01-28,2024-01-28,12600.00,18900.00,0.00,Exited,0,18900,21150,partial,1000,0,null,null
+Naveena Ravichandran,7022638913,Vista Heights,B12,C2,Double,2022-04-18,2024-05-31,2024-05-31,2024-05-31,12600.00,18900.00,0.00,Exited,0,18900,7618,partial,1000,0,null,null
+Naveetha Krishnan,9889886194,Vista Heights,C12,A1,Single,2022-11-01,2023-07-15,2023-08-14,2023-07-15,18300.00,27450.00,0.00,Exited,0,27450,40627,partial,1000,0,null,null
+Navika M S,9499006602,Vista Heights,A24,B2,Triple,2024-12-16,2025-02-03,2025-02-03,2025-02-03,13000.00,19500.00,0.00,Exited,0,19500,18034,partial,1000,0,null,null
+Navkaren,9990971555,Vista Heights,B11,A1,Single,2022-04-08,2023-02-09,2023-02-09,2023-02-09,18300.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Navneet Nitin Tagore,6205601020,Vista Heights,B14,C2,Double,2024-09-01,2025-08-27,2025-08-27,2025-08-27,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Neeharika Katturoju,8317672949,Vista Heights,A23,A1,Single,2023-04-04,2023-06-03,2023-06-03,2023-06-03,18300.00,27450.00,0.00,Exited,0,27450,29595,partial,1000,0,null,null
+Neetu Santhosh,9074878590,Vista Heights,C12,C1,Triple,2023-10-30,2024-02-15,2024-02-15,2024-02-15,11500.00,17250.00,0.00,Exited,0,17250,5982,partial,1000,0,null,null
+Neha Rajput,8130555435,Vista Heights,B24,B1,Triple,2023-08-09,2023-10-14,2023-10-14,2023-10-14,11500.00,17250.00,1600.00,Exited,0,17250,20500,partial,1000,0,null,null
+Neha Rajput,8130555435,Vista Heights,B24,B1,Triple,2022-07-04,2023-06-19,2023-06-19,2023-06-19,11500.00,17250.00,1600.00,Exited,0,17250,4600,partial,1000,0,null,null
+Nida Jawaid,7463830464,Vista Heights,B12,A1,Single,2024-02-25,2024-06-22,2024-06-22,2024-06-22,19000.00,28500.00,0.00,Exited,0,28500,0,partial,1000,0,null,null
+Nidhi Dhotiekar,9535518735,Vista Heights,D41,C2,Double,2023-11-25,2024-01-02,2024-01-02,2024-01-02,12600.00,18900.00,0.00,Exited,0,18900,2878,partial,1000,0,null,null
+Nigalyaa Chandrakumar,9360514606,Vista Heights,C12,B1,Double,2025-06-01,2025-06-30,2025-06-28,2025-06-30,15500.00,23250.00,0.00,Exited,0,23250,2250,partial,1000,0,null,null
+Niharika Shanbhogue,9359237381,Vista Heights,C11,C1,Double,2025-08-01,2026-06-30,2026-06-30,2026-05-31,14500.00,0.00,0.00,Exited,0,21750,0,partial,0,0,null,null
+Niharika Shanbhogue,9359237381,Vista Heights,C12,D1,Double,2025-06-01,2025-07-31,2025-07-31,2025-07-31,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Nijin Pm,8289824737,Vista Heights,C44,A1,Single,2024-10-03,2025-01-14,2025-01-14,2025-01-14,19000.00,28500.00,1000.00,Exited,0,28500,590,partial,1000,0,null,null
+Niket Shah,7225092465,Vista Heights,B41,B2,Double,2023-12-16,2024-03-03,2024-03-03,2024-03-03,13600.00,20400.00,0.00,Exited,0,20400,5537,partial,1000,0,null,null
+Nikhil Gupta,9981963636,Vista Heights,B33,B1,Double,2026-02-09,null,null,null,15500.00,23250.00,0.00,Staying,0,23250,0,partial,1000,0,null,null
+Nikhil Jayanth,9.19791E+11,Vista Heights,B13,A1,Single,2023-09-18,2024-03-10,2024-03-10,2024-03-10,18300.00,27450.00,0.00,Exited,0,27450,2150,partial,1000,0,null,null
+Nikhil Pandeyy,9340192912,Vista Heights,C21,C1,Double,2023-12-01,2024-01-16,2024-01-16,2024-01-16,12600.00,18900.00,0.00,Exited,0,18900,25201.81,partial,1000,0,null,null
+Nikhil Pandeyy,9340192912,Vista Heights,C11,C1,Double,2023-07-01,2023-11-30,2023-11-30,2023-11-30,12600.00,18900.00,0.00,Exited,0,18900,9803,partial,1000,0,null,null
+Nikhil Pandeyy,9340192912,Vista Heights,A11,B2,Double,2025-08-17,2026-01-12,2026-01-12,2026-01-12,15500.00,23250.00,0.00,Exited,0,23250,2250,partial,1000,0,null,null
+Nikhil R,9562542649,Vista Heights,A23,C1,Double,2025-12-20,2026-02-28,2026-02-28,2026-02-28,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Nikita Thirumal,9345339679,Vista Heights,B43,B1,Double,2024-06-02,2024-06-30,2024-06-30,2024-06-30,14500.00,21750.00,0.00,Exited,0,21750,2250,partial,1000,0,null,null
+Nikunj Variya,9712198585,Vista Heights,A44,C1,Double,2025-01-06,2025-07-15,2025-07-04,2025-07-15,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Nilima Neetu Tirkey,7258024524,Vista Heights,D12,A1,Single,2023-08-10,2024-02-29,2024-02-29,2024-02-29,18300.00,27450.00,0.00,Exited,0,27450,911,partial,1000,0,null,null
+Nilofar Althaf,8281897275,Vista Heights,B44,B3,Triple,2026-05-01,null,null,null,13500.00,20250.00,0.00,Staying,34750,34750,0,paid,1000,13500,null,null
+Nilofar Althaf,8281897275,Vista Heights,B44,B3,Triple,null,null,null,null,null,0.00,0.00,Cancelled,null,1000,13500,partial,1000,null,null,null
+Nirmala A,9894210931,Vista Heights,C34,B1,Double,2022-04-16,2023-08-10,2023-08-10,2023-08-10,13600.00,20400.00,0.00,Exited,0,20400,0,partial,1000,0,null,null
+Nirmala A,9894210931,Vista Heights,C34,B1,Double,2023-11-27,null,null,null,13600.00,13000.00,0.00,Staying,0,13000,0,partial,1000,0,null,null
+Nirmala B,9515450680,Vista Heights,C12,C1,Triple,2024-12-15,2025-03-20,2025-03-20,2025-03-20,13000.00,19500.00,0.00,Exited,0,19500,2250,partial,1000,0,null,null
+Nirnay Mahapatra,7087190880,Vista Heights,B41,B1,Double,2023-05-01,2023-07-07,2023-07-07,2023-07-07,13600.00,20400.00,0.00,Exited,0,20400,7071,partial,1000,0,null,null
+Nisanth Shanmugam,9043142003,Vista Heights,B11,C2,Double,2023-06-01,2023-07-31,2023-07-31,2023-07-31,12600.00,18900.00,0.00,Exited,0,18900,2250,partial,1000,0,null,null
+Nisha Nair,8925746235,Vista Heights,B24,C2,Double,2019-11-03,2023-09-30,2023-09-30,2023-09-30,0.00,11500.00,0.00,Exited,0,11500,0,partial,0,0,null,null
+Nisha Nair,8925746235,Vista Heights,C43,A1,Single,2026-03-29,2026-06-01,2026-06-01,2026-04-29,19500.00,0.00,0.00,Exited,32138,1000,15690,partial,0,1888,null,null
+Nisha Nair,8925746235,Vista Heights,D41,B1,Double,2025-01-13,2025-03-13,2025-03-13,2025-03-13,14500.00,0.00,0.00,Exited,0,21750,1000,partial,0,0,null,null
+Nishil Rajan,9810604549,Vista Heights,B41,D1,Single,2023-09-04,2023-11-09,2023-11-09,2023-11-09,24000.00,36000.00,2000.00,Exited,0,36000,29695,partial,1000,0,null,null
+Nithin Kumar,9940800185,Vista Heights,A24,C1,Double,2025-06-10,2025-06-10,2025-06-10,2025-06-10,14500.00,21750.00,0.00,Exited,0,21750,2250,partial,1000,0,null,null
+Nithin Kumar Panjala,8106507177,Vista Heights,B33,B1,Double,2023-06-04,2024-01-09,2024-01-09,2024-01-09,13600.00,20400.00,0.00,Exited,0,20400,15322.39,partial,1000,0,null,null
+Nithin Kumar Panjala,8106507177,Vista Heights,B42,C1,Double,2022-02-28,2023-02-18,2023-02-18,2023-02-18,12600.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Nithiyashri D,9487702982,Vista Heights,B44,C2,Double,2023-01-31,2023-08-05,2023-08-05,2023-08-05,12600.00,18900.00,0.00,Exited,0,18900,13643,partial,1000,0,null,null
+Nithya Rajendran,9500333882,Vista Heights,C34,B2,Double,2022-04-27,2024-05-10,2024-05-10,2024-05-10,13600.00,20400.00,0.00,Exited,0,20400,9575,partial,1000,0,null,null
+Nitin Agarwal,7798981600,Vista Heights,A44,A1,Single,2024-11-03,2024-11-30,2024-11-30,2024-11-30,19000.00,28500.00,1000.00,Exited,0,28500,3750,partial,1000,0,null,null
+Nitin Chanpuriya,7415811173,Vista Heights,B33,C1,Double,2023-03-04,2025-07-20,2025-07-20,2025-07-20,12600.00,18900.00,0.00,Exited,0,18900,3607,partial,1000,0,null,null
+Nitish Kanna,8667079464,Vista Heights,B33,A1,Single,2023-09-03,2023-10-18,2023-10-18,2023-10-18,18300.00,27450.00,0.00,Exited,0,27450,14780,partial,1000,0,null,null
+Nitya Gopal Chakraborty,9.18911E+11,Vista Heights,B11,C1,Double,2024-05-01,2025-08-02,2025-08-02,2025-08-02,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Nivedhitha,7904306197,Vista Heights,B22,A1,Single,2024-06-13,2024-06-13,2024-06-13,2024-06-13,19000.00,28500.00,0.00,Exited,0,28500,30750,partial,1000,0,null,null
+Nivetha Marimuthu,6379141715,Vista Heights,B12,B1,Double,2023-10-01,null,null,null,13600.00,20400.00,0.00,Staying,0,20400,0,partial,0,0,null,null
+Nivetha Sekar,9080639955,Vista Heights,B44,B1,Triple,2024-02-05,2024-10-31,2024-10-31,2024-10-31,14500.00,21750.00,0.00,Exited,0,21750,2150,partial,1000,0,null,null
+Nivetha Shanmugam,7010810924,Vista Heights,C34,C2,Double,2023-07-01,2023-07-31,2023-07-31,2023-07-31,12600.00,18900.00,600.00,Exited,0,18900,14150,partial,1000,0,null,null
+Nuha Marzuqha,9363074085,Vista Heights,B43,A1,Single,2025-07-06,2025-08-31,2025-08-31,2025-08-31,19500.00,29250.00,0.00,Exited,0,29250,22870,partial,1000,0,null,null
+Olivia Sarkar,9163246114,Vista Heights,B12,B2,Double,2023-08-03,2023-08-08,2023-08-08,2023-08-08,13600.00,20400.00,0.00,Exited,0,20400,26269,partial,1000,0,null,null
+Olivia Sarkar,9163246114,Vista Heights,D12,B2,Double,2023-08-08,2023-12-24,2023-12-24,2023-12-24,13600.00,20400.00,0.00,Exited,0,20400,0,partial,1000,0,null,null
+OMEL PAUL,6238845774,Vista Heights,C34,C1,Double,2026-05-31,2026-06-30,2026-06-30,2026-06-27,14500.00,21750.00,0.00,Exited,23218,23218,3810,paid,1000,468,null,null
+Osheen Bhadoria,7906843657,Vista Heights,A24,B1,Triple,2025-05-13,2025-06-12,2025-06-12,2025-06-12,13500.00,20250.00,0.00,Exited,0,20250,19345,partial,1000,0,null,null
+Oveya S,9363210617,Vista Heights,B22,B2,Double,2024-08-31,2024-08-31,2024-08-31,2024-08-31,14500.00,21750.00,0.00,Exited,0,21750,24000,partial,1000,0,null,null
+Oviya P,7397763477,Vista Heights,C12,B1,Double,2026-05-23,null,null,null,15500.00,23250.00,0.00,Staying,28750,28750,0,paid,1000,4500,null,null
+Oviya S,9489770434,Vista Heights,C43,B1,Double,2024-02-01,null,null,null,14500.00,21750.00,0.00,Staying,0,21750,0,partial,1000,0,null,null
+Paarth Agrawal,6361946118,Vista Heights,C44,B1,Double,2025-01-01,2026-06-08,2026-05-29,2026-05-09,14500.00,0.00,0.00,Exited,0,21750,6598.319999999949,partial,0,0,null,null
+Paarth Agrawal,6361946118,Vista Heights,A44,B2,Double,2024-08-29,2024-12-31,2024-12-31,2024-12-31,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Pakhi Mujmer,9753975154,Vista Heights,B44,B1,Triple,2026-05-01,null,2026-05-17,null,13500.00,0.00,0.00,Exited,34750,34750,0,paid,1000,13500,null,null
+Pakhi Mujmer,9753975154,Vista Heights,D12,C1,Double,2026-05-17,null,null,null,14500.00,20250.00,0.00,Staying,0,0,0,pending,0,0,null,null
+Pakhi Mujmer,9753975154,Vista Heights,B44,B1,Triple,2026-04-01,null,null,null,null,0.00,0.00,Cancelled,0,1000,0,partial,1000,0,null,null
+Palak Mahato,9007507945,Vista Heights,B24,B1,Triple,2024-08-15,2025-02-06,2025-02-06,2025-02-06,13000.00,19500.00,0.00,Exited,0,19500,5630,partial,1000,0,null,null
+Palisha Vohra,+917200127035,Vista Heights,D12,B1,Double,2024-10-01,2024-11-15,2024-11-15,2024-11-15,14500.00,21750.00,0.00,Exited,0,21750,21824,partial,1000,0,null,null
+Palisha Vohra,+917200127035,Vista Heights,B22,B2,Double,2024-09-07,2024-09-30,2024-09-30,2024-09-30,14500.00,21750.00,0.00,Exited,0,21750,2250,partial,1000,0,null,null
+Pallavi Reddy Gaddam,9392084988,Vista Heights,B44,B1,Triple,2025-08-01,2026-02-27,2026-02-27,2026-02-27,15500.00,23250.00,0.00,Exited,0,23250,0,partial,1000,0,null,null
+Pallavi Reddy Gaddam,9392084988,Vista Heights,D41,B1,Double,2024-05-06,2024-07-05,2024-07-05,2024-07-05,14500.00,21750.00,0.00,Exited,0,21750,2337,partial,1000,0,null,null
+Pallavi Reddy Goddam,9392084988,Vista Heights,D41,B1,Double,2024-05-06,2024-07-05,2024-07-05,2024-07-05,14500.00,21750.00,0.00,Exited,0,21750,57188,partial,1000,0,null,null
+Pallavi Reddy Goddam,9392084988,Vista Heights,B44,B1,Triple,2025-08-01,2026-02-27,2026-02-27,2026-02-27,15500.00,23250.00,0.00,Exited,0,23250,147593,partial,1000,0,null,null
+Pangkame Sangma,7085333249,Vista Heights,A12,B1,Double,2025-08-06,2025-12-10,2025-12-10,2025-12-10,15500.00,23250.00,0.00,Exited,0,23250,7910,partial,1000,0,null,null
+Parag Kaundil,9003351903,Vista Heights,C31,A1,Single,2022-08-05,2024-05-31,2024-05-31,2024-05-31,18300.00,27450.00,0.00,Exited,0,27450,10950,partial,1000,0,null,null
+Paras Katal,7051118471,Vista Heights,B33,C2,Double,2025-08-01,2025-10-04,2025-10-04,2025-10-04,14500.00,21750.00,0.00,Exited,0,21750,24760,partial,1000,0,null,null
+Paras Katal,7051118471,Vista Heights,C11,C2,Double,2024-07-19,2025-07-26,2025-07-26,2025-07-26,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Parteek Gupta,9781923650,Vista Heights,B11,C1,Double,2022-06-30,2023-11-24,2023-11-24,2023-11-24,12600.00,18900.00,0.00,Exited,0,18900,9041,partial,1000,0,null,null
+Parth Sarthi Prasad,8178131305,Vista Heights,C31,D1,Single,2023-02-08,2023-06-28,2023-06-28,2023-06-28,24000.00,36000.00,0.00,Exited,0,36000,37178,partial,1000,0,null,null
+Parth Sarthi Prasad,8178131305,Vista Heights,B41,C1,Double,2023-01-31,2023-02-08,2023-02-08,2023-02-08,12600.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Parul Dagar,9958546593,Vista Heights,D21,B1,Double,2024-11-04,2024-12-31,2024-12-30,2024-12-31,14500.00,21750.00,0.00,Exited,0,21750,2250,partial,1000,0,null,null
+Parv Aggarwal,7015215583,Vista Heights,A24,B2,Triple,2025-09-28,null,null,null,13500.00,0.00,0.00,Staying,0,21750,0,partial,0,0,null,null
+Parv Aggarwal,7015215583,Vista Heights,A44,C1,Double,2025-08-02,2025-09-27,2025-09-27,2025-09-27,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Patrick Durairaj J,8825803868,Vista Heights,C31,C2,Double,2023-04-02,2023-05-31,2023-05-31,2023-05-31,12600.00,18900.00,0.00,Exited,0,18900,17536,partial,1000,0,null,null
+Peddoori Santhosh Vyas,9027339943,Vista Heights,B41,B2,Double,2024-06-03,2024-08-03,2024-08-03,2024-08-03,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Phaniraj Vuyyuri,7989068784,Vista Heights,A23,A1,Single,2024-09-01,2025-08-31,2025-08-31,2025-08-31,19000.00,28500.00,0.00,Exited,0,28500,0,partial,1000,0,null,null
+Piyush Malhotra,9878719281,Vista Heights,B13,C1,Double,2025-03-05,null,null,null,13500.00,20250.00,0.00,Staying,0,20250,0,partial,1000,0,null,null
+Ponmani Priya V V,9487430682,Vista Heights,A24,A1,Single,2024-10-01,2024-10-31,2024-10-31,2024-10-31,19000.00,28500.00,0.00,Exited,0,28500,2250,partial,1000,0,null,null
+Pooja Purushothaman,9942910289,Vista Heights,B24,A1,Single,2023-05-01,2023-07-05,2023-07-05,2023-07-05,18300.00,27450.00,0.00,Exited,0,27450,6420,partial,1000,0,null,null
+Pooja Soni,8878900070,Vista Heights,C42,A1,Single,2023-05-13,2023-06-10,2023-06-10,2023-06-10,18300.00,27450.00,1300.00,Exited,0,27450,37279,partial,1000,0,null,null
+Pooja Sree Samyuktha V,9791183260,Vista Heights,B41,B2,Double,2022-08-20,2022-11-27,2022-12-27,2022-11-27,13600.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Pooja Sri,9629920762,Vista Heights,A24,B1,Triple,2024-12-16,2025-02-15,2025-02-15,2025-02-15,13000.00,19500.00,0.00,Exited,0,19500,23605,partial,1000,0,null,null
+Poorvi Mittal,8700339817,Vista Heights,B43,A1,Single,2024-01-17,2024-03-31,2024-03-31,2024-03-31,18300.00,27450.00,2000.00,Exited,0,27450,4200,partial,1000,0,null,null
+Poorvi Mittal,8700339817,Vista Heights,C43,A1,Single,2024-04-01,2024-07-17,2024-07-17,2024-07-17,19000.00,28500.00,0.00,Exited,0,28500,44258,partial,1000,0,null,null
+Prabhu,99445 57665,Vista Heights,A41,A1,Single,2024-04-01,2024-04-01,2024-04-01,2024-04-01,19000.00,28500.00,0.00,Exited,0,28500,30750,partial,1000,0,null,null
+Prabu V,9655471386,Vista Heights,A24,C2,Double,2025-10-01,2025-11-30,2025-11-30,2025-11-30,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Pradeep Kashavena,9700700299,Vista Heights,B41,C2,Double,2022-11-27,2023-12-31,2023-12-31,2023-12-31,12600.00,18900.00,0.00,Exited,0,18900,48653,partial,1000,0,null,null
+Praful Harikumar,7994232243,Vista Heights,C31,C2,Double,2026-07-01,null,null,null,14500.00,21750.00,0.00,Staying,37250,38976,0,paid,1000,14500,null,null
+Pragathi Patilkulkarni,8792879124,Vista Heights,B12,B2,Double,2024-02-03,2024-05-03,2024-05-03,2024-05-03,14500.00,21750.00,0.00,Exited,0,21750,4122,partial,1000,0,null,null
+Pragnya Deshpande,7032637336,Vista Heights,D21,A1,Single,2023-10-01,2023-11-10,2023-11-10,2023-11-10,24000.00,36000.00,1000.00,Exited,0,36000,36520,partial,1000,0,null,null
+Pragnya Deshpande,7032637336,Vista Heights,D21,B1,Double,2023-09-04,2023-09-30,2023-09-30,2023-09-30,13600.00,20400.00,0.00,Exited,0,20400,2250,partial,1000,0,null,null
+Prakash Kumar R,9080331993,Vista Heights,B34,A1,Single,2024-07-17,2024-07-24,2024-07-24,2024-07-24,19000.00,28500.00,0.00,Exited,0,28500,9996,partial,1000,0,null,null
+Prakash Kumar R,9080331993,Vista Heights,A41,C1,Double,2024-07-25,2025-02-15,2025-02-15,2025-02-15,13500.00,20250.00,0.00,Exited,0,20250,21250,partial,1000,0,null,null
+Prakashraj,9597065050,Vista Heights,C11,C1,Double,2022-02-26,2022-12-31,2022-12-31,2022-12-31,12600.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Pranav Purkar,7972958126,Vista Heights,A22,B1,Double,2025-08-10,2026-01-09,2026-01-09,2026-01-09,15500.00,23250.00,0.00,Exited,0,23250,0,partial,1000,0,null,null
+Pranav Purkar,7972958126,Vista Heights,B34,B1,Double,2026-01-10,null,null,null,15500.00,0.00,0.00,Staying,0,23250,0,partial,0,0,null,null
+Pranav Vitthalrao Kadam,7218767500,Vista Heights,C11,B1,Double,2026-07-01,null,null,null,15500.00,23250.00,0.00,Staying,39750,24250,15500,partial,1000,15500,null,null
+Pranesh S A,8838187804,Vista Heights,A41,C2,Double,2026-07-14,null,null,null,14500.00,21750.00,0.00,Staying,31170,31166,4,partial,1000,8420,null,null
+Pranjal Chouhan,7030405757,Vista Heights,B24,B1,Triple,2025-03-02,2025-04-02,2025-04-02,2025-04-02,13000.00,19500.00,0.00,Exited,0,19500,4683,partial,1000,0,null,null
+Prashanth P,7204393916,Vista Heights,B41,B2,Double,2026-03-16,2026-03-31,2026-03-31,2026-04-01,15500.00,23250.00,0.00,Exited,32250,0,24250,partial,1000,8000,null,null
+Prashanth P,7204393916,Vista Heights,C41,B2,Double,2025-10-09,2026-01-01,2026-01-01,2026-01-01,15500.00,23250.00,0.00,Exited,0,23250,7587.27,partial,1000,0,null,null
+Prasoon Panthayi,9913830445,Vista Heights,B34,C2,Double,2022-04-26,2023-11-04,2023-11-04,2023-11-04,12600.00,18900.00,0.00,Exited,0,18900,12141,partial,1000,0,null,null
+Prateek Sharma,8657428129,Vista Heights,C41,B1,Double,2024-04-05,2024-04-30,2024-04-30,2024-04-30,14500.00,0.00,0.00,Exited,0,21750,0,partial,0,0,null,null
+Prateek Sharma,8657428129,Vista Heights,C41,D1,Single,2024-05-01,null,null,null,24000.00,42000.00,1000.00,Staying,0,42000,42000.27,partial,1000,0,null,null
+Prateeksha Tripathi,9.16265E+11,Vista Heights,B44,B2,Triple,2023-01-10,2023-05-31,2023-05-31,2023-05-31,13600.00,20400.00,0.00,Exited,0,20400,10035,partial,1000,0,null,null
+Pratham Mishra,9682447792,Vista Heights,C41,B1,Double,2025-08-26,2026-05-27,2026-05-27,2026-04-23,15500.00,23250.00,0.00,Exited,0,23250,0,partial,1000,0,null,null
+Prathey Usha,7339338179,Vista Heights,B12,B2,Double,2022-12-17,2022-12-30,2022-12-30,2022-12-30,13600.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Pratiksha Mishra,8146823455,Vista Heights,D11,B1,Single,2025-03-04,2025-03-31,2025-03-31,2025-03-31,24000.00,36000.00,1000.00,Exited,0,36000,3750,partial,1000,0,null,null
+Pratiksha Mishra,8146823455,Vista Heights,D41,B2,Double,2025-04-01,2025-06-09,2025-06-08,2025-06-09,14500.00,21750.00,0.00,Exited,0,21750,56108,partial,1000,0,null,null
+Praveen C H,8197022153,Vista Heights,B14,C1,Double,2024-06-03,2024-09-02,2024-09-02,2024-09-02,13500.00,20250.00,0.00,Exited,0,20250,4668,partial,1000,0,null,null
+PRAVEEN J,8940530074,Vista Heights,B11,C1,Double,2026-06-01,null,null,null,null,0.00,0.00,Cancelled,0,1000,0,partial,1000,0,null,null
+Praveen Kumar R,8220162812,Vista Heights,C44,C2,Double,2024-06-29,2024-11-20,2024-11-20,2024-11-20,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Praveen R P,9487856218,Vista Heights,C44,C2,Double,2025-01-06,2025-06-07,2025-06-07,2025-06-07,13500.00,20250.00,0.00,Exited,0,20250,494,partial,1000,0,null,null
+Praveen Vadicharla,9177255339,Vista Heights,C31,B2,Double,2022-08-21,2023-07-19,2023-07-19,2023-07-19,13600.00,20400.00,0.00,Exited,0,20400,45322,partial,1000,0,null,null
+Preeti Jharia,9.16262E+11,Vista Heights,A24,B2,Triple,2023-02-12,2024-02-22,2024-01-24,2024-02-22,11500.00,17250.00,0.00,Exited,0,17250,250,partial,1000,0,null,null
+Prem Chippada,7799044133,Vista Heights,B34,C2,Double,2024-10-27,null,null,null,13500.00,20250.00,0.00,Staying,0,20250,0,partial,1000,0,null,null
+Prem Raghavan,7829019809,Vista Heights,B32,B1,Double,2021-11-29,2023-04-30,2023-04-30,2023-04-30,0.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Premnath M S,9597868444,Vista Heights,A24,C1,Double,2025-12-02,2026-01-15,2026-01-15,2026-01-15,14500.00,21750.00,0.00,Exited,0,21750,32918,partial,1000,0,null,null
+Premnath M S,9597868444,Vista Heights,A23,B1,Double,2025-10-04,2025-12-01,2025-12-01,2025-12-01,15500.00,23250.00,0.00,Exited,0,23250,2180,partial,1000,0,null,null
+Priyadarshini,8056933475,Vista Heights,B22,A1,Single,2025-03-03,2025-04-03,2025-04-03,2025-04-03,19000.00,28500.00,0.00,Exited,0,28500,28541,partial,1000,0,null,null
+Priyadarshini Senthilkumar,7339575361,Vista Heights,B43,A1,Single,2025-09-06,2025-11-07,2025-11-07,2025-11-07,19500.00,29250.00,0.00,Exited,0,29250,0,partial,1000,0,null,null
+Priyadharshini C,9698989175,Vista Heights,B12,B2,Double,2024-06-18,2026-07-09,2026-07-09,2026-06-09,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Priyanga Rajkumar,7337000491,Vista Heights,B43,B2,Double,2025-02-17,2025-07-03,2025-06-30,2025-07-03,14500.00,21750.00,0.00,Exited,0,21750,3250,partial,1000,0,null,null
+Priyanka -,9625824514,Vista Heights,B12,A1,Single,2025-12-17,2026-04-12,2026-04-12,2026-04-12,19500.00,28500.00,500.00,Exited,0,28500,0,partial,1000,0,null,null
+Priyanka Kannan,9003626372,Vista Heights,C44,C1,Double,2024-04-07,2024-06-07,2024-06-07,2024-06-07,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Priyavrat Upadhyay,8006004879,Vista Heights,C31,C2,Double,2022-07-25,2022-12-12,2022-12-12,2022-12-12,12600.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Priyesh Govind,8943150415,Vista Heights,B31,C2,Double,2026-01-07,null,null,null,15500.00,23250.00,0.00,Staying,0,23250,0,partial,1000,0,null,null
+Puneet Miglani,9079599738,Vista Heights,B41,A1,Single,2022-10-09,2022-12-24,2022-12-30,2022-12-24,18300.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Purav Rokad,8780280537,Vista Heights,A44,C2,Double,2025-01-06,2025-07-15,2025-07-04,2025-07-15,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Purvaja Vashistha,6367993399,Vista Heights,C43,A1,Single,2023-07-23,2024-03-01,2024-03-01,2024-03-01,18300.00,27450.00,1800.00,Exited,0,27450,6916,partial,1000,0,null,null
+Pushparaja Shanmugam,9.19742E+11,Vista Heights,C31,C2,Double,2024-09-27,2025-09-03,2025-09-03,2025-09-03,13500.00,20250.00,0.00,Exited,0,20250,5034,partial,1000,0,null,null
+Putta Bulli Venkata Ajay,7519998888,Vista Heights,A11,A1,Single,2026-02-01,2026-08-31,null,2026-06-02,19500.00,29250.00,0.00,On-Notice,0,29250,0,partial,1000,0,null,null
+Raam Nachiyappan,9976659300,Vista Heights,A44,B1,Double,2024-02-26,2024-05-05,2024-05-05,2024-05-05,14500.00,21750.00,0.00,Exited,0,21750,2890,partial,1000,0,null,null
+Racherla Balaji Shashipreeth,9597414532,Vista Heights,B11,C2,Double,2022-03-27,2022-11-02,2022-12-02,2022-11-02,12600.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Ragavendran Ramesh,8939895596,Vista Heights,C11,A1,Single,2024-08-29,2024-12-19,2024-12-19,2024-12-19,19000.00,28500.00,0.00,Exited,0,28500,826,partial,1000,0,null,null
+Raghav Jain,9891834963,Vista Heights,C21,C1,Double,2024-05-25,2024-06-09,2024-06-09,2024-06-09,13500.00,20250.00,0.00,Exited,0,20250,2250,partial,1000,0,null,null
+Raghav Jain,9891834963,Vista Heights,A41,C1,Double,2024-06-09,2024-07-25,2024-07-25,2024-07-25,13500.00,20250.00,0.00,Exited,0,20250,23500,partial,1000,0,null,null
+Raghavi D,7995124500,Vista Heights,C34,C1,Double,2023-12-01,2025-07-20,2025-07-20,2025-07-20,12600.00,18900.00,0.00,Exited,0,18900,0,partial,1000,0,null,null
+Raguram R S,9626337535,Vista Heights,A44,D1,Single,2024-02-18,2024-09-13,2024-09-13,2024-09-13,24000.00,36000.00,500.00,Exited,0,36000,853,partial,1000,0,null,null
+Rahul Abande,9762655579,Vista Heights,A22,A1,Single,2025-10-15,2025-11-14,2025-11-14,2025-11-14,19500.00,29250.00,0.00,Exited,0,29250,0,partial,1000,0,null,null
+Rahul Deshmukh,9921133115,Vista Heights,C11,C1,Double,2024-06-15,2025-06-11,2025-06-11,2025-06-11,13500.00,20250.00,0.00,Exited,0,20250,2433.32,partial,1000,0,null,null
+Rahul Kapoor,9911601810,Vista Heights,C31,D1,Single,2024-08-18,2025-04-30,2025-04-30,2025-04-30,24000.00,36000.00,0.00,Exited,0,36000,2250,partial,1000,0,null,null
+Rahul Kumar,8510029814,Vista Heights,B11,B2,Double,2026-06-10,2026-07-17,null,2026-07-02,15500.00,23250.00,0.00,On-Notice,35100,35100,0,paid,1000,10850,null,null
+Rahul Pillay,9082002694,Vista Heights,B33,A1,Single,2023-03-25,2023-05-31,2023-05-31,2023-05-31,18300.00,27450.00,0.00,Exited,0,27450,13424,partial,1000,0,null,null
+Rahul R,9384939903,Vista Heights,B41,B2,Double,2026-05-24,2026-07-24,null,2026-06-02,15500.00,21750.00,0.00,On-Notice,0,0,0,pending,0,0,null,null
+Rahul R,9384939903,Vista Heights,C31,C2,Double,2026-05-24,2026-05-01,2026-05-01,2026-05-31,14500.00,0.00,0.00,Exited,26492,27992,0,paid,1000,3742,null,60
+Rahul Voruganti,9975123591,Vista Heights,B32,C1,Double,2021-07-31,2023-05-30,2023-05-30,2023-05-30,0.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Rahul Voruganti,9975123591,Vista Heights,B33,B1,Double,2021-10-18,2023-01-28,2023-01-28,2023-01-28,0.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Raja Dagur,9058381430,Vista Heights,B13,B2,Double,2026-04-28,2026-07-01,2026-07-01,2026-05-30,15500.00,23250.00,0.00,Exited,25800,25800,22653,paid,1000,1550,null,null
+Rajagopal Raghunath,7259604760,Vista Heights,B34,A1,Single,2023-07-30,2023-10-13,2023-10-13,2023-10-13,18300.00,27450.00,3300.00,Exited,0,27450,14635,partial,1000,0,null,null
+Rajagopal Raghunath,7259604760,Vista Heights,B34,A1,Single,2023-11-30,2023-11-30,2023-11-30,2023-11-30,18300.00,27450.00,3300.00,Exited,0,27450,45700,partial,1000,0,null,null
+Rajaseethala A,8903022866,Vista Heights,B22,C1,Double,2025-02-18,null,null,null,13500.00,0.00,0.00,Staying,0,21750,0,partial,0,0,null,null
+Rajaseethala A,8903022866,Vista Heights,B22,B2,Double,2024-11-01,2025-02-18,2025-02-18,2025-02-18,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Rajat Nayar,9150290712,Vista Heights,B42,B1,Double,2020-01-14,2023-10-22,2023-10-22,2023-10-22,0.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Rajdeep Naha,7439968419,Vista Heights,C31,A1,Single,2026-01-25,2026-01-25,2026-01-25,2026-01-25,19500.00,29250.00,0.00,Exited,0,29250,31500,partial,1000,0,null,null
+Rajesh Anandh,8056323274,Vista Heights,B11,A1,Single,2025-08-26,null,null,null,19500.00,29250.00,0.00,Staying,0,29250,0,partial,1000,0,null,null
+Rajesh Gupta,9599662550,Vista Heights,A24,B2,Triple,2025-07-12,2025-08-31,2025-08-31,2025-08-31,13500.00,20250.00,0.00,Exited,0,20250,735.86,partial,1000,0,null,null
+Rajesh Gupta,9599662550,Vista Heights,C31,C2,Double,2025-09-01,2025-09-30,2025-09-30,2025-09-30,14500.00,21750.00,0.00,Exited,0,21750,25000,partial,1000,0,null,null
+Rajpurohit Dheeraj Kumar,7013197425,Vista Heights,A23,A1,Single,2024-07-01,2024-08-31,2024-08-31,2024-08-31,19000.00,28500.00,500.00,Exited,0,28500,0,partial,1000,0,null,null
+Rakesh Kumar Sharma,8790851915,Vista Heights,B13,A1,Single,2021-10-07,2023-09-15,2023-09-15,2023-09-15,0.00,0.00,0.00,Exited,0,0,10904,partial,1000,0,null,null
+Rakeshh Yadav,6291493293,Vista Heights,C11,C2,Double,2022-09-02,2023-03-31,2023-03-31,2023-03-31,12600.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Rakshna Vr,9629201188,Vista Heights,B24,A1,Single,2024-07-28,2024-12-31,2024-12-31,2024-12-31,19000.00,28500.00,500.00,Exited,0,28500,3000,partial,1000,0,null,null
+Rakshya Robi,6379923044,Vista Heights,D11,B1,Single,2024-07-01,2024-07-20,2024-07-20,2024-07-20,24000.00,36000.00,1000.00,Exited,0,36000,3750,partial,1000,0,null,null
+Ram Roshan Ramanathan,9844285300,Vista Heights,B13,B1,Double,2024-09-01,null,null,null,14500.00,21750.00,0.00,Staying,0,21750,0,partial,1000,0,null,null
+Rama D,9840497197,Vista Heights,C34,A1,Single,2026-03-06,null,null,null,19500.00,29250.00,0.00,Staying,0,29250,0,partial,1000,0,null,null
+Ramachandra Reddy Aasodi,8884086029,Vista Heights,B33,B2,Double,2023-06-08,2023-08-07,2023-08-07,2023-08-07,13600.00,20400.00,0.00,Exited,0,20400,7460,partial,1000,0,null,null
+Ramalingeswara Nath,9394591485,Vista Heights,C41,B1,Double,2024-05-01,2024-07-31,2024-07-31,2024-07-31,14500.00,21750.00,0.00,Exited,0,21750,2250,partial,1000,0,null,null
+Ramkumar Ganesan,6379847628,Vista Heights,C21,B2,Double,2023-04-23,2025-09-10,2025-09-10,2025-09-10,13600.00,20400.00,0.00,Exited,0,20400,16167,partial,1000,0,null,null
+Ramkumar M,9865206921,Vista Heights,C11,B2,Double,2024-05-27,2024-07-19,2024-07-19,2024-07-19,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Ramkumar M,9865206921,Vista Heights,C44,A1,Single,2025-01-01,2025-07-03,2025-07-03,2025-07-03,19000.00,28500.00,0.00,Exited,0,28500,8004,partial,1000,0,null,null
+Ramkumar Muthuvel,9865206921,Vista Heights,C44,A1,Single,2025-01-01,2025-07-03,2025-07-03,2025-07-03,19000.00,28500.00,0.00,Exited,0,28500,134038,partial,1000,0,null,null
+Ramkumar Muthuvel,9865206921,Vista Heights,C11,B2,Double,2024-05-27,2024-07-19,2024-07-19,2024-07-19,14500.00,21750.00,0.00,Exited,0,21750,53853,partial,1000,0,null,null
+Ramvishnu R,7639056452,Vista Heights,A23,C1,Double,2024-02-24,2024-07-09,2024-07-09,2024-07-09,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Ramya Vaalendena,7548896892,Vista Heights,C34,A1,Single,2024-11-10,2025-05-28,2025-05-28,2025-05-28,19000.00,28500.00,1000.00,Exited,0,28500,1960,partial,1000,0,null,null
+Ranga Bashyam,7904205424,Vista Heights,A23,B2,Double,2024-05-01,2026-04-04,2026-04-04,2026-04-04,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Ranganath Praveen Harinath Prithiv,7338820299,Vista Heights,C21,C2,Double,2024-04-29,2024-05-31,2024-05-31,2024-05-31,13500.00,20250.00,0.00,Exited,0,20250,1280,partial,1000,0,null,null
+Ranjan Rai,9845894839,Vista Heights,B41,D1,Single,2025-01-17,null,null,null,24000.00,36000.00,0.00,Staying,0,36000,0,partial,1000,0,null,null
+Ranna R,9480666996,Vista Heights,B33,A1,Single,2025-02-03,null,null,null,19000.00,28500.00,0.00,Staying,0,28500,0,partial,1000,0,null,null
+Rashmi Oka,9823045497,Vista Heights,A24,C2,Double,2025-05-12,2025-06-11,2025-06-08,2025-06-11,14500.00,21750.00,0.00,Exited,0,21750,4226,partial,1000,0,null,null
+Rathnalakshmi,9080710387,Vista Heights,B43,C1,Double,2022-08-23,2022-12-24,2022-12-24,2022-12-24,12600.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Raunaq Nijhawan,8447396195,Vista Heights,B13,B2,Double,2023-04-02,2023-04-15,2023-04-15,2023-04-15,13600.00,20400.00,0.00,Exited,0,20400,7259,partial,1000,0,null,null
+Ravi Prasath K V,8344944657,Vista Heights,C21,A1,Single,2024-07-07,2024-08-31,2024-08-31,2024-08-31,19000.00,28500.00,0.00,Exited,0,28500,2250,partial,1000,0,null,null
+Ravi S,7259111259,Vista Heights,B14,B2,Double,2021-12-05,null,null,null,0.00,13000.00,0.00,Staying,0,13000,0,partial,0,0,null,null
+Ravi Sundar V,9845021087,Vista Heights,C11,A1,Single,2025-06-07,2025-06-07,2025-06-07,2025-06-07,19500.00,29250.00,0.00,Exited,0,29250,31500,partial,1000,0,null,null
+Reena Manci M R,7639001063,Vista Heights,B43,C1,Double,2024-07-05,2025-05-01,2025-05-01,2025-05-01,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Reeta Maybell,9894485049,Vista Heights,B24,B2,Triple,2024-06-19,2024-08-28,2024-08-28,2024-08-28,13000.00,19500.00,0.00,Exited,0,19500,19076,partial,1000,0,null,null
+Reetuparna Saha,8210743729,Vista Heights,B24,A1,Single,2025-06-25,2025-07-31,2025-07-31,2025-07-31,19500.00,29250.00,0.00,Exited,0,29250,9067,partial,1000,0,null,null
+Reetuparna Saha,8210743729,Vista Heights,D21,B1,Double,2025-06-21,2025-06-24,2025-06-24,2025-06-24,15500.00,23250.00,0.00,Exited,0,23250,26160,partial,1000,0,null,null
+Reuben Varghese,7204255909,Vista Heights,B41,B2,Double,2023-07-13,2023-12-02,2023-12-02,2023-12-02,13600.00,20400.00,0.00,Exited,0,20400,0,partial,1000,0,null,null
+Rhea Pradhan,9920257366,Vista Heights,B44,A1,Single,2022-08-24,2022-12-22,2022-12-22,2022-12-22,18300.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Rhea Pradhan,9920257366,Vista Heights,B44,B1,Triple,2022-12-22,2023-05-31,2023-05-31,2023-05-31,13600.00,20400.00,0.00,Exited,0,20400,18610,partial,1000,0,null,null
+Rinica Richelle  Barnes,8277668322,Vista Heights,C24,B1,Triple,2026-04-14,2026-07-03,2026-06-05,2026-06-03,13500.00,20250.00,0.00,Exited,28900,28900,19620,paid,1000,7650,null,null
+Rinki,9337047717,Vista Heights,B43,A1,Single,2021-09-12,2022-11-30,2022-11-30,2022-11-30,0.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Rishika Gupta,7987181859,Vista Heights,D12,B2,Double,2024-05-17,2025-03-01,2025-03-01,2025-03-01,14500.00,21750.00,0.00,Exited,0,21750,608,partial,1000,0,null,null
+Rishita Tulsyan,8303553581,Vista Heights,C24,B3,Triple,2025-01-12,null,null,null,13000.00,0.00,0.00,Staying,0,19500,0,partial,0,0,null,null
+Rishita Tulsyan,8303553581,Vista Heights,D11,C2,Double,2023-07-30,2024-05-31,2024-05-31,2024-05-31,13600.00,19500.00,0.00,Exited,0,20400,18373,partial,1000,0,null,null
+Rishitha Thota,9985556100,Vista Heights,B24,C1,Double,2025-07-10,2025-11-08,2025-11-08,2025-11-08,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Rithvikca R,8012590091,Vista Heights,C43,B2,Double,2023-08-01,2023-12-25,2023-12-25,2023-12-25,13600.00,20400.00,0.00,Exited,0,20400,2250,partial,1000,0,null,null
+Ritika Biswas,9.17044E+11,Vista Heights,D41,B2,Double,2025-01-11,2025-03-13,2025-03-13,2025-03-13,14500.00,21750.00,0.00,Exited,0,21750,21750,partial,1000,0,null,null
+Rituraj Sarma,9854069937,Vista Heights,B42,A1,Single,2023-01-01,2024-04-17,2024-04-17,2024-04-17,18300.00,27450.00,0.00,Exited,0,27450,40859,partial,1000,0,null,null
+Rituraj Sarma,9854069937,Vista Heights,B34,A1,Single,2022-12-03,2022-12-31,2022-12-31,2022-12-31,18300.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Riya Marve,9372964748,Vista Heights,B24,C2,Double,2025-07-13,2025-11-08,2025-11-08,2025-11-08,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Roger John,7708517264,Vista Heights,A41,B3,Triple,2024-11-03,2025-02-10,2025-02-10,2025-02-10,13000.00,19500.00,0.00,Exited,0,19500,0,partial,1000,0,null,null
+Rohan Patnaik,8456965271,Vista Heights,C31,C1,Double,2025-08-04,2025-12-13,2025-12-13,2025-12-13,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Rohini M N,7975239662,Vista Heights,D41,B2,Double,2024-06-29,2024-11-30,2024-11-30,2024-11-30,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Rohit Chakravarthy,8056154743,Vista Heights,C31,C2,Double,2024-05-16,2024-09-06,2024-09-06,2024-09-06,13500.00,20250.00,0.00,Exited,0,20250,4948,partial,1000,0,null,null
+Rohit Jain,9643099574,Vista Heights,B41,C1,Double,2025-08-09,2026-05-29,2026-05-24,2026-04-29,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Rohit Singh,8769173956,Vista Heights,C43,B2,Double,2023-03-12,2023-07-07,2023-07-07,2023-07-07,13600.00,20400.00,0.00,Exited,0,20400,6311,partial,1000,0,null,null
+Roshana S V,9629446866,Vista Heights,D21,C3,Triple,2025-01-01,null,null,null,13000.00,19500.00,0.00,Staying,0,19500,0,partial,0,0,null,null
+Roshni Mahendra Kumar,9597767474,Vista Heights,B44,C2,Double,2025-06-15,2025-12-28,2025-12-28,2025-12-28,14500.00,21750.00,0.00,Exited,0,21750,17917,partial,1000,0,null,null
+Ruju A,9035401091,Vista Heights,B22,C2,Double,2023-08-05,2023-12-24,2023-12-24,2023-12-24,12600.00,18900.00,0.00,Exited,0,18900,3250,partial,1000,0,null,null
+Rushikesh Kushare,8806400805,Vista Heights,B11,B2,Double,2023-04-01,2024-10-19,2024-10-19,2024-10-19,13600.00,20400.00,0.00,Exited,0,20400,21598,partial,1000,0,null,null
+Ruth Sylvia A C,9003533736,Vista Heights,D12,B1,Double,2025-09-09,null,null,null,15500.00,23250.00,0.00,Staying,0,23250,0,partial,1000,0,null,null
+S Rupesh,9952006402,Vista Heights,C41,A1,Single,2024-04-13,2024-09-15,2024-09-15,2024-09-15,19000.00,28500.00,0.00,Exited,0,28500,0,partial,1000,0,null,null
+Sagarika Das,6003291374,Vista Heights,C42,B1,Double,2024-01-21,2024-10-20,2024-10-20,2024-10-20,13600.00,20400.00,0.00,Exited,0,20400,0,partial,1000,0,null,null
+Sagarika Das,6003291374,Vista Heights,D21,A1,Single,2024-10-21,2025-12-01,2025-12-01,2025-12-01,24000.00,36000.00,0.00,Exited,0,36000,39619,partial,1000,0,null,null
+Sahal C,8848753347,Vista Heights,B41,B2,Double,2024-08-10,2025-02-14,2025-02-14,2025-02-14,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Sahitya Edarada,9697412222,Vista Heights,C42,C1,Double,2023-02-05,2023-05-06,2023-05-06,2023-05-06,12600.00,18900.00,0.00,Exited,0,18900,2479,partial,1000,0,null,null
+Sai Akhil P,9346554178,Vista Heights,A23,B1,Double,2024-06-02,2024-08-02,2024-08-02,2024-08-02,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Sai Krishna Kuppili,8008318162,Vista Heights,B13,B1,Double,2024-05-01,2024-08-20,2024-08-31,2024-08-20,14500.00,21750.00,0.00,Exited,0,21750,26876,partial,1000,0,null,null
+Sai Krishna Kuppili,8008318162,Vista Heights,B11,C1,Double,2024-04-22,2024-04-30,2024-04-30,2024-04-30,13500.00,20250.00,0.00,Exited,0,20250,750,partial,1000,0,null,null
+Sai Krishna Kuppili,8008318162,Vista Heights,B34,C1,Double,2026-05-25,2026-08-05,null,2026-07-07,14500.00,21750.00,0.00,On-Notice,26025,26024,1,partial,1000,3275,null,null
+Sai Krishna Kuppili,8008318162,Vista Heights,A41,D2,Double,null,null,null,null,15500.00,21750.00,0.00,Cancelled,0,0,0,pending,0,0,null,null
+Sai Krishna Kuppili,8008318162,Vista Heights,A41,D2,Double,null,null,null,null,15500.00,21750.00,0.00,Cancelled,0,0,0,pending,0,0,null,null
+Sai Krishna Pranay Kamsetti,9347989650,Vista Heights,B34,C1,Double,2024-06-03,2024-07-16,2024-07-16,2024-07-16,13500.00,20250.00,0.00,Exited,0,20250,10809,partial,1000,0,null,null
+Sai Krishna Varma Pedabaliyarasimhuni,7095801505,Vista Heights,A44,A1,Single,2025-07-27,2025-10-06,2025-10-06,2025-10-06,19500.00,29250.00,1000.00,Exited,0,29250,9221,partial,1000,0,null,null
+Sai Prasanna Sape,9490995885,Vista Heights,D41,B2,Double,2023-06-25,2024-06-05,2024-06-05,2024-06-05,13600.00,20400.00,0.00,Exited,0,20400,6464,partial,1000,0,null,null
+Sai Priya Thamodaran,9360059029,Vista Heights,D41,B1,Double,2025-11-09,null,null,null,15500.00,23250.00,0.00,Staying,0,23250,0,partial,1000,0,null,null
+Sai Roshni Matta,9381724315,Vista Heights,B43,A1,Single,2023-01-31,2023-05-05,2023-05-05,2023-05-05,18300.00,27450.00,0.00,Exited,0,27450,446,partial,1000,0,null,null
+Sai Roshni Matta,9381724315,Vista Heights,B43,B2,Double,2023-05-05,2024-04-15,2024-04-15,2024-04-15,13600.00,20400.00,0.00,Exited,0,20400,10050,partial,1000,0,null,null
+Sai Roshni Matta,9381724315,Vista Heights,B43,A1,Single,2024-04-16,2025-05-13,2025-05-13,2025-05-13,19000.00,28500.00,1500.00,Exited,0,28500,39148,partial,1000,0,null,null
+Sai Sree Harshith Gavara,9833368672,Vista Heights,A23,B1,Double,2024-08-06,2025-10-01,2025-10-01,2025-10-01,14500.00,21750.00,0.00,Exited,0,21750,2000,partial,1000,0,null,null
+Sai Sree Harshith Gavara,9833368672,Vista Heights,C31,B2,Double,2024-03-10,2024-05-10,2024-05-10,2024-05-10,14500.00,21750.00,0.00,Exited,0,21750,8456,partial,1000,0,null,null
+Sai Sri Lakshmi Gogineni,8500070574,Vista Heights,B43,A1,Single,2023-08-06,2023-12-31,2023-12-31,2023-12-31,18300.00,27450.00,2300.00,Exited,0,27450,5700,partial,1000,0,null,null
+Sai Sri Ram Varun Shakunaveti,9434289699,Vista Heights,C41,C1,Double,2026-02-28,2026-04-30,2026-04-30,2026-04-01,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Sai Sundeep,7200281653,Vista Heights,B34,B1,Double,2022-10-10,2025-02-14,2025-02-14,2025-02-14,13600.00,20400.00,0.00,Exited,0,20400,16766,partial,1000,0,null,null
+Sai Teja,8686002940,Vista Heights,B42,A1,Single,2026-03-02,null,2026-03-31,null,19500.00,29250.00,0.00,Exited,0,29250,0,partial,1000,0,null,null
+Sairam Ct,8754706523,Vista Heights,B13,A1,Single,2024-07-17,null,null,null,19000.00,28500.00,0.00,Staying,0,28500,0,partial,1000,0,null,null
+Sajith Av,6282987989,Vista Heights,B33,B2,Double,2024-02-15,2024-08-02,2024-08-02,2024-08-02,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Saket Jaiswal,7890707326,Vista Heights,A41,D2,Double,2026-06-13,null,null,null,15500.00,23250.00,0.00,Staying,33550,33550,0,paid,1000,9300,null,null
+Saket Kumar Baranwal,8340463394,Vista Heights,C11,C1,Double,2023-01-31,2023-07-08,2023-07-08,2023-07-08,12600.00,18900.00,0.00,Exited,0,18900,14726,partial,1000,0,null,null
+Saketh Grandhi,9392232976,Vista Heights,B41,C1,Double,2026-05-25,2026-07-25,null,2026-06-02,14500.00,21750.00,0.00,On-Notice,26025,27661,0,paid,1000,3275,null,null
+Sakthi Nivetha S,8220771042,Vista Heights,D11,D3,Triple,2022-11-09,2025-03-03,2025-03-03,2025-03-03,13000.00,19500.00,0.00,Exited,0,19500,33750,partial,1000,0,null,null
+Sameeksha Mahajan,89894 64192,Vista Heights,A24,C1,Double,2021-07-31,2023-09-30,2023-09-30,2023-09-30,0.00,0.00,0.00,Exited,0,0,2189,partial,1000,0,null,null
+Samikshya Mohapatra,9937205757,Vista Heights,C43,C1,Double,2023-07-18,2023-08-18,2023-08-18,2023-08-18,12600.00,18900.00,0.00,Exited,0,18900,2484,partial,1000,0,null,null
+Samudyatha Devalla,8431674036,Vista Heights,B43,C1,Double,2023-07-30,2024-06-07,2024-06-07,2024-06-07,12600.00,18900.00,0.00,Exited,0,18900,2250,partial,1000,0,null,null
+Sanath Baburam,9483924968,Vista Heights,C11,A1,Single,2024-12-15,2025-03-16,2025-03-16,2025-03-16,19000.00,28500.00,1000.00,Exited,0,27000,0,partial,1000,0,null,null
+Sanath Baburam,9483924968,Vista Heights,B42,A1,Single,2026-04-16,null,null,null,19500.00,28500.00,500.00,Staying,39000,38633,0,partial,1000,9500,null,null
+Sandeep K,8078540406,Vista Heights,B11,D1,Single,2023-10-14,2025-02-03,2025-02-03,2025-02-03,24000.00,36000.00,2000.00,Exited,0,36000,50699,partial,1000,0,null,null
+Sandeep Kumar Barnawal,9110932310,Vista Heights,B41,C1,Double,2025-06-24,2025-07-31,2025-07-31,2025-07-31,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Sandra H,8078262775,Vista Heights,C42,C2,Double,2023-02-20,2023-06-05,2023-06-05,2023-06-05,12600.00,18900.00,0.00,Exited,0,18900,7652.05,partial,1000,0,null,null
+Sangamithra Arumugasamy,7708913333,Vista Heights,D41,A1,Single,2022-12-05,2022-12-10,2022-12-10,2022-12-10,18300.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Sanjit Besthamalla,9880141495,Vista Heights,B13,B2,Double,2025-01-18,2025-09-30,2025-09-30,2025-09-30,14500.00,21750.00,0.00,Exited,0,21750,2229,partial,1000,0,null,null
+Sanjith S,9150671254,Vista Heights,B33,B1,Double,2025-04-01,2025-05-31,2025-05-31,2025-05-31,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Sanjjushree M,9894635995,Vista Heights,C24,B1,Triple,2024-10-01,2025-05-18,2025-05-19,2025-05-18,13000.00,19500.00,0.00,Exited,0,19500,31579,partial,1000,0,null,null
+Sanjjushree M,9894635995,Vista Heights,C34,A1,Single,2024-09-03,2024-09-30,2024-09-30,2024-09-30,19000.00,28500.00,0.00,Exited,0,28500,11250,partial,1000,0,null,null
+Sanjusree Karthikeyan,9123595727,Vista Heights,B44,C2,Double,2026-06-09,2026-07-08,2026-06-23,2026-06-10,14500.00,21750.00,0.00,Exited,33384,33384,9195,paid,1000,10634,null,null
+Sankalp Chavhan,8788572618,Vista Heights,A44,A1,Single,2025-01-16,2025-07-14,2025-07-01,2025-07-14,19000.00,28500.00,1000.00,Exited,0,28500,0,partial,1000,0,null,null
+Sankar Dayal V,9846162562,Vista Heights,B14,A1,Single,2025-05-11,2025-08-15,2025-08-15,2025-08-15,19500.00,29250.00,500.00,Exited,0,29250,0,partial,1000,0,null,null
+Sanket Sumant,7083930766,Vista Heights,B33,C2,Double,2023-03-04,2023-06-04,2023-06-07,2023-06-04,12600.00,18900.00,0.00,Exited,0,18900,0,partial,1000,0,null,null
+Sanketh P Mahale,7829444513,Vista Heights,A44,C1,Double,2024-02-25,2024-06-22,2024-06-22,2024-06-22,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Santhanam B,9944205267,Vista Heights,C44,C1,Double,2024-07-01,2024-11-20,2024-11-20,2024-11-20,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Santosh Nath,8754037343,Vista Heights,B34,B2,Double,2022-02-06,2024-04-17,2024-04-17,2024-04-17,13600.00,20400.00,0.00,Exited,0,20400,16348,partial,1000,0,null,null
+Sarabdi Swain,8249213440,Vista Heights,A24,C2,Double,2023-12-02,2024-05-03,2024-05-03,2024-05-03,12600.00,18900.00,0.00,Exited,0,18900,18876,partial,1000,0,null,null
+Sarada Manaswini U,8790623838,Vista Heights,B43,B1,Double,2024-07-27,2025-08-10,2025-08-10,2025-08-10,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Saravana Ganesh M,9489423910,Vista Heights,B13,C1,Double,2023-04-15,2023-05-31,2023-05-31,2023-05-31,12600.00,18900.00,0.00,Exited,0,18900,17017,partial,1000,0,null,null
+Sarthak A,9340287112,Vista Heights,A41,A1,Single,2024-08-01,2024-08-01,2024-08-01,2024-08-01,19000.00,28500.00,0.00,Exited,0,28500,30750,partial,1000,0,null,null
+Sarvagya Jain,9599472588,Vista Heights,B41,D1,Single,2023-06-16,2023-08-30,2023-08-30,2023-08-30,24000.00,36000.00,2000.00,Exited,0,36000,23779,partial,1000,0,null,null
+Saswat Panigrahi,7978744206,Vista Heights,A44,A1,Single,2024-07-21,2024-08-09,2024-08-09,2024-08-09,19000.00,28500.00,1000.00,Exited,0,28500,25333,partial,1000,0,null,null
+Saswat Panigrahi,7978744206,Vista Heights,A23,B1,Double,2023-07-03,2024-03-06,2024-03-06,2024-03-06,13600.00,20400.00,0.00,Exited,0,20400,6429,partial,1000,0,null,null
+Sathiyan Gopalan,9715741456,Vista Heights,C31,B2,Double,2024-06-12,null,null,null,14500.00,21750.00,0.00,Staying,0,21750,0,partial,1000,0,null,null
+Sathya Priya Balasegaran,9003522261,Vista Heights,C12,B2,Double,2025-01-01,2026-06-30,2026-05-23,2026-05-13,14500.00,13000.00,0.00,Exited,0,13000,0,partial,0,0,null,null
+Sathyasai Regalla,9491646202,Vista Heights,C21,B1,Double,2025-12-06,null,null,null,15500.00,23250.00,0.00,Staying,0,23250,0,partial,1000,0,null,null
+Sathyasree,9100940058,Vista Heights,C44,B2,Double,2024-04-08,2024-04-07,2024-04-07,2024-04-07,14500.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Satvik Srivatsav,8756586461,Vista Heights,C43,C1,Double,2023-03-12,2023-07-08,2023-07-08,2023-07-08,12600.00,18900.00,0.00,Exited,0,18900,3306,partial,1000,0,null,null
+Satyajeet Behura,8018072980,Vista Heights,A23,B2,Double,2023-08-07,2023-10-07,2023-10-07,2023-10-07,13600.00,20400.00,0.00,Exited,0,20400,6380,partial,1000,0,null,null
+Satyam Dwivedi,9.16264E+11,Vista Heights,B11,B1,Double,2023-09-03,2024-03-29,2024-03-29,2024-03-29,13600.00,20400.00,0.00,Exited,0,20400,2050,partial,1000,0,null,null
+Saumil Shah,9429117994,Vista Heights,B11,A1,Single,2025-07-26,2025-07-31,2025-07-31,2025-07-31,19500.00,29250.00,0.00,Exited,0,29250,31500,partial,1000,0,null,null
+Savi Agarwal,8306627624,Vista Heights,C34,A1,Single,2023-07-28,2023-08-17,2023-07-18,2023-08-17,18300.00,0.00,1800.00,Exited,0,0,0,partial,1000,0,null,null
+Savia Pereira,9833614022,Vista Heights,B22,B1,Double,2023-07-30,2023-12-23,2023-12-23,2023-12-23,13600.00,20400.00,0.00,Exited,0,20400,0,partial,1000,0,null,null
+Savio Moloparambil,9061612080,Vista Heights,B11,B2,Double,2025-10-14,2026-06-06,2026-06-04,2026-04-22,15500.00,23250.00,0.00,Exited,0,23250,734,partial,1000,0,null,null
+Sayali Chakre,9423734313,Vista Heights,B24,B3,Triple,2025-03-02,2025-06-30,2025-06-28,2025-06-30,13000.00,19500.00,0.00,Exited,0,19500,2250,partial,1000,0,null,null
+Sayam Bachi,9131765401,Vista Heights,C41,B2,Double,2024-08-01,2024-08-01,2024-08-01,2024-08-01,14500.00,21750.00,0.00,Exited,0,21750,24000,partial,1000,0,null,null
+Selina Minz,7715036126,Vista Heights,A44,C1,Double,2023-06-03,2023-08-20,2023-08-20,2023-08-20,12600.00,18900.00,0.00,Exited,0,18900,12383,partial,1000,0,null,null
+Selvashri Murugesan,7598557493,Vista Heights,C43,B1,Double,2023-07-30,2023-12-30,2023-12-30,2023-12-30,13600.00,20400.00,0.00,Exited,0,20400,2250,partial,1000,0,null,null
+Senthilkumar S,9840206824,Vista Heights,B31,C1,Double,2025-05-26,null,null,null,15500.00,23250.00,0.00,Staying,0,23250,0,partial,1000,0,null,null
+Shabana Roshan,8610294490,Vista Heights,C24,B1,Triple,2026-06-29,null,null,null,13500.00,20250.00,0.00,Staying,22150,22150,0,paid,1000,900,null,null
+Shaili Sharma,9714813868,Vista Heights,C34,C1,Double,2023-05-01,2023-11-15,2023-11-15,2023-11-15,12600.00,18900.00,0.00,Exited,0,18900,9148,partial,1000,0,null,null
+Shaily Mogari,9131192773,Vista Heights,D21,B1,Double,2025-07-16,null,null,null,15500.00,23250.00,0.00,Staying,0,23250,0,partial,1000,0,null,null
+Shakthi Bharathi S,6385282444,Vista Heights,C12,C3,Triple,2026-05-30,null,null,null,13500.00,20250.00,0.00,Staying,22121,22121,0,paid,1000,871,null,null
+Shalmaan B,9894038183,Vista Heights,B32,C2,Double,2022-10-16,2024-09-12,2024-09-12,2024-09-12,12600.00,18900.00,0.00,Exited,0,18900,15529,partial,1000,0,null,null
+Shamruthi R,9360654261,Vista Heights,B22,C2,Double,2024-01-21,2024-08-02,2024-08-02,2024-08-02,12600.00,18900.00,0.00,Exited,0,18900,2932,partial,1000,0,null,null
+Sharanya Goswami,9321379691,Vista Heights,B44,A1,Single,2026-06-13,2026-08-10,null,2026-07-11,19500.00,29250.00,0.00,On-Notice,41950,41950,0,paid,1000,11700,null,null
+Sharon Swetha,8610106393,Vista Heights,D21,C1,Triple,2025-01-01,null,null,null,13000.00,19500.00,0.00,Staying,0,19500,0,partial,0,0,null,null
+Shasank Dalvi,8793917442,Vista Heights,B41,B2,Double,2024-03-24,2024-06-02,2024-06-02,2024-06-02,14500.00,21750.00,0.00,Exited,0,21750,6191,partial,1000,0,null,null
+Shikha Trivedi,9717967912,Vista Heights,A44,D1,Single,2023-06-03,2023-09-30,2023-09-30,2023-09-30,24000.00,36000.00,0.00,Exited,0,36000,21467,partial,1000,0,null,null
+Shikha Trivedi,9717967912,Vista Heights,A44,C1,Double,2023-10-01,2023-12-22,2023-12-22,2023-12-22,12600.00,18900.00,0.00,Exited,0,18900,51868,partial,1000,0,null,null
+Shivam Bhavsar,9461000901,Vista Heights,C21,C1,Double,2025-02-09,2025-08-31,2025-08-31,2025-08-31,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Shivam Kumar,7355394726,Vista Heights,A24,B3,Triple,2025-07-12,2025-08-16,2025-08-16,2025-08-16,13500.00,20250.00,0.00,Exited,0,20250,1514,partial,1000,0,null,null
+Shivam Kumar,7355394726,Vista Heights,A11,C2,Double,2025-08-17,2026-02-13,2026-02-13,2026-02-13,14500.00,21750.00,0.00,Exited,0,21750,45879,partial,1000,0,null,null
+Shivam Silswal,9340123394,Vista Heights,A41,D2,Double,2024-06-21,2024-12-30,2024-12-30,2024-12-30,14500.00,21750.00,0.00,Exited,0,21750,1782,partial,1000,0,null,null
+Shivang Garg,9878712805,Vista Heights,B33,B1,Double,2023-04-02,2023-05-27,2023-05-27,2023-05-27,13600.00,20400.00,600.00,Exited,0,20400,19731,partial,1000,0,null,null
+Shivani Kumari,9702915701,Vista Heights,B24,C2,Double,2024-03-17,2025-07-13,2025-07-13,2025-07-13,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Shivani Kumari,9702915701,Vista Heights,B24,B2,Triple,2025-07-14,2025-08-01,2025-08-01,2025-08-01,13500.00,20250.00,0.00,Exited,0,20250,33304,partial,1000,0,null,null
+Shivani Shyam,6360559191,Vista Heights,C34,A1,Single,2025-07-16,2026-02-28,2026-02-28,2026-02-28,19500.00,29250.00,1000.00,Exited,0,29250,1052,partial,1000,0,null,null
+Shivansh Gupta,9717394378,Vista Heights,B41,B1,Double,2026-04-12,2026-05-30,2026-05-30,2026-05-01,15500.00,22500.00,500.00,Exited,33000,33000,20490,paid,1000,9500,null,43
+Shivasuthan Ks,9361165606,Vista Heights,C31,B2,Double,2023-07-23,2023-12-05,2023-12-05,2023-12-05,13600.00,20400.00,0.00,Exited,0,20400,0,partial,1000,0,null,null
+Shlok Mansata,9.19427E+11,Vista Heights,A44,B2,Double,2025-01-11,2025-06-30,2025-06-30,2025-06-30,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Shobhit Bakshi,7015211009,Vista Heights,B31,C2,Double,2025-01-27,2025-08-11,2025-08-11,2025-08-11,14500.00,21750.00,0.00,Exited,0,21750,10272,partial,1000,0,null,null
+Shobitha,7348862569,Vista Heights,C44,A1,Single,2023-08-02,2023-12-19,2023-12-19,2023-12-19,18300.00,27450.00,0.00,Exited,0,27450,3309,partial,1000,0,null,null
+Shravan Shah,8669068296,Vista Heights,B41,C1,Double,2023-04-04,2023-04-30,2023-04-30,2023-04-30,12600.00,18900.00,0.00,Exited,0,18900,8550,partial,1000,0,null,null
+Shravan Shah,8669068296,Vista Heights,B32,C1,Double,2023-06-02,2023-09-30,2023-09-30,2023-09-30,12600.00,18900.00,0.00,Exited,0,18900,36015,partial,1000,0,null,null
+Shreeya Vyawahare,8928216239,Vista Heights,B24,B2,Triple,2024-09-03,2025-03-03,2025-03-03,2025-03-03,13000.00,19500.00,0.00,Exited,0,19500,4266,partial,1000,0,null,null
+Shresht Choubey,9869106233,Vista Heights,B33,B2,Double,2025-06-29,2025-07-31,2025-07-26,2025-07-31,15500.00,23250.00,0.00,Exited,0,23250,0,partial,1000,0,null,null
+Shreya Agrawal,7978369240,Vista Heights,D12,C2,Double,2026-02-01,2026-08-08,null,2026-07-07,14500.00,21750.00,0.00,On-Notice,0,21750,0,partial,1000,0,null,null
+Shreya Dhore,7376441079,Vista Heights,B31,C1,Double,2025-08-06,2025-08-06,2025-08-06,2025-08-06,15500.00,23250.00,0.00,Exited,0,23250,26500,partial,1000,0,null,null
+Shreya Singh,9479376065,Vista Heights,A44,B2,Double,2023-04-02,2023-05-31,2023-05-31,2023-05-31,13600.00,20400.00,1600.00,Exited,0,20400,17889,partial,1000,0,null,null
+Shreyas Srikanth,7708333718,Vista Heights,C21,D1,Single,2024-01-21,2024-03-21,2024-03-21,2024-03-21,24000.00,36000.00,0.00,Exited,0,36000,20133,partial,1000,0,null,null
+Shrinethra Mugundan,8220484522,Vista Heights,D11,D3,Triple,2026-07-03,null,null,null,null,0.00,0.00,Booked,0,1000,0,partial,1000,0,null,null
+Shristi Suman,6204488438,Vista Heights,B22,C1,Double,2024-10-06,2025-02-15,2025-02-15,2025-02-15,13500.00,20250.00,0.00,Exited,0,20250,10076,partial,1000,0,null,null
+Shruti Shukla,8171053575,Vista Heights,C11,A1,Single,2026-04-15,2026-05-24,2026-05-24,2026-05-09,19500.00,29250.00,0.00,Exited,40650,11400,32090,partial,1000,10400,null,37
+Shubham Kumar Jha,9113350762,Vista Heights,C31,A1,Single,2024-09-15,2024-11-26,2024-11-26,2024-11-26,19000.00,28500.00,500.00,Exited,0,28500,38155,partial,1000,0,null,null
+Shubham Kumar Jha,9113350762,Vista Heights,C31,A1,Single,2024-07-05,2024-09-07,2024-09-07,2024-09-07,19000.00,28500.00,500.00,Exited,0,28500,365,partial,1000,0,null,null
+Shubham Marathe,9730480969,Vista Heights,C44,B2,Double,2023-04-05,2023-05-31,2023-05-31,2023-05-31,13600.00,20400.00,0.00,Exited,0,20400,17502,partial,1000,0,null,null
+Shubhangi Sirohi,7838020761,Vista Heights,A24,B1,Triple,2024-11-04,2024-12-03,2024-12-03,2024-12-03,13000.00,19500.00,0.00,Exited,0,19500,5088,partial,1000,0,null,null
+Shubhashish,9990043174,Vista Heights,B42,C2,Double,2022-02-28,null,null,null,12600.00,1.00,0.00,Staying,0,13000,0,partial,0,0,null,null
+Shwetha Lakshmanan,8012961506,Vista Heights,D12,B2,Double,2024-01-16,2024-05-17,2024-05-17,2024-05-17,13600.00,20400.00,0.00,Exited,0,20400,0,partial,1000,0,null,null
+Shyam Ramaiah,9952284366,Vista Heights,C41,B1,Double,2025-07-20,2025-07-20,2025-07-20,2025-07-20,15500.00,23250.00,0.00,Exited,0,23250,25500,partial,1000,0,null,null
+Shyam Salil,9566293597,Vista Heights,C31,D1,Single,2026-01-17,2026-02-17,2026-02-17,2026-02-17,25500.00,38250.00,0.00,Exited,0,38250,9439,partial,1000,0,null,null
+Shyam Sundar M G,9443660802,Vista Heights,C41,C2,Double,2025-07-11,2025-09-10,2025-09-10,2025-09-10,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Shyamala R,7022660166,Vista Heights,D12,C2,Double,2025-06-10,2025-08-17,2025-08-17,2025-08-17,14500.00,21750.00,0.00,Exited,0,21750,936,partial,1000,0,null,null
+Siddanth Vaibhav,7259936019,Vista Heights,A23,A1,Single,2024-03-30,2024-06-11,2024-06-11,2024-06-11,19000.00,28500.00,0.00,Exited,0,28500,34137,partial,1000,0,null,null
+Siddhant Thaware,7972223910,Vista Heights,B34,C1,Double,2024-07-02,2024-11-15,2024-11-15,2024-11-15,13500.00,20250.00,0.00,Exited,0,20250,11354,partial,1000,0,null,null
+Siddhi Mulay,9850897880,Vista Heights,B43,B2,Double,2022-07-05,2023-05-04,2023-05-04,2023-05-04,13600.00,20400.00,0.00,Exited,0,20400,2446,partial,1000,0,null,null
+Sidharth Gautham,9820670972,Vista Heights,C21,A1,Single,2022-07-12,2023-02-08,2023-02-08,2023-02-08,18300.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Sidharthan B S,9.16239E+11,Vista Heights,C11,B1,Double,2024-09-22,2025-07-18,2025-07-18,2025-07-18,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Sime Josephine Victoria,8903441859,Vista Heights,B43,C1,Double,2025-10-06,2026-06-17,2026-06-14,2026-05-17,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Simon Swagat,8280005950,Vista Heights,C41,B2,Double,2024-05-01,2024-07-31,2024-07-31,2024-07-31,14500.00,21750.00,0.00,Exited,0,21750,2250,partial,1000,0,null,null
+Simran Tyagi,9106717603,Vista Heights,B22,B2,Double,2025-07-01,2025-09-20,2025-09-20,2025-09-20,15500.00,23250.00,0.00,Exited,0,23250,13807,partial,1000,0,null,null
+Sinchan H,7019000290,Vista Heights,C11,C1,Double,2024-02-25,2024-06-25,2024-06-25,2024-06-25,13500.00,20250.00,0.00,Exited,0,20250,17352,partial,1000,0,null,null
+Sindhu Kavya,7395915350,Vista Heights,D21,B1,Double,2023-12-03,2024-02-17,2024-02-17,2024-02-17,13600.00,20400.00,0.00,Exited,0,20400,11276,partial,1000,0,null,null
+Sindhuja A,7397099729,Vista Heights,B24,A1,Single,2023-07-23,2023-09-05,2023-09-05,2023-09-05,18300.00,27450.00,0.00,Exited,0,27450,2250,partial,1000,0,null,null
+Sindhuja A,7397099729,Vista Heights,B24,C2,Double,2023-09-05,2024-01-25,2024-01-25,2024-01-25,12600.00,18900.00,0.00,Exited,0,18900,36393.33,partial,1000,0,null,null
+Sinega K,8903858722,Vista Heights,A44,B2,Double,2023-07-26,2023-12-06,2023-12-06,2023-12-06,13600.00,20400.00,0.00,Exited,0,20400,0,partial,1000,0,null,null
+Siva Yogitha T,9442307472,Vista Heights,C12,A1,Single,2025-03-31,2025-05-31,2025-05-31,2025-05-31,19000.00,28500.00,0.00,Exited,0,28500,18860,partial,1000,0,null,null
+Siya Sharma,7018147102,Vista Heights,D41,C1,Double,2022-11-01,2024-08-10,2024-08-10,2024-08-10,12600.00,18900.00,0.00,Exited,0,18900,0,partial,1000,0,null,null
+Smita P,9930097409,Vista Heights,B44,C2,Double,2024-01-25,2025-03-17,2025-03-17,2025-03-17,12600.00,18900.00,0.00,Exited,0,18900,0,partial,1000,0,null,null
+Sneh Pratap,9810031629,Vista Heights,B43,B1,Double,2026-01-08,null,null,null,15500.00,23250.00,0.00,Staying,0,23250,0,partial,1000,0,null,null
+Snehaji N,9790048567,Vista Heights,B24,B1,Triple,2025-04-16,2026-02-04,2026-02-04,2026-02-04,13000.00,19500.00,0.00,Exited,0,19500,4309.55,partial,1000,0,null,null
+Snehangshu Chakraborty,9445287810,Vista Heights,C31,D1,Single,2022-09-05,2024-01-31,2024-01-31,2024-01-31,24000.00,36000.00,0.00,Exited,0,36000,10832,partial,1000,0,null,null
+Snigdha Rashmi,7702510121,Vista Heights,C43,A1,Single,2024-07-12,2026-01-31,2026-01-31,2026-01-31,19000.00,28500.00,0.00,Exited,0,28500,0,partial,1000,0,null,null
+Soham Pradhan,9875367211,Vista Heights,A24,A1,Single,2026-06-01,null,null,null,19500.00,28500.00,500.00,Staying,48500,48500,0,paid,1000,19000,null,null
+Sohani Saloni Mohanty,8076423772,Vista Heights,C11,B2,Double,2025-08-01,2026-06-30,2026-06-30,2026-05-31,15500.00,0.00,0.00,Exited,0,21750,0,partial,0,0,null,null
+Sohani Saloni Mohanty,8076423772,Vista Heights,C12,D2,Double,2025-06-01,2025-07-31,2025-07-31,2025-07-31,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Soma Sekhar,9100179148,Vista Heights,B34,B1,Double,2025-11-06,2025-11-06,2025-11-06,2025-11-06,15500.00,23250.00,0.00,Exited,0,23250,25500,partial,1000,0,null,null
+Soumili Biswas,9123048752,Vista Heights,A44,B2,Double,2022-04-17,2023-01-21,2023-01-04,2023-01-21,13600.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Soumya Banerjee,7890224163,Vista Heights,C21,A1,Single,2023-04-08,2023-05-06,2023-05-25,2023-05-06,18300.00,27450.00,0.00,Exited,0,27450,26171,partial,1000,0,null,null
+Soundara Rajan,8939878039,Vista Heights,C21,A1,Single,2024-09-03,2024-10-31,2024-10-31,2024-10-31,19000.00,28500.00,0.00,Exited,0,28500,22735,partial,1000,0,null,null
+Sourabh Dandare,8103666900,Vista Heights,B34,B2,Double,2026-01-10,null,null,null,15500.00,0.00,0.00,Staying,0,23250,0,partial,1000,0,null,null
+Sourabh Dandare,8103666900,Vista Heights,A22,C2,Double,2025-08-10,null,2026-01-09,null,14500.00,21750.00,0.00,Exited,0,21750,0.43,partial,0,0,null,null
+Souradeep Das,8167403847,Vista Heights,B11,C1,Double,2025-08-25,2026-05-04,2026-05-04,2026-04-11,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Sowbarnigaa K S,8866343414,Vista Heights,D11,C2,Double,2024-06-02,2025-04-30,2025-04-30,2025-04-30,14500.00,21750.00,0.00,Exited,0,21750,15183,partial,1000,0,null,null
+Sowbarnigaa K S,8866343414,Vista Heights,A23,C1,Double,2024-07-12,2024-07-12,2024-07-12,2024-07-12,13500.00,20250.00,0.00,Exited,0,20250,32500,partial,1000,0,null,null
+Sowmiyaa S L,9976937733,Vista Heights,D41,B2,Double,2024-11-01,2024-11-01,2024-11-01,2024-11-01,14500.00,21750.00,0.00,Exited,0,21750,24000,partial,1000,0,null,null
+Sowmya R,9445577300,Vista Heights,B44,A1,Single,2026-02-01,2026-05-06,2026-05-05,2026-04-06,19500.00,29250.00,0.00,Exited,0,29250,0,partial,1000,0,null,null
+Sparsh Kanak Sinha,8709691812,Vista Heights,B13,B1,Double,2023-12-16,2024-04-15,2024-04-16,2024-04-15,13600.00,20400.00,0.00,Exited,0,20400,11298,partial,1000,0,null,null
+Sparsh Rasthogi,7905093239,Vista Heights,C11,C2,Double,2023-03-21,2023-07-08,2023-07-08,2023-07-08,12600.00,18900.00,0.00,Exited,0,18900,13326,partial,1000,0,null,null
+Sree Shravanya Ragunath,9361179437,Vista Heights,D21,B1,Double,2024-02-18,2024-08-11,2024-08-11,2024-08-11,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Sreenivasa Kalyan,7386216184,Vista Heights,A24,B1,Triple,2026-02-05,2026-03-05,2026-03-05,2026-03-05,13500.00,20250.00,0.00,Exited,0,20250,24388,partial,1000,0,null,null
+Sreya U,9995510657,Vista Heights,B43,C2,Double,2026-02-08,2026-06-12,2026-06-11,2026-05-15,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Sreyashi Chowdhury,9790453258,Vista Heights,D41,A1,Single,2023-07-10,null,null,null,18300.00,13000.00,1300.00,Staying,0,13000,0,partial,0,0,null,null
+Sreyashi Chowdhury,9790453258,Vista Heights,D41,B1,Double,2022-12-15,2023-07-10,2023-07-10,2023-07-10,13600.00,0.00,0.00,Exited,0,20400,52493,partial,0,0,null,null
+Sri Chandana Nagumothu,9940740613,Vista Heights,D21,B2,Double,2024-02-25,2024-05-19,2024-05-19,2024-05-19,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Sri Divya Boyanapalli,7569664988,Vista Heights,B22,B2,Double,2025-02-21,2025-05-31,2025-05-31,2025-05-31,14500.00,21750.00,0.00,Exited,0,21750,2250,partial,1000,0,null,null
+Sri Divya Boyanapalli,7569664988,Vista Heights,B22,C2,Double,2025-06-01,2025-07-03,2025-07-03,2025-07-03,14500.00,21750.00,0.00,Exited,0,21750,25683,partial,1000,0,null,null
+Sri Preethiga,8925332965,Vista Heights,A12,A1,Single,2025-09-07,2025-11-29,2025-11-29,2025-11-29,19500.00,29250.00,0.00,Exited,0,29250,22061,partial,1000,0,null,null
+Srichand Ganesh,9842734839,Vista Heights,B42,A1,Single,2024-10-13,2025-02-15,2025-02-15,2025-02-15,19000.00,28500.00,0.00,Exited,0,28500,0,partial,1000,0,null,null
+Srijitha Sengputa,9073559997,Vista Heights,C34,A1,Single,2023-05-01,2023-05-25,2023-05-31,2023-05-25,18300.00,27450.00,0.00,Exited,0,27450,25550,partial,1000,0,null,null
+Srijitha Sengputa,9073559997,Vista Heights,C12,C2,Triple,2022-08-15,2022-12-30,2022-12-29,2022-12-30,11500.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Srilasya Siripurapu,9347572237,Vista Heights,C42,C2,Double,2024-02-18,2024-05-07,2024-05-07,2024-05-07,13500.00,20250.00,0.00,Exited,0,20250,1024,partial,1000,0,null,null
+Srilekha Telaprolu,7036434979,Vista Heights,C42,C1,Double,2024-02-19,2024-05-07,2024-05-07,2024-05-07,13500.00,20250.00,0.00,Exited,0,20250,2024,partial,1000,0,null,null
+Srimalini,8778452346,Vista Heights,C12,C3,Triple,2022-02-13,2022-11-30,2022-12-24,2022-11-30,11500.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Srimaruthiram Ramachandruni,9665603646,Vista Heights,A41,A1,Single,2024-08-10,2025-09-30,2025-09-30,2025-09-30,19000.00,28500.00,0.00,Exited,0,28500,19500,partial,1000,0,null,null
+Srinithi Srinivasan,9597556824,Vista Heights,C42,B2,Double,2026-05-16,2026-07-18,null,2026-06-06,15500.00,23250.00,0.00,On-Notice,32250,32250,0,paid,1000,8000,null,null
+Srinivasa Raghavan P,8825408754,Vista Heights,C41,C1,Double,2025-02-10,2025-09-04,2025-09-04,2025-09-04,13500.00,20250.00,0.00,Exited,0,20250,1406,partial,1000,0,null,null
+Sriram Rajeev,7868085096,Vista Heights,A23,B2,Double,2024-01-21,2024-04-30,2024-04-30,2024-04-30,13600.00,20400.00,0.00,Exited,0,20400,0,partial,1000,0,null,null
+Sritama Sen,8697621251,Vista Heights,C12,D2,Double,2025-05-01,2025-05-31,2025-05-30,2025-05-31,14500.00,21750.00,0.00,Exited,0,21750,2250,partial,1000,0,null,null
+Srivarsha Ss,7550381998,Vista Heights,B24,B1,Triple,2024-01-01,2024-07-25,2024-07-25,2024-07-25,11500.00,17250.00,0.00,Exited,0,17250,2797,partial,1000,0,null,null
+Srivatsava Narasimhan,8779466624,Vista Heights,A23,A1,Single,2025-09-01,2026-07-15,null,2026-06-15,19500.00,29250.00,0.00,On-Notice,0,29250,0,partial,1000,0,null,null
+Srividya Bannaravuri,9959112642,Vista Heights,B44,B2,Triple,2023-06-24,2023-07-10,2023-07-10,2023-07-10,13600.00,20400.00,0.00,Exited,0,20400,0,partial,1000,0,null,null
+Srividya Bannaravuri,9959112642,Vista Heights,D41,B1,Double,2023-07-10,2024-04-05,2024-04-05,2024-04-05,13600.00,20400.00,0.00,Exited,0,20400,36259,partial,1000,0,null,null
+Sruthi Naya P,9500857980,Vista Heights,C43,B2,Double,2024-02-01,2026-05-28,2026-05-19,2026-04-28,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Sruthi Pitchika,8500840279,Vista Heights,B24,B2,Triple,2024-05-04,2024-06-08,2024-06-08,2024-06-08,13000.00,0.00,0.00,Exited,0,28500,798,partial,0,0,null,null
+Sruthi Pitchika,8500840279,Vista Heights,B24,A1,Single,2024-04-07,2024-05-04,2024-05-04,2024-05-04,19000.00,28500.00,0.00,Exited,0,28500,512,partial,1000,0,null,null
+Sruthi Pitchika,8500840279,Vista Heights,C42,C1,Double,2025-11-02,2026-08-06,null,2026-06-06,14500.00,21750.00,0.00,On-Notice,0,21750,0,partial,0,0,null,null
+Sruthii B,8148519613,Vista Heights,C12,B1,Double,2025-01-01,2025-05-08,2025-05-08,2025-05-08,14500.00,21750.00,0.00,Exited,0,21750,31495,partial,1000,0,null,null
+Stanley Varghese,7594900670,Vista Heights,A44,B1,Double,2024-05-05,2024-08-31,2024-08-31,2024-08-31,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Stuti Srivastava,9769450158,Vista Heights,C34,A1,Single,2024-06-02,2024-09-02,2024-09-02,2024-09-02,19000.00,28500.00,0.00,Exited,0,28500,5189,partial,1000,0,null,null
+Subalakshmi P,6380841828,Vista Heights,A24,C2,Double,2024-07-09,2024-07-09,2024-07-09,2024-07-09,13500.00,20250.00,0.00,Exited,0,20250,22926,partial,1000,0,null,null
+Subarna Dutta Biswas,6290435912,Vista Heights,C24,B2,Triple,2024-10-16,2024-12-31,2024-12-31,2024-12-31,13000.00,19500.00,0.00,Exited,0,19500,2249,partial,1000,0,null,null
+Subarna Dutta Biswas,6290435912,Vista Heights,C24,C1,Double,2025-01-01,2025-04-14,2025-04-14,2025-04-14,13500.00,20250.00,0.00,Exited,0,20250,31195,partial,1000,0,null,null
+Subash G,7845031074,Vista Heights,C44,B2,Double,2024-06-24,2024-11-20,2024-11-20,2024-11-20,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Subham Tewari,6264046004,Vista Heights,B32,B1,Double,2024-10-10,2025-03-01,2025-03-01,2025-03-01,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Subiksha Dharani,6282734328,Vista Heights,B22,B2,Double,2025-06-10,2025-07-09,2025-06-26,2025-07-09,15500.00,23250.00,0.00,Exited,0,23250,2250,partial,1000,0,null,null
+Subramanya S,8861288952,Vista Heights,A41,A1,Single,2024-04-01,2024-07-31,2024-07-31,2024-07-31,19000.00,28500.00,0.00,Exited,0,28500,0,partial,1000,0,null,null
+Suchitprasath Dhamodharan,9626233249,Vista Heights,C11,B1,Double,2023-08-01,2023-12-20,2023-12-20,2023-12-20,13600.00,20400.00,0.00,Exited,0,20400,33414,partial,1000,0,null,null
+Suchitprasath Dhamodharan,9626233249,Vista Heights,C21,D1,Single,2022-05-15,2023-07-31,2023-07-31,2023-07-31,24000.00,36000.00,0.00,Exited,0,36000,24147,partial,1000,0,null,null
+Sudarsan  R,7395968310,Vista Heights,B33,C2,Double,2026-04-05,2026-05-02,2026-05-02,2026-05-09,14500.00,21750.00,0.00,Exited,35317,35316,0,partial,1000,12567,null,30
+Sudip Manchare,9168122347,Vista Heights,B11,A1,Single,2024-08-03,2025-07-11,2025-07-11,2025-07-11,19000.00,28500.00,0.00,Exited,0,28500,0,partial,1000,0,null,null
+Suha Sajad,7025567000,Vista Heights,C43,C1,Double,2026-04-05,null,null,null,14500.00,21750.00,0.00,Staying,35317,35316,0,partial,1000,12567,null,null
+Suhani Mehrotra,8003374402,Vista Heights,B22,C2,Double,2025-08-02,null,null,null,14500.00,21750.00,0.00,Staying,0,21750,0,partial,1000,0,null,null
+Suhani Srivastava,6307771873,Vista Heights,B43,C2,Double,2026-01-11,2026-01-31,2026-01-31,2026-01-31,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Suhani Srivastava,6307771873,Vista Heights,C12,C1,Triple,2026-02-01,null,null,null,13500.00,0.00,0.00,Staying,0,21750,1630,partial,0,0,null,null
+Sujith Deva Jeganathan,9865581006,Vista Heights,A24,C1,Double,2025-09-19,2025-11-30,2025-11-30,2025-11-30,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Sumeet Jain,9999150809,Vista Heights,B13,B2,Double,2022-07-11,2023-03-31,2023-03-31,2023-03-31,13600.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Sumit Krishn,8285969909,Vista Heights,A23,C1,Double,2023-07-03,2023-11-09,2023-11-09,2023-11-09,12600.00,18900.00,0.00,Exited,0,18900,7978,partial,1000,0,null,null
+Sumithra Chinnasamy,9080847641,Vista Heights,D21,B1,Double,2024-08-13,2024-10-15,2024-10-15,2024-10-15,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Sundar S,9952132123,Vista Heights,C21,B1,Double,2025-01-19,2025-01-19,2025-01-19,2025-01-19,14500.00,21750.00,0.00,Exited,0,21750,24468,partial,1000,0,null,null
+Sundara Vadivel,9994384761,Vista Heights,B42,B2,Double,2021-01-11,2022-11-15,2022-12-15,2022-11-15,0.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Sunisra Saladi,8374034717,Vista Heights,C24,B2,Triple,2025-05-01,2025-06-23,2025-06-21,2025-06-23,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Suppritha G,9894438131,Vista Heights,B44,A1,Single,2023-08-02,2025-06-22,2025-06-22,2025-06-22,18300.00,27450.00,0.00,Exited,0,27450,0,partial,1000,0,null,null
+Supreeth M,7019082574,Vista Heights,B41,C1,Double,2025-08-02,2025-08-06,2025-08-06,2025-08-06,14500.00,0.00,0.00,Exited,0,21750,1000,partial,1000,0,null,null
+Supreeth M,7019082574,Vista Heights,A41,B1,Triple,2025-08-07,2026-06-30,2026-06-30,2026-05-31,13500.00,20250.00,0.00,Exited,0,20250,19476,partial,0,0,null,null
+Suraj Pk,9599588073,Vista Heights,C44,A1,Single,2024-07-08,2024-08-15,2024-08-15,2024-08-15,19000.00,28500.00,0.00,Exited,0,28500,8095,partial,1000,0,null,null
+Surbhi Sharma,7388906259,Vista Heights,B12,A1,Single,2024-07-28,2025-12-30,2025-12-30,2025-12-30,19000.00,28500.00,0.00,Exited,0,28500,18201,partial,1000,0,null,null
+Surya Nikhil Mallampalli,9573583215,Vista Heights,B42,B1,Double,2024-01-27,2026-06-17,2026-06-15,2026-05-18,13600.00,21750.00,0.00,Exited,0,21750,13199,partial,1000,0,null,null
+Surya Parthipan,9486834341,Vista Heights,C11,B2,Double,2024-03-02,2024-04-30,2024-04-30,2024-04-30,14500.00,21750.00,0.00,Exited,0,21750,23755,partial,1000,0,null,null
+Surya Parthipan,9486834341,Vista Heights,A41,C2,Double,2024-07-30,2025-04-30,2025-04-30,2025-04-30,13500.00,20250.00,0.00,Exited,0,20250,1950,partial,1000,0,null,null
+Surya Parthipan,9486834341,Vista Heights,B41,B2,Double,2022-03-31,2023-06-30,2023-06-30,2023-06-30,13600.00,20400.00,0.00,Exited,0,20400,5802,partial,1000,0,null,null
+suseela j,9791082117,Vista Heights,B44,C2,Double,2026-07-06,null,null,null,14500.00,21750.00,0.00,Staying,34912,34911,1,partial,1000,12162,null,null
+Sushant Pargaonkar,7218340950,Vista Heights,B31,C1,Double,2024-10-20,2025-05-02,2025-05-02,2025-05-02,14500.00,21750.00,0.00,Exited,0,21750,6575,partial,1000,0,null,null
+Sushil Kumar,9711029639,Vista Heights,C21,A1,Single,2024-11-03,2025-04-05,2025-04-05,2025-04-05,19000.00,28500.00,0.00,Exited,0,28500,0,partial,1000,0,null,null
+Susinder R,9524123187,Vista Heights,B33,C2,Double,2023-06-25,2023-08-31,2023-08-31,2023-08-31,12600.00,18900.00,0.00,Exited,0,18900,0,partial,1000,0,null,null
+Suvetha V,9003628960,Vista Heights,D11,D1,Triple,2022-11-19,null,null,null,13000.00,11000.00,0.00,Staying,0,11000,15540,partial,0,0,null,null
+Suvidnya Tipre,9423751938,Vista Heights,B31,B1,Double,2024-10-20,2025-04-02,2025-04-02,2025-04-02,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Swapnaneel Mukherjee,7384939691,Vista Heights,B33,B2,Double,2023-04-02,2023-05-26,2023-05-26,2023-05-26,13600.00,20400.00,600.00,Exited,0,20400,19356,partial,1000,0,null,null
+Swapnil Tyagi,7078731942,Vista Heights,C21,D1,Single,2026-01-03,2026-01-03,2026-01-03,2026-01-03,25500.00,38250.00,0.00,Exited,0,38250,40500,partial,1000,0,null,null
+Swarali Kadam,7218465158,Vista Heights,C12,C3,Triple,2023-09-01,2025-05-31,2025-05-31,2025-05-31,11500.00,17250.00,0.00,Exited,0,17250,32030,partial,1000,0,null,null
+Swarali Kadam,7218465158,Vista Heights,C12,A1,Single,2023-08-19,2023-08-31,2023-08-31,2023-08-31,18300.00,27450.00,0.00,Exited,0,27450,9300,partial,1000,0,null,null
+Swastik Das,9159777893,Vista Heights,B11,D1,Single,2023-08-01,2023-09-30,2023-09-30,2023-09-30,24000.00,36000.00,1500.00,Exited,0,36000,4500,partial,1000,0,null,null
+Swastika Karthikeyan,9886495505,Vista Heights,B22,B1,Double,2024-07-13,2024-09-01,2024-09-01,2024-09-01,14500.00,21750.00,0.00,Exited,0,21750,3723,partial,1000,0,null,null
+Swathi Punniamurthy,9629356513,Vista Heights,B12,C2,Double,2025-07-23,2025-12-22,2025-12-22,2025-12-22,14500.00,21750.00,0.00,Exited,0,21750,13770,partial,1000,0,null,null
+Swathi R,9342496397,Vista Heights,C44,B2,Double,2023-06-25,2023-06-25,2023-06-25,2023-06-25,13600.00,20400.00,0.00,Exited,0,20400,552,partial,1000,0,null,null
+Swetha Murugan,6382549485,Vista Heights,C43,C1,Double,2024-02-01,2024-03-31,2024-03-31,2024-03-31,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Swetha Prabakar,9443205009,Vista Heights,A24,B1,Triple,2023-03-20,2024-03-31,2024-03-31,2024-03-31,11500.00,17250.00,0.00,Exited,0,17250,0,partial,1000,0,null,null
+Swetha S,7708746173,Vista Heights,D41,C2,Double,2024-12-01,2024-12-31,2024-12-31,2024-12-31,13500.00,20250.00,0.00,Exited,0,20250,750,partial,1000,0,null,null
+Syed Ahamed Abraar,9994888911,Vista Heights,C31,B2,Double,2024-05-14,2024-07-18,2024-07-18,2024-07-18,14500.00,21750.00,0.00,Exited,0,21750,11828,partial,1000,0,null,null
+Syed Fawaaz Qureshi,6369174128,Vista Heights,B13,B2,Double,2024-06-08,2024-07-08,2024-07-08,2024-07-08,14500.00,21750.00,0.00,Exited,0,21750,7840,partial,1000,0,null,null
+Tabreez Ahamed,8050686042,Vista Heights,A23,A1,Single,2023-07-05,2024-03-16,2024-03-16,2024-03-16,18300.00,27450.00,2300.00,Exited,0,27450,12600,partial,1000,0,null,null
+Tanisha Choudhary,9399540630,Vista Heights,A12,C2,Double,2025-08-04,null,null,null,14500.00,21750.00,0.00,Staying,0,21750,0,partial,1000,0,null,null
+Tanisha Goyal,9873719240,Vista Heights,A24,B2,Triple,2022-09-08,2022-12-30,2022-12-30,2022-12-30,11500.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Tanusha C Karlekar,6361733988,Vista Heights,D11,B1,Single,2025-07-16,null,null,null,25500.00,9000.00,500.00,Staying,0,38250,0,partial,0,0,null,null
+Tanusha C Karlekar,6361733988,Vista Heights,C34,A1,Single,2025-07-01,2025-07-15,2025-07-15,2025-07-15,19500.00,29250.00,500.00,Exited,0,29250,750,partial,1000,0,null,null
+Tanushree Senthil Kugan,8056480989,Vista Heights,C12,A1,Single,2023-07-30,2023-08-08,2023-08-08,2023-08-08,18300.00,27450.00,0.00,Exited,0,27450,29700,partial,1000,0,null,null
+Tanushree Senthil Kugan,8056480989,Vista Heights,C43,C2,Double,2023-08-08,2023-12-24,2023-12-24,2023-12-24,12600.00,18900.00,0.00,Exited,0,18900,0,partial,1000,0,null,null
+Tanveer Mustafa,9361130110,Vista Heights,B42,C1,Double,2023-03-11,2025-04-14,2025-04-14,2025-04-14,12600.00,18900.00,0.00,Exited,0,18900,8018,partial,1000,0,null,null
+Tanya Choudhary,9532589119,Vista Heights,D12,C2,Double,2023-08-10,2024-01-10,2024-01-10,2024-01-10,12600.00,18900.00,0.00,Exited,0,18900,7616,partial,1000,0,null,null
+Tanya Jain,7411618016,Vista Heights,C12,C1,Triple,2023-01-11,2023-10-15,2023-10-15,2023-10-15,11500.00,17250.00,0.00,Exited,0,17250,8129,partial,1000,0,null,null
+Tara Shankar Snai,9871183329,Vista Heights,B42,A1,Single,2025-07-01,2026-02-27,2026-02-27,2026-02-27,19500.00,29250.00,0.00,Exited,0,29250,2250,partial,1000,0,null,null
+Taran Deep Singh,9315314510,Vista Heights,A41,B1,Triple,2025-04-22,2025-04-22,2025-04-22,2025-04-22,13000.00,19500.00,0.00,Exited,0,19500,21750,partial,1000,0,null,null
+Taranpreet Kaur,9389886109,Vista Heights,B24,C2,Double,2026-01-11,2026-07-18,null,2026-06-18,14500.00,21750.00,0.00,On-Notice,0,21750,0,partial,1000,0,null,null
+Tarun Venkumahanti,8985623637,Vista Heights,B13,C1,Double,2022-09-10,2023-03-31,2023-03-31,2023-03-31,12600.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Tarunya Venkat,9910446247,Vista Heights,B44,C2,Double,null,null,null,null,null,0.00,0.00,Cancelled,null,1000,0,partial,1000,null,null,null
+Tarunya Venkat,9910446247,Vista Heights,B44,C2,Double,2026-07-29,null,2026-07-01,null,14500.00,0.00,0.00,Exited,24154,31217,0,paid,1000,1404,null,null
+Tarunya Venkat,9910446247,Vista Heights,C42,C2,Double,null,null,null,null,null,0.00,0.00,Cancelled,null,0,0,partial,0,null,null,null
+Tarunya Venkat,9910446247,Vista Heights,C42,A1,Single,2026-07-01,null,null,null,19500.00,21750.00,0.00,Staying,0,0,0,pending,0,0,null,null
+Teena Catherin Sebastian,7902666776,Vista Heights,C34,A1,Single,2025-06-07,2025-06-07,2025-06-07,2025-06-07,19500.00,29250.00,0.00,Exited,0,29250,0,partial,1000,0,null,null
+Tejapriya,8903332805,Vista Heights,D41,B2,Double,2022-06-26,2022-11-04,2022-12-04,2022-11-04,13600.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Tejun Verma,8299263415,Vista Heights,A41,C1,Double,2024-04-07,2024-06-08,2024-06-08,2024-06-08,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Tejun Verma,8299263415,Vista Heights,B32,A1,Single,2025-11-08,null,null,null,19500.00,29250.00,0.00,Staying,0,29250,0,partial,1000,0,null,null
+Thahseenah Begam,8220443744,Vista Heights,B43,B1,Double,2023-05-31,2024-07-15,2024-07-15,2024-07-15,13600.00,20400.00,0.00,Exited,0,20400,0,partial,1000,0,null,null
+Thanvi Reddy Golkonda,9885561924,Vista Heights,A24,A1,Single,2024-05-05,2024-08-07,2024-08-07,2024-08-07,19000.00,28500.00,1500.00,Exited,0,28500,10985,partial,1000,0,null,null
+Thilak S,9626125544,Vista Heights,A44,A1,Single,2026-05-23,null,null,null,19500.00,29250.00,0.00,Staying,35912,35911,1,partial,1000,5662,null,null
+Thota Sharanya,7047619700,Vista Heights,C12,B2,Double,2026-06-06,null,null,null,15500.00,23250.00,0.00,Staying,37167,37167,0,paid,1000,12917,null,null
+Trisha Singh,9702454134,Vista Heights,D12,C1,Double,2023-10-31,2023-12-31,2023-12-31,2023-12-31,12600.00,18900.00,0.00,Exited,0,18900,13150,partial,1000,0,null,null
+Tushar Ankit,8639768643,Vista Heights,B41,B1,Double,2023-07-01,2024-08-17,2024-08-17,2024-08-17,13600.00,20400.00,0.00,Exited,0,20400,45413,partial,1000,0,null,null
+Tushar Kumar,8072495182,Vista Heights,C21,C1,Double,2022-11-27,2023-11-30,2023-11-30,2023-11-30,12600.00,18900.00,0.00,Exited,0,18900,6556,partial,1000,0,null,null
+Tushar Ojha,6204516595,Vista Heights,A24,C2,Double,2025-07-01,2025-09-18,2025-09-18,2025-09-18,14500.00,21750.00,0.00,Exited,0,21750,12562,partial,1000,0,null,null
+Tushar Singh,8826233456,Vista Heights,B11,D1,Single,2025-06-15,null,null,null,25500.00,38250.00,0.00,Staying,0,38250,0,partial,1000,0,null,null
+Udhith Akash R R,9597277189,Vista Heights,C31,A1,Single,2025-06-01,2025-07-29,2025-07-25,2025-07-29,19500.00,29250.00,0.00,Exited,0,29250,992,partial,1000,0,null,null
+Udyan Mahanta,8105438025,Vista Heights,B41,B1,Double,2022-11-30,2022-12-30,2022-12-30,2022-12-30,13600.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Udyan Mahanta,8105438025,Vista Heights,B32,B1,Double,2023-05-10,2024-09-04,2024-09-04,2024-09-04,13600.00,20400.00,0.00,Exited,0,20400,13050,partial,1000,0,null,null
+Umang Shekhar,8697618848,Vista Heights,C11,C1,Double,2025-06-12,2025-08-11,2025-08-11,2025-08-11,14500.00,21750.00,0.00,Exited,0,21750,9204,partial,1000,0,null,null
+Umansh Agarwal,9663125624,Vista Heights,B32,C2,Double,2024-08-28,2025-04-12,2025-04-12,2025-04-12,13500.00,20250.00,0.00,Exited,0,20250,8076,partial,1000,0,null,null
+Umasai Kumar Torikonda,8328692755,Vista Heights,B32,C1,Double,2023-10-08,2026-08-09,null,2026-07-02,12600.00,18900.00,0.00,On-Notice,0,18900,0,partial,1000,0,null,null
+Utkarsh De,9873152468,Vista Heights,B32,B1,Double,2024-09-07,2024-10-05,2024-10-05,2024-10-05,14500.00,21750.00,0.00,Exited,0,21750,22400,partial,1000,0,null,null
+Utkarsh De,9873152468,Vista Heights,B32,B2,Double,2022-01-10,2023-10-08,2023-10-08,2023-10-08,13600.00,20400.00,0.00,Exited,0,20400,16117,partial,1000,0,null,null
+Utkarsh De,9873152468,Vista Heights,B13,C1,Double,2025-03-12,2025-04-12,2025-04-12,2025-04-12,13500.00,20250.00,0.00,Exited,0,20250,23500,partial,1000,0,null,null
+Utkarsh De,9873152468,Vista Heights,B32,B2,Double,2024-03-16,2024-04-15,2024-04-15,2024-04-15,14500.00,21750.00,0.00,Exited,0,21750,26140,partial,1000,0,null,null
+V N Kiranmai Bhatlapenumarthi,7810077590,Vista Heights,B43,C2,Double,2021-01-31,2025-11-07,2025-11-07,2025-11-07,0.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+V N Kiranmai Bhatlapenumarthi,7810077590,Vista Heights,B43,A1,Single,2025-11-08,2025-12-05,2025-12-05,2025-12-05,19500.00,29250.00,0.00,Exited,0,29250,32190,partial,1000,0,null,null
+Vaibhav Aggarwal,9811275035,Vista Heights,A41,B3,Triple,2024-04-06,2024-06-08,2024-06-08,2024-06-08,13000.00,19500.00,0.00,Exited,0,19500,0,partial,1000,0,null,null
+Vaibhavi Dubey,6307925087,Vista Heights,C34,A1,Single,2025-02-08,2025-06-30,2025-06-30,2025-06-30,19000.00,28500.00,0.00,Exited,0,28500,29087,partial,1000,0,null,null
+Vaibhavi Patel,9979927743,Vista Heights,C11,B1,Double,2025-08-01,2026-06-30,2026-06-30,2026-05-31,15500.00,0.00,0.00,Exited,0,23250,20850,partial,0,0,null,null
+Vaibhavi Patel,9979927743,Vista Heights,D21,B1,Double,2025-06-01,2025-07-31,2025-07-31,2025-07-31,15500.00,23250.00,0.00,Exited,0,23250,0,partial,1000,0,null,null
+Vaishnavi Prabha Chettiar,9288000601,Vista Heights,A12,B1,Double,2026-05-06,2026-07-25,null,2026-06-20,15500.00,23250.00,0.00,On-Notice,37250,37250,0,paid,1000,13000,null,null
+Vaishnev Prabhakaran,9944163331,Vista Heights,A44,D1,Single,2024-12-18,2025-01-17,2025-01-17,2025-01-17,24000.00,36000.00,0.00,Exited,0,36000,15411,partial,1000,0,null,null
+Vardaan Mongia,9501197144,Vista Heights,B34,C1,Double,2024-12-20,2025-12-27,2025-12-27,2025-12-27,13500.00,20250.00,0.00,Exited,0,20250,13659,partial,1000,0,null,null
+Vardhini Krishnamurthy,9717939931,Vista Heights,B24,B2,Triple,2022-02-05,2023-12-05,2023-12-05,2023-12-05,11500.00,17250.00,0.00,Exited,0,17250,8399,partial,1000,0,null,null
+Varsha Darshini S M,9659379514,Vista Heights,D21,C2,Triple,2025-01-01,null,null,null,13000.00,19500.00,0.00,Staying,0,19500,0,partial,0,0,null,null
+Varsshini Vs,8870730710,Vista Heights,A24,B3,Triple,2022-10-15,2023-04-06,2023-04-06,2023-04-06,11500.00,17250.00,0.00,Exited,0,17250,20500,partial,1000,0,null,null
+Varun Katiyar,8080439478,Vista Heights,A24,C1,Double,2026-04-26,null,null,null,14500.00,0.00,0.00,Staying,25167,25167,0,paid,1000,2417,null,null
+Vasu Adireddy,9.17662E+11,Vista Heights,B11,C2,Double,2023-09-03,2023-12-31,2023-12-31,2023-12-31,12600.00,18900.00,0.00,Exited,0,18900,0,partial,1000,0,null,null
+Veda Agaswi,7893455805,Vista Heights,C11,B1,Double,2024-01-28,2024-06-15,2024-06-15,2024-06-15,13600.00,20400.00,0.00,Exited,0,20400,4935,partial,1000,0,null,null
+Veda Agaswi,7893455805,Vista Heights,C11,A1,Single,2024-06-15,2024-07-16,2024-07-16,2024-07-16,19000.00,28500.00,0.00,Exited,0,28500,52436,partial,1000,0,null,null
+Vedhamurthy Giri,9943167206,Vista Heights,C21,D1,Single,2025-07-25,2025-12-26,2025-12-26,2025-12-26,25500.00,38250.00,0.00,Exited,0,38250,0,partial,1000,0,null,null
+Vemuluri Siri,9121793214,Vista Heights,B43,B1,Double,2025-09-01,2025-09-30,2025-09-30,2025-09-30,15500.00,23250.00,0.00,Exited,0,23250,0,partial,1000,0,null,null
+Venesha R,9626947787,Vista Heights,A24,A1,Single,2022-02-19,2022-12-26,2022-12-26,2022-12-26,18300.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Venkat Karthik Mukidichetti,9035146326,Vista Heights,C44,B2,Double,2025-05-05,null,null,null,15500.00,23250.00,0.00,Staying,0,23250,0,partial,1000,0,null,null
+Vibhor Gupta,9782742397,Vista Heights,A24,B1,Triple,2025-06-08,2025-06-08,2025-06-08,2025-06-08,13500.00,20250.00,0.00,Exited,0,20250,22500,partial,1000,0,null,null
+Vibhor Pathak,8767809856,Vista Heights,A41,D2,Double,2025-09-03,2026-03-02,2026-03-02,2026-03-02,15500.00,23250.00,0.00,Exited,0,23250,20570,partial,1000,0,null,null
+Vickey Bhardwaj,7018973788,Vista Heights,B13,C2,Double,2022-02-27,2023-09-30,2023-09-30,2023-09-30,12600.00,18900.00,0.00,Exited,0,18900,9047,partial,1000,0,null,null
+Vidhyabhushan Mallela,9392450744,Vista Heights,B33,C2,Double,2025-06-09,2025-07-10,2025-07-10,2025-07-10,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
+Vidhyabhushan Mallela,9392450744,Vista Heights,A41,D2,Double,2025-08-21,2025-08-31,2025-08-31,2025-08-31,15500.00,23250.00,0.00,Exited,0,23250,23524,partial,1000,0,null,null
+Vidhyabhushan Mallela,9392450744,Vista Heights,A41,C1,Double,2025-07-11,2025-08-20,2025-08-20,2025-08-20,14500.00,21750.00,0.00,Exited,0,21750,23679,partial,1000,0,null,null
+Vigneswaran D,9360077886,Vista Heights,C44,C1,Double,2025-08-18,2025-08-18,2025-08-18,2025-08-18,14500.00,21750.00,0.00,Exited,0,21750,24000,partial,1000,0,null,null
+Vijay Babu Kumaresan,9500485978,Vista Heights,B41,A1,Single,2025-05-05,null,null,null,19500.00,29250.00,0.00,Staying,0,29250,0,partial,1000,0,null,null
+Vijay Kumar Jonnakuti,8885239828,Vista Heights,B32,B2,Double,2023-12-05,2024-02-29,2024-02-29,2024-02-29,13600.00,20400.00,0.00,Exited,0,20400,17789,partial,1000,0,null,null
+Vijaya Lakshmi,9787790356,Vista Heights,B24,A1,Single,2024-06-03,2024-06-03,2024-06-03,2024-06-03,19000.00,28500.00,0.00,Exited,0,28500,31382,partial,1000,0,null,null
+Vijayalakshmi B,9810619752,Vista Heights,D11,B1,Single,2024-08-01,2024-12-24,2024-12-24,2024-12-24,24000.00,36000.00,0.00,Exited,0,36000,31565,partial,1000,0,null,null
+Vijayasekar P,9686568995,Vista Heights,A41,D1,Double,2024-04-02,null,null,null,14500.00,21750.00,0.00,Staying,0,21750,0,partial,0,0,null,null
+Vijayashree S,9965409115,Vista Heights,C34,B2,Double,2024-06-03,2024-10-31,2024-10-31,2024-10-31,14500.00,21750.00,0.00,Exited,0,21750,2250,partial,1000,0,null,null
+Vijayashree S,9965409115,Vista Heights,B22,C2,Double,2024-11-01,2025-06-01,2025-06-01,2025-06-01,13500.00,20250.00,0.00,Exited,0,20250,25192,partial,1000,0,null,null
+Vijiniya Mirsha S,9150436161,Vista Heights,C42,A1,Single,2026-06-10,2026-07-09,2026-06-30,2026-06-26,19500.00,29250.00,0.00,Exited,43900,43900,0,paid,1000,13650,null,30
+Vikas Sinha,9340901331,Vista Heights,B13,C1,Double,2023-09-03,2023-11-03,2023-11-03,2023-11-03,12600.00,18900.00,0.00,Exited,0,18900,19625,partial,1000,0,null,null
+Vikas Tanwar,7404923150,Vista Heights,C11,C1,Double,2026-07-01,null,null,null,null,0.00,0.00,Cancelled,0,1000,0,partial,1000,0,null,null
+Vikram Shingadi,7776886746,Vista Heights,B33,A1,Single,2023-10-24,2024-12-19,2024-12-19,2024-12-19,18300.00,27450.00,2300.00,Exited,0,27450,38773,partial,1000,0,null,null
+Vikram Shingadi,7776886746,Vista Heights,B32,B2,Double,2023-10-08,2023-10-24,2023-10-24,2023-10-24,13600.00,20400.00,0.00,Exited,0,20400,587,partial,1000,0,null,null
+Vineeth,8897470036,Vista Heights,A44,C1,Double,2024-11-04,2024-11-04,2024-11-04,2024-11-04,13500.00,20250.00,0.00,Exited,0,20250,22500,partial,1000,0,null,null
+Vipula Tiwari,8881767281,Vista Heights,B43,A1,Single,2025-05-11,2025-07-05,2025-07-05,2025-07-05,19500.00,29250.00,500.00,Exited,0,29250,8255,partial,1000,0,null,null
+Virat Srivatsav,9369844165,Vista Heights,C11,C2,Double,2024-01-28,2024-01-28,2024-01-28,2024-01-28,12600.00,18900.00,0.00,Exited,0,18900,21150,partial,1000,0,null,null
+Vishakha Pandey,7738537415,Vista Heights,B12,A1,Single,2023-03-29,2024-02-03,2024-02-03,2024-02-03,18300.00,27450.00,2800.00,Exited,0,27450,15181,partial,1000,0,null,null
+Vishal Chandravanshi,8127187607,Vista Heights,B41,C2,Double,2024-04-14,2024-11-09,2024-11-09,2024-11-09,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+Vishal Chandravanshi,8127187607,Vista Heights,B41,C2,Double,2025-01-14,2025-12-17,2025-12-17,2025-12-17,13500.00,20250.00,0.00,Exited,0,20250,11831.79,partial,1000,0,null,null
+Vishal Kedia,9379268690,Vista Heights,B14,A1,Single,2025-03-09,2025-04-08,2025-04-08,2025-04-08,19000.00,28500.00,0.00,Exited,0,28500,28723,partial,1000,0,null,null
+Vishal Kumar,9311802891,Vista Heights,A44,C2,Double,2025-10-14,2026-01-15,2026-01-15,2026-01-15,14500.00,21750.00,0.00,Exited,0,21750,8755,partial,1000,0,null,null
+Vishal Luthra,7015089139,Vista Heights,A24,B1,Triple,2025-07-17,2025-07-17,2025-07-17,2025-07-17,13500.00,20250.00,0.00,Exited,0,20250,23500,partial,1000,0,null,null
+Vishal Mohanasundraam,9566670950,Vista Heights,B41,B1,Double,2026-05-24,2026-07-24,null,2026-06-02,15500.00,21750.00,0.00,On-Notice,0,0,0,pending,0,0,null,null
+Vishal Mohanasundraam,9566670950,Vista Heights,B11,C1,Double,2026-05-24,2026-05-01,2026-05-01,2026-05-30,14500.00,0.00,0.00,Exited,26492,27992,0,paid,1000,3742,null,60
+Vishal Mohanasundraam,9566670950,Vista Heights,B41,B1,Double,null,null,null,null,15500.00,21750.00,0.00,Cancelled,0,0,0,pending,0,0,null,null
+Vishnu B,7397176317,Vista Heights,B42,A1,Single,2025-02-23,2025-06-18,2025-06-18,2025-06-18,19000.00,28500.00,0.00,Exited,0,28500,0,partial,1000,0,null,null
+Vivek John P,9497276193,Vista Heights,C21,B2,Double,2022-10-09,2023-02-08,2023-02-08,2023-02-08,13600.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Vivek Patel,8017692341,Vista Heights,B31,C2,Double,2024-11-17,2024-12-28,2024-12-28,2024-12-28,14500.00,21750.00,0.00,Exited,0,21750,8292,partial,1000,0,null,null
+Vivek Singh,7081710212,Vista Heights,C43,C2,Double,2023-03-12,2023-07-08,2023-07-08,2023-07-08,12600.00,18900.00,0.00,Exited,0,18900,4966,partial,1000,0,null,null
+Vns Srinivas,9154434115,Vista Heights,B13,C1,Double,2023-10-18,2024-03-27,2024-03-27,2024-03-27,12600.00,18900.00,900.00,Exited,0,18900,2250,partial,1000,0,null,null
+Voruganti Pratyusha,9573079750,Vista Heights,C12,C3,Triple,2025-06-07,2026-05-12,2026-05-12,2026-04-20,13500.00,20250.00,0.00,Exited,0,20250,0,partial,1000,0,null,null
+vrinda bajaj,9944526615,Vista Heights,C12,D2,Double,2026-05-03,2026-07-07,2026-07-02,2026-06-07,14500.00,21750.00,0.00,Exited,36315,36322,7477,paid,1000,13565,null,null
+Vrinda Tewari,7428750602,Vista Heights,C12,D1,Double,2025-01-01,2025-04-30,2025-04-30,2025-04-30,13500.00,20250.00,0.00,Exited,0,20250,39635,partial,1000,0,null,null
+Whesley Anburaj,9600998880,Vista Heights,B14,A1,Single,2024-03-03,2024-05-17,2024-05-17,2024-05-17,19000.00,28500.00,0.00,Exited,0,28500,0,partial,1000,0,null,null
+Yadi Bagang,8798673055,Vista Heights,A44,A1,Single,2023-08-11,2023-10-10,2023-10-10,2023-10-10,18300.00,27450.00,0.00,Exited,0,27450,29386,partial,1000,0,null,null
+Yaduraj P,7012274764,Vista Heights,B32,B2,Double,2024-05-01,null,null,null,14500.00,21750.00,0.00,Staying,0,21750,0,partial,1000,0,null,null
+Yash Agarwal,9002207078,Vista Heights,A24,B1,Triple,2025-06-08,2025-07-08,2025-07-06,2025-07-08,13500.00,20250.00,0.00,Exited,0,20250,19690,partial,1000,0,null,null
+Yash Jamuar,7042124865,Vista Heights,C31,A1,Single,2026-03-13,null,null,null,19500.00,0.00,0.00,Staying,0,29250,0,partial,0,0,null,null
+Yash Sharma,6395877792,Vista Heights,A11,C1,Double,2026-02-01,null,null,null,14500.00,21750.00,0.00,Staying,0,21750,0,partial,1000,0,null,null
+Yash Sharma,6395877792,Vista Heights,B11,C1,Double,2024-01-21,2024-04-17,2024-04-17,2024-04-17,12600.00,20250.00,0.00,Exited,0,18900,0,partial,1000,0,null,null
+Yashwanthi V,8524077996,Vista Heights,B22,A1,Single,2025-04-08,null,null,null,19000.00,28500.00,0.00,Staying,0,28500,0,partial,1000,0,null,null
+Yatheeswari Parvathi D,9965512060,Vista Heights,B12,A1,Single,2022-10-03,2022-11-12,2022-12-13,2022-11-12,18300.00,0.00,0.00,Exited,0,0,0,partial,1000,0,null,null
+Yeshika S,9751440437,Vista Heights,B22,B1,Double,2024-06-30,2024-06-30,2024-06-30,2024-06-30,14500.00,21750.00,0.00,Exited,0,21750,24000,partial,1000,0,null,null
+Yogesh Nandarapu,7994322116,Vista Heights,C11,B2,Double,2023-03-08,2024-03-01,2024-03-01,2024-03-01,13600.00,20400.00,0.00,Exited,0,20400,10583,partial,1000,0,null,null
+Yukta Bhattad,9881861738,Vista Heights,A44,B1,Double,2023-04-02,2023-05-31,2023-05-31,2023-05-31,13600.00,20400.00,1600.00,Exited,0,20400,20139,partial,1000,0,null,null
+Yuva Sherlin,8056915897,Vista Heights,C12,C1,Triple,2025-03-04,2025-10-31,2025-10-31,2025-10-31,13000.00,19500.00,0.00,Exited,0,19500,22225.48,partial,1000,0,null,null
+Yuvethaa Suresh,7397501441,Vista Heights,C42,B1,Double,2026-01-01,2026-01-01,2026-01-01,2026-01-01,15500.00,23250.00,0.00,Exited,0,23250,25500,partial,1000,0,null,null
+Zaheer Khan,9892801070,Vista Heights,A41,C2,Double,2025-05-04,2026-07-18,2026-07-18,2026-06-18,14500.00,21750.00,0.00,Exited,0,21750,0,partial,1000,0,null,null
