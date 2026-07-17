@@ -371,7 +371,6 @@ def _kpis(cleaned, feats):
     return {
         "🏦 Total Revenue": f"₹{total_revenue/1e5:.2f} L",
         f"📅 FY {fy['fy_label']} Revenue": f"₹{fy['revenue']/1e5:.2f} L",
-        "🛏️ Occupancy %": f"{m['occupancy_pct']:.1f}%",
         "🧾 Monthly Expenses": f"₹{m['monthly_expenses']/1e5:.2f} L",
         "📈 Net Revenue": f"₹{m['net_revenue']/1e5:.2f} L",
     }
@@ -570,6 +569,39 @@ def run_streamlit():
                         config=PLOTLY_CONFIG)
         c2.plotly_chart(figs["tickets"], use_container_width=True,
                         config=PLOTLY_CONFIG)
+
+        # ---- FY Revenue Comparison (additional visualization only) --------- #
+        # Reuses the same invoice FY aggregation already computed above for the
+        # selector. No KPI/dropdown/calculation changes — chart only. New FYs
+        # appear automatically as invoice data grows.
+        if len(fy_tbl):
+            st.markdown("#### Financial Year Revenue Comparison")
+            fy_chart = fy_tbl.copy()
+            fy_chart["revenue_lakh"] = (fy_chart["revenue"] / 1e5).round(2)
+            fy_chart["fy_axis"] = "FY " + fy_chart["fy"].astype(str)
+            fy_chart.loc[fy_chart["in_progress"], "fy_axis"] = (
+                fy_chart.loc[fy_chart["in_progress"], "fy_axis"] + " (In Progress)")
+            fy_chart["Status"] = np.where(
+                fy_chart["in_progress"], "In Progress", "Complete")
+            fig_fy = px.bar(
+                fy_chart, x="fy_axis", y="revenue_lakh", color="Status",
+                title="Financial Year Revenue Comparison",
+                labels={"fy_axis": "Financial Year",
+                        "revenue_lakh": "Total Revenue (₹ Lakhs)"},
+                text="revenue_lakh",
+                color_discrete_map={"Complete": C_PRIMARY,
+                                    "In Progress": C_WARN})
+            fig_fy.update_traces(textposition="outside")
+            fig_fy.update_layout(margin=dict(l=10, r=10, t=48, b=10),
+                                 title_font_size=15,
+                                 xaxis_title="Financial Year",
+                                 yaxis_title="Total Revenue (₹ Lakhs)",
+                                 legend_title_text="")
+            st.plotly_chart(fig_fy, use_container_width=True, config=PLOTLY_CONFIG)
+            st.caption("Actual billed revenue by India financial year (April→March), "
+                       "sum of invoice total_amount. Incomplete latest FY is marked "
+                       "In Progress. Updates automatically when new invoice years "
+                       "appear in the data.")
 
     # 2) Revenue Forecast ------------------------------------------------------ #
     if page == PAGES[1]:
@@ -842,32 +874,6 @@ def run_streamlit():
             st.download_button("⬇️ Export AI recommendations CSV",
                                dfc.to_csv(index=False), "ai_recommendations.csv",
                                "text/csv")
-
-        # Transparency: the live processed metrics this summary is built from.
-        with st.expander("📊 Live processed metrics behind this summary"):
-            opm = outputs.get("property_month")
-            ovac = outputs.get("vacant_beds_operational")
-            ona = outputs.get("notices_active")
-            oms = outputs.get("maintenance") or {}
-            ofs = outputs.get("forecast_summary")
-            src = {}
-            if opm is not None and len(opm):
-                lastp = opm.sort_values("billing_period").iloc[-1]
-                src["property_month (latest)"] = (
-                    f"revenue ₹{lastp['revenue']/1e5:.1f} L · "
-                    f"occupancy {lastp['occupancy_pct']:.1f}%")
-            if ovac is not None:
-                src["live_bed_snapshot"] = f"{int(ovac)} vacant beds (operational)"
-            if ona is not None:
-                src["notices (active)"] = f"{len(ona)} active notices"
-            if oms:
-                src["tickets"] = f"{int(oms.get('open', 0))} open tickets"
-            if ofs is not None and len(ofs[ofs['series'] == 'revenue']):
-                fr = ofs[ofs['series'] == 'revenue'].iloc[0]
-                src["forecasting outputs"] = (
-                    f"next-month revenue ₹{float(fr['next_month'])/1e5:.1f} L")
-            st.table(pd.DataFrame({"Processed source": list(src),
-                                   "Latest value": list(src.values())}))
 
     # 8) Asset Management ------------------------------------------------------ #
     if page == PAGES[7]:
