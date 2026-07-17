@@ -12,7 +12,7 @@ from pathlib import Path
 # Paths
 # --------------------------------------------------------------------------- #
 ROOT = Path(__file__).resolve().parent
-RAW_DIR = ROOT.parent / "Data"         # new production datasets live in ./Data
+RAW_DIR = ROOT.parent / "Datas"         # new production datasets live in ./Data
 OUT_DIR = ROOT / "outputs"
 FIG_DIR = OUT_DIR / "figures"
 MODEL_DIR = OUT_DIR / "models"
