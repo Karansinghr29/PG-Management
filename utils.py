@@ -13,8 +13,6 @@ import config
 from pathlib import Path
 def load_raw(name: str) -> pd.DataFrame:
     path = config.RAW_DIR / config.RAW_FILES[name]
-    print("DEBUG PATH:", path)
-    print("EXISTS:", path.exists())
     return pd.read_csv(path)
 
 
